@@ -80,7 +80,7 @@ cron.schedule('20 8 * * *', async () => {
 
 
 
-app.use('/', homeRoot);
+
 app.use('/powerBall', powerballData);
 app.use('/megaMillions', megamillionsData);
 app.use('/newYorkLotto', newyorklottoData);
@@ -100,9 +100,15 @@ app.use('/generate_CashLife', generateCashLife);
 app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 // app.use('/text', predictionText)
 
-
+// app.use('/', homeRoot);
 
 app.use(function(req, res, next) {
     next(createError(404));
