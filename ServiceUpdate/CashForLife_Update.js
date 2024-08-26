@@ -32,7 +32,9 @@ const cashForLifeUpdate = async () => {
           };
 
 
-            axios.post('http://localhost:9001/cash4Life', updatePick10)
+            // axios.post('http://localhost:9080/cash4Life', updatePick10)
+            //     .then( response =>  console.log(response.data))
+            axios.post('https://lotteryapi-newbackend2024.adaptable.app/cash4Life', updatePick10)
                 .then( response =>  console.log(response.data))
     
         } );

@@ -39,7 +39,9 @@ const powerBallUpdate = async () => {
           };
 
     
-            axios.post('http://localhost:9001/powerBall', updatePick10)
+            axios.post('http://localhost:9080/powerBall', updatePick10)
+                .then( response =>  console.log(response.data))
+            axios.post('https://lotteryapi-newbackend2024.adaptable.app/powerBall', updatePick10)
                 .then( response =>  console.log(response.data))
     
         } );

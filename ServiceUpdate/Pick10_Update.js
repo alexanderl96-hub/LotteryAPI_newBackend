@@ -37,7 +37,9 @@ axios.get("https://data.ny.gov/resource/bycu-cw7c.json")
        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCfHUupp_aPxgQ-XL47tt6G5wx6OnAisilvg&s'
      };
 
-     axios.post('http://localhost:9001/pick10', updatePick10 )
+     axios.post('http://localhost:9080/pick10', updatePick10 )
+          .then( response =>  console.log(response.data))
+     axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
           .then( response =>  console.log(response.data))
    
 }    

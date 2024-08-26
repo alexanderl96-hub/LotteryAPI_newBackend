@@ -64,11 +64,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Schedule the cron job to run every day at 6:00 AM
-cron.schedule('0 6 * * *', async () => {
+// Schedule the cron job to run every day at 6:00 AM 30
+cron.schedule('35 16 * * *', async () => {
     try {
-        await Pick10Update();
-        await cashForLifeUpdate();
+        // await Pick10Update();
+        // await cashForLifeUpdate();
+        // await powerBallUpdate();
+        // await megaMillionsUpdate();
+
+        await newYorkLottoUpdate();
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -139,7 +143,7 @@ app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
 
-// app.use('/text', predictionText)
+app.use('/text', predictionText)
 
 
 app.use('/', homeRoot);
