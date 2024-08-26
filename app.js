@@ -108,7 +108,7 @@ app.get('*', (req, res) => {
 
 // app.use('/text', predictionText)
 
-// app.use('/', homeRoot);
+app.use('/', homeRoot);
 
 app.use(function(req, res, next) {
     next(createError(404));
