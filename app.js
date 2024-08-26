@@ -108,8 +108,8 @@ app.use('/generate_NumbersDay', generateNumbersDay);
 
 // app.use('/text', predictionText)
 
-app.use('/', homeRoot);
 
+app.use('/', homeRoot);
 
 
 app.all('/*', (req, res, next) => {
@@ -135,3 +135,7 @@ app.use(function(err, req, res, next) {
   
   
   module.exports = app;
+
+  /*
+  "schema": "PGDATABASE_URL=$DATABASE_URL psql -f db/schema.sql",
+  "seed": "PGDATABASE_URL=$DATABASE_URL psql -f db/seed.sql", */
