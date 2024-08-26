@@ -154,6 +154,7 @@ CREATE TABLE generate_Numbers_powerBall(
     storage text[],
     amount INTEGER
 );
+
 CREATE TABLE generate_Numbers_mega_Millions(
      id SERIAL PRIMARY KEY,
     date text,
@@ -166,6 +167,7 @@ CREATE TABLE generate_Numbers_new_York_Lotto(
     storage text[],
     amount INTEGER
 );
+
 CREATE TABLE generate_Numbers_pick_10(
     id SERIAL PRIMARY KEY,
     date text,
