@@ -7,7 +7,7 @@ const db = require('../db/index');
 
 router.get('/', async function (req, res, next) {
     try {
-        const all_data = await db.any('SELECT * FROM generate_Numbers_mega_Millions');
+        const all_data = await db.any('SELECT * FROM generate_numbers_megamillions');
         res.json({data_generateNMegaMillions : all_data});
     } catch (error) {
         res.send({
