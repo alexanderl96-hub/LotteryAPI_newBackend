@@ -11,6 +11,9 @@ var logger = require('morgan');
 var cors = require('cors');
 
 
+var homeRoot = require('./routes/index.js')
+
+
 var powerballData = require('./routes/data_powerball');
 var megamillionsData = require('./routes/data_megamillions');
 var newyorklottoData = require('./routes/data_newyorklotto');
@@ -76,10 +79,8 @@ cron.schedule('20 8 * * *', async () => {
   });
 
 
-// app.use('/', (req, res) => {
-//     res.json({ message: 'Hello from Express!' });
-// });
 
+app.use('/', homeRoot);
 app.use('/powerBall', powerballData);
 app.use('/megaMillions', megamillionsData);
 app.use('/newYorkLotto', newyorklottoData);
