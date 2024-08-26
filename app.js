@@ -23,8 +23,8 @@ var take5dayData = require('./routes/data_take5day');
 var win4dayData = require('./routes/data_win4day');
 var numbersdayData = require('./routes/data_numbersday');
 
-var generatePowerBallData = require('./routes/data_generate_numberspowerBall');
-var generatePick10Data = require('./routes/data_generate_numberspick10')
+var generatePowerBallData = require('./routes/data_generate_numberspowerBall.js');
+var generatePick10Data = require('./routes/data_generate_numberspick10.js')
 var generateMegaMillions = require('./routes/data_generate_numbersmegamillions.js')
 var generateTake5 = require('./routes/data_generate_take5.js')
 var generateNYLotto = require('./routes/data_generate_newyorklotto.js')
@@ -100,11 +100,6 @@ app.use('/generate_CashLife', generateCashLife);
 app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
-
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
 
 // app.use('/text', predictionText)
 
