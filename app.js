@@ -34,6 +34,9 @@ var predictionText = require('./routes/predictNumbers.js')
 
 var Pick10Update = require('./ServiceUpdate/Pick10_Update.js');
 var megaMillionsUpdate = require('./ServiceUpdate/MegaMillions_Update.js')
+var powerBallUpdate = require('./ServiceUpdate/PowerBall_Update.js')
+var cashForLifeUpdate = require('./ServiceUpdate/CashForLife_Update.js')
+var newYorkLottoUpdate = require('./ServiceUpdate/NewYorkLotto_Update.js')
 
 
 
@@ -59,10 +62,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM
-cron.schedule('38 21 * * *', async () => {
+cron.schedule('20 8 * * *', async () => {
     try {
-        // await Pick10Update();
+        await Pick10Update();
         await megaMillionsUpdate();
+        await powerBallUpdate();
+        await cashForLifeUpdate();
+        // await newYorkLottoUpdate();
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);

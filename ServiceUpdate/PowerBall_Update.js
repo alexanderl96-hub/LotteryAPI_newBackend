@@ -1,13 +1,13 @@
 const { default: axios } = require("axios");
 
 
-const megaMillionsUpdate = async () => {
+const powerBallUpdate = async () => {
     const options = {
         method: 'GET',
-        url: 'https://mega-millions.p.rapidapi.com/latest',
+        url: 'https://powerball.p.rapidapi.com/latest',
         headers: {
           'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
-          'x-rapidapi-host': 'mega-millions.p.rapidapi.com'
+          'x-rapidapi-host': 'powerball.p.rapidapi.com'
         }
     };
 
@@ -32,14 +32,14 @@ const megaMillionsUpdate = async () => {
             three: dataConvertToArray[2],
             four: dataConvertToArray[3],
             five: dataConvertToArray[4],
-            mega_millions_lucky: dataConvertToArray[5],
-            megaplier:  Number(lastDigitConvert),
+            powerball_lucky: dataConvertToArray[5],
+            powerplay:  Number(lastDigitConvert),
             amount: amount,
-            image: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Mega_Millions_Lottery_logo.svg'
+            image: 'https://www.mdlottery.com/wp-content/themes/mdlottery/images/logos/jackpot-logo-powerball.png'
           };
 
-                
-            axios.post('http://localhost:9001/megamillions', updatePick10)
+    
+            axios.post('http://localhost:9001/powerBall', updatePick10)
                 .then( response =>  console.log(response.data))
     
         } );
@@ -52,4 +52,20 @@ const megaMillionsUpdate = async () => {
 
 
 
-  module.exports = megaMillionsUpdate;
+function formatDate(isoDateString) {
+    // Create a new Date object from the ISO string
+    const dateObject = new Date(isoDateString);
+  
+    // Subtract one day
+    dateObject.setDate(dateObject.getDate());
+  
+    // Extract the month, day, and year
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so add 1
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    const year = dateObject.getFullYear();
+  
+    // Combine them into the desired format
+    return `${month}/${day}/${year}`;
+  }
+
+  module.exports = powerBallUpdate;
