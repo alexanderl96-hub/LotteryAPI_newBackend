@@ -3,11 +3,39 @@ var express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const moment = require('moment-timezone');
+const cron = require('node-cron');
 
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+
+
+var powerballData = require('./routes/data_powerball');
+var megamillionsData = require('./routes/data_megamillions');
+var newyorklottoData = require('./routes/data_newyorklotto');
+var pick10Data = require('./routes/data_pick10');
+var cash4lifeData = require('./routes/data_cash4life');
+var take5dayData = require('./routes/data_take5day');
+var win4dayData = require('./routes/data_win4day');
+var numbersdayData = require('./routes/data_numbersday');
+
+var generatePowerBallData = require('./routes/data_generate_numberspowerBall');
+var generatePick10Data = require('./routes/data_generate_numberspick10')
+var generateMegaMillions = require('./routes/data_generate_numbersmegamillions.js')
+var generateTake5 = require('./routes/data_generate_take5.js')
+var generateNYLotto = require('./routes/data_generate_newyorklotto.js')
+var generateCashLife = require('./routes/data_generate_cash4life.js')
+var generateWin4Day = require('./routes/data_generate_win4day.js')
+var generateNumbersDay = require('./routes/data_generate_numbers_day.js')
+
+
+var predictionText = require('./routes/predictNumbers.js')
+
+var Pick10Update = require('./ServiceUpdate/Pick10_Update.js');
+var megaMillionsUpdate = require('./ServiceUpdate/MegaMillions_Update.js')
+
+
 
 const app = express();
 
@@ -30,11 +58,42 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// Schedule the cron job to run every day at 6:00 AM
+cron.schedule('38 21 * * *', async () => {
+    try {
+        // await Pick10Update();
+        await megaMillionsUpdate();
+      console.log('Data fetched by cron job at 6:00 AM');
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  });
 
 
-app.use('/', (req, res) => {
-    res.json({ message: 'Hello from Express!' });
-});
+// app.use('/', (req, res) => {
+//     res.json({ message: 'Hello from Express!' });
+// });
+
+app.use('/powerBall', powerballData);
+app.use('/megaMillions', megamillionsData);
+app.use('/newYorkLotto', newyorklottoData);
+app.use('/pick10', pick10Data);
+app.use('/cash4Life', cash4lifeData);
+app.use('/take5Day', take5dayData);
+app.use('/win4Day', win4dayData);
+app.use('/numbersDay', numbersdayData);
+
+
+app.use('/generate_PowerBall', generatePowerBallData);
+app.use('/generate_Pick10', generatePick10Data);
+app.use('/generate_MegaMillions', generateMegaMillions);
+app.use('/generate_Take5', generateTake5);
+app.use('/generate_NYLotto', generateNYLotto);
+app.use('/generate_CashLife', generateCashLife);
+app.use('/generate_Win4Day', generateWin4Day);
+app.use('/generate_NumbersDay', generateNumbersDay);
+
+// app.use('/text', predictionText)
 
 
 

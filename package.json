@@ -25,6 +25,7 @@
     "ml-regression": "^5.0.0",
     "moment-timezone": "^0.5.45",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
     "pg-promise": "^11.9.1",
     "simple-statistics": "^7.8.4"
   },
