@@ -53,21 +53,4 @@ const powerBallUpdate = async () => {
 }
 
 
-
-function formatDate(isoDateString) {
-    // Create a new Date object from the ISO string
-    const dateObject = new Date(isoDateString);
-  
-    // Subtract one day
-    dateObject.setDate(dateObject.getDate());
-  
-    // Extract the month, day, and year
-    const month = String(dateObject.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so add 1
-    const day = String(dateObject.getDate()).padStart(2, '0');
-    const year = dateObject.getFullYear();
-  
-    // Combine them into the desired format
-    return `${month}/${day}/${year}`;
-  }
-
   module.exports = powerBallUpdate;

@@ -17,49 +17,41 @@ const newYorkLottoUpdate = async () => {
         .then(response => {
           const newDataMegaMillions = response.data
 
-
-          console.log("newDataMegaMillions: ", newDataMegaMillions)
-        //    console.log("newDataMegaMillions: ", newDataMegaMillions)
-
           for(const key in newDataMegaMillions){
             if(key !== "status"){
                 const data = newDataMegaMillions[key];
-                console.log("Data Names: ", data.name)
-                console.log("Data plays: ",  data.plays.name)
-                console.log("Data plays: ",  data.plays.draws)
 
                 if(data.name === "Lotto"){
                     // Log Lotto data with more specific checks
                     data.plays.forEach((play, index) => {
-                        console.log(`Lotto Play ${index + 1}:`, play);
-                        // Access specific properties of Lotto play
-                        // For example:
-                         console.log(`Lotto Play ${index + 1} Name:`, play.name);
-                         console.log(`Lotto Play ${index + 1} Draws:`, play.draws);
+
+                         play.draws.map(a =>  {
+                            const numbersArray = a.numbers.map(a => Number(a.value));
+
+                            let updatePick10 = {
+                                    date: a.date,
+                                    one: numbersArray[0],
+                                    two: numbersArray[1],
+                                    three: numbersArray[2],
+                                    four: numbersArray[3],
+                                    five: numbersArray[4],
+                                    six: numbersArray[5],
+                                    bonus: numbersArray[6],
+                                    amount: a.nextDrawJackpot,
+                                    image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                 };
+
+                                 axios.post('http://localhost:9080/newyorklotto', updatePick10 )
+                                      .then( response =>  console.log(response.data))
+                                 axios.post('https://lotteryapi-newbackend2024.adaptable.app/newyorklotto', updatePick10)
+                                      .then( response =>  console.log(response.data))
+
+                         });
                     });
                 }
             }
           }
 
-        //   const newDateReady = `${newDataMegaMillions.DrawingDate.slice(5,7)}/${newDataMegaMillions.DrawingDate.slice(8, 10)}/${newDataMegaMillions.DrawingDate.slice(0,4)}`;
-
-        //   let updatePick10 = {
-        //     date: newDateReady,
-        //     one: newDataMegaMillions.FirstNumber,
-        //     two: newDataMegaMillions.SecondNumber,
-        //     three: newDataMegaMillions.ThirdNumber,
-        //     four: newDataMegaMillions.FourthNumber,
-        //     five: newDataMegaMillions.FifthNumber,
-        //     cashball: newDataMegaMillions.CashBall,
-        //     amount: 1000,
-        //     image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Cash4Life_logo.png'
-        //   };
-
-        //   console.log("updatePick10: ", updatePick10)
-    
-// axios.post('http://localhost:9080/cash4Life')
-//      .then( response =>  console.log(response.data))
-    
         } );
     } catch (error) {
         console.error(error);

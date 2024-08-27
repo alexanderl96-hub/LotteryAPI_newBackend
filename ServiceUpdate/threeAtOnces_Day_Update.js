@@ -17,52 +17,115 @@ const threeAtOnceDay = async () => {
         .then(response => {
           const newDataMegaMillions = response.data
 
-
-          console.log("newDataMegaMillions: ", newDataMegaMillions)
-        //    console.log("newDataMegaMillions: ", newDataMegaMillions)
-
           for(const key in newDataMegaMillions){
             if(key !== "status"){
                 const data = newDataMegaMillions[key];
-                console.log("Data Names: ", data.name)
-                console.log("Data plays: ",  data.plays.name)
-                console.log("Data plays: ",  data.plays.draws)
-                console.log("Data plays: ", data.plays.find(a => a.name === "Midday"))
 
-                if(data.name === "Take 5" && data.plays.name === "Midday"){
-                    console.log("Take 5 data by date: ", data.plays.name, data.plays.draws )
+                if(data.name === "Take 5"){
+         
+                    data.plays.forEach((play, index) => {
+
+                        if(play.name === "Midday"){
+
+                            play.draws.map(a =>  {
+                                const numbersArray = a.numbers.map(a => Number(a.value));
+    
+                                let updatePick10 = {
+                                        date: a.date,
+                                        one: numbersArray[0],
+                                        two: numbersArray[1],
+                                        three: numbersArray[2],
+                                        four: numbersArray[3],
+                                        five: numbersArray[4],
+                                        amount: 50000,
+                                        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6yh5J5pan_VYWX-t5-2djq9Qhiw4ZTT8qaA&s',
+                                        timedate: "Midday"
+                                     };
+    
+                                     console.log("Check the structure of Take 5: ", updatePick10)
+    
+                                //      axios.post('http://localhost:9080/take5Day', updatePick10 )
+                                //           .then( response =>  console.log(response.data))
+                                //      axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
+                                //           .then( response =>  console.log(response.data))
+    
+                             });
+
+                        }
+                         
+                    });
                 }
 
-                if(data.name === "Win 4" && data.plays.map( a => a.name) === "Midday"){
-                    console.log("Win 4 data by date: ", data.plays.name, data.plays.draws )
+                if(data.name === "Win 4" ){
+                    data.plays.forEach((play, index) => {
+
+                       if(play.name === "Midday"){
+
+                           play.draws.map(a =>  {
+                               const numbersArray = a.numbers.map(a => Number(a.value));
+   
+                               let updatePick10 = {
+                                       date: a.date,
+                                       one: numbersArray[0],
+                                       two: numbersArray[1],
+                                       three: numbersArray[2],
+                                       four: numbersArray[3],
+                                       amount: 5000,
+                                       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc5SWwSOzYVYZXzzplmtks70J5txRgXbhKxA&s',
+                                       timedate: "Midday"
+                                    };
+   
+                                    console.log("Check the structure of Win 4: ", updatePick10)
+   
+                               //      axios.post('http://localhost:9080/win4Day', updatePick10 )
+                               //           .then( response =>  console.log(response.data))
+                               //      axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
+                               //           .then( response =>  console.log(response.data))
+   
+                            });
+
+                       }
+                        
+                   });
                 }
 
-                if(data.name === "Numbers" && data.plays.name === "Midday"){
-                    console.log("Numbers data by date: ", data.plays.name, data.plays.draws )
+                if(data.name === "Numbers" ){
+                    data.plays.forEach((play, index) => {
+
+                       if(play.name === "Midday"){
+
+                           play.draws.map(a =>  {
+                               const numbersArray = a.numbers.map(a => Number(a.value));
+   
+                               let updatePick10 = {
+                                       date: a.date,
+                                       one: numbersArray[0],
+                                       two: numbersArray[1],
+                                       three: numbersArray[2],
+                                       amount: 500,
+                                       image: 'https://nylottery.ny.gov/static/logo-numbers-068f7b366978bb7f87a7174067a9344b.png',
+                                       timedate: "Midday"
+                                    };
+   
+                                    console.log("Check the structure of Numbers: ", updatePick10)
+   
+                               //      axios.post('http://localhost:9080/numbersday', updatePick10 )
+                               //           .then( response =>  console.log(response.data))
+                               //      axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
+                               //           .then( response =>  console.log(response.data))
+   
+                            });
+
+                       }
+                        
+                   });
                 }
 
 
+            
             }
           }
 
-        //   const newDateReady = `${newDataMegaMillions.DrawingDate.slice(5,7)}/${newDataMegaMillions.DrawingDate.slice(8, 10)}/${newDataMegaMillions.DrawingDate.slice(0,4)}`;
-
-        //   let updatePick10 = {
-        //     date: newDateReady,
-        //     one: newDataMegaMillions.FirstNumber,
-        //     two: newDataMegaMillions.SecondNumber,
-        //     three: newDataMegaMillions.ThirdNumber,
-        //     four: newDataMegaMillions.FourthNumber,
-        //     five: newDataMegaMillions.FifthNumber,
-        //     cashball: newDataMegaMillions.CashBall,
-        //     amount: 1000,
-        //     image: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Cash4Life_logo.png'
-        //   };
-
-        //   console.log("updatePick10: ", updatePick10)
-    
-// axios.post('http://localhost:9080/cash4Life')
-//      .then( response =>  console.log(response.data))
     
         } );
     } catch (error) {

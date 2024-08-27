@@ -66,15 +66,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Schedule the cron job to run every day at 6:00 AM 5:38 PM
-cron.schedule('0 6 * * *', async () => {
+// Schedule the cron job to run every day at 6:00 AM 10:53 PM
+cron.schedule('6 18 * * *', async () => {
     try {
-        await Pick10Update();
-        await cashForLifeUpdate();
-        // await powerBallUpdate();
-        // await megaMillionsUpdate();
-
-        // await newYorkLottoUpdate();
+        // await Pick10Update();
+        // await cashForLifeUpdate();
+        await threeAtOnceNight()
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -104,20 +101,17 @@ cron.schedule('0 6 * * 3,6', async () => {
 // Function to run on Thursdays and Sundays at 8:20 AM
 cron.schedule('0 6 * * 4,0', async () => {
   try {
-    // await newYorkLottoUpdate();
+     await newYorkLottoUpdate();
     console.log('NewYorkLotto update executed at 8:20 AM on Thursday and Sunday');
   } catch (error) {
     console.error('Error fetching NewYorkLotto data:', error);
   }
 });
 
-// Functions to run every 12 hours (at 8:20 AM and 8:20 PM)
-cron.schedule('30 15 * * *', async () => {
+// Functions to run every 12 hours (at 8:20 AM and 15:30 PM)
+cron.schedule('1 7 * * *', async () => {
   try {
-    // await win4Update();
-    // await numbersdaysUpdate();
-    // await take5Update();
-    //  await threeAtOnceDay();
+      await threeAtOnceDay();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
   } catch (error) {
     console.error('Error fetching 12-hour updates:', error);
@@ -125,12 +119,9 @@ cron.schedule('30 15 * * *', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)
-cron.schedule('30 23 * * *', async () => {
+cron.schedule('2 8 * * *', async () => {
   try {
-    // await win4Update();
-    // await numbersdaysUpdate();
-    // await take5Update();
-    //  await threeAtOnceNight();
+      await threeAtOnceNight();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
   } catch (error) {
     console.error('Error fetching 12-hour updates:', error);
