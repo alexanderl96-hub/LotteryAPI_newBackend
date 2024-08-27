@@ -40,6 +40,8 @@ var megaMillionsUpdate = require('./ServiceUpdate/MegaMillions_Update.js')
 var powerBallUpdate = require('./ServiceUpdate/PowerBall_Update.js')
 var cashForLifeUpdate = require('./ServiceUpdate/CashForLife_Update.js')
 var newYorkLottoUpdate = require('./ServiceUpdate/NewYorkLotto_Update.js')
+var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
+var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
 
 
 
@@ -64,15 +66,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Schedule the cron job to run every day at 6:00 AM 30
-cron.schedule('35 16 * * *', async () => {
+// Schedule the cron job to run every day at 6:00 AM 5:38 PM
+cron.schedule('0 6 * * *', async () => {
     try {
-        // await Pick10Update();
-        // await cashForLifeUpdate();
+        await Pick10Update();
+        await cashForLifeUpdate();
         // await powerBallUpdate();
         // await megaMillionsUpdate();
 
-        await newYorkLottoUpdate();
+        // await newYorkLottoUpdate();
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -110,11 +112,25 @@ cron.schedule('0 6 * * 4,0', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)
-cron.schedule('30 16,23 * * *', async () => {
+cron.schedule('30 15 * * *', async () => {
   try {
     // await win4Update();
     // await numbersdaysUpdate();
     // await take5Update();
+    //  await threeAtOnceDay();
+    console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
+  } catch (error) {
+    console.error('Error fetching 12-hour updates:', error);
+  }
+});
+
+// Functions to run every 12 hours (at 8:20 AM and 8:20 PM)
+cron.schedule('30 23 * * *', async () => {
+  try {
+    // await win4Update();
+    // await numbersdaysUpdate();
+    // await take5Update();
+    //  await threeAtOnceNight();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
   } catch (error) {
     console.error('Error fetching 12-hour updates:', error);

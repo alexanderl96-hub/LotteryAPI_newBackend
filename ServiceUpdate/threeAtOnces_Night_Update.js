@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
 
 
-const newYorkLottoUpdate = async () => {
+const threeAtOnceNight = async () => {
     const options = {
         method: 'GET',
         url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
@@ -28,16 +28,19 @@ const newYorkLottoUpdate = async () => {
                 console.log("Data plays: ",  data.plays.name)
                 console.log("Data plays: ",  data.plays.draws)
 
-                if(data.name === "Lotto"){
-                    // Log Lotto data with more specific checks
-                    data.plays.forEach((play, index) => {
-                        console.log(`Lotto Play ${index + 1}:`, play);
-                        // Access specific properties of Lotto play
-                        // For example:
-                         console.log(`Lotto Play ${index + 1} Name:`, play.name);
-                         console.log(`Lotto Play ${index + 1} Draws:`, play.draws);
-                    });
+                if(data.name === "Take 5" && data.plays.name === "Evening"){
+                    console.log("Take 5 data by date: ", data.plays.name, data.plays.draws )
                 }
+
+                if(data.name === "Win 4" && data.plays.name === "Evening"){
+                    console.log("Win 4 data by date: ", data.plays.name, data.plays.draws )
+                }
+
+                if(data.name === "Numbers" && data.plays.name === "Evening"){
+                    console.log("Numbers data by date: ", data.plays.name, data.plays.draws )
+                }
+
+
             }
           }
 
@@ -69,8 +72,4 @@ const newYorkLottoUpdate = async () => {
 }
 
 
-  module.exports = newYorkLottoUpdate;
-
-
-
-
+  module.exports = threeAtOnceNight;
