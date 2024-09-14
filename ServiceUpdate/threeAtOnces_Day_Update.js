@@ -44,10 +44,10 @@ const threeAtOnceDay = async () => {
     
                                      console.log("Check the structure of Take 5: ", updatePick10)
     
-                                //      axios.post('http://localhost:9080/take5Day', updatePick10 )
-                                //           .then( response =>  console.log(response.data))
-                                //      axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
-                                //           .then( response =>  console.log(response.data))
+                                     axios.post('http://localhost:9080/take5Day', updatePick10 )
+                                          .then( response =>  console.log(response.data))
+                                     axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
+                                          .then( response =>  console.log(response.data))
     
                              });
 
@@ -77,10 +77,10 @@ const threeAtOnceDay = async () => {
    
                                     console.log("Check the structure of Win 4: ", updatePick10)
    
-                               //      axios.post('http://localhost:9080/win4Day', updatePick10 )
-                               //           .then( response =>  console.log(response.data))
-                               //      axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
-                               //           .then( response =>  console.log(response.data))
+                                    axios.post('http://localhost:9080/win4Day', updatePick10 )
+                                         .then( response =>  console.log(response.data))
+                                    axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
+                                         .then( response =>  console.log(response.data))
    
                             });
 
@@ -109,10 +109,10 @@ const threeAtOnceDay = async () => {
    
                                     console.log("Check the structure of Numbers: ", updatePick10)
    
-                               //      axios.post('http://localhost:9080/numbersday', updatePick10 )
-                               //           .then( response =>  console.log(response.data))
-                               //      axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
-                               //           .then( response =>  console.log(response.data))
+                                    axios.post('http://localhost:9080/numbersday', updatePick10 )
+                                         .then( response =>  console.log(response.data))
+                                    axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
+                                         .then( response =>  console.log(response.data))
    
                             });
 

@@ -38,9 +38,10 @@ function convertToTensor(data) {
     // Extract data from the body
     const numbersDataStr = req.body.predict;
     const numbersData = numbersDataStr.map(Number);
+    const nameOfData = req.body.name
     inputLength = numbersDataStr[0].length
   
-    console.log(inputLength, 'inputLength inputLength')
+    console.log(inputLength,'inputLength inputLength')
     const model = tf.sequential();
       model.add(tf.layers.dense({units: 64, activation: 'relu', inputShape: [inputLength]}));
       model.add(tf.layers.dense({units: 1}));
@@ -84,7 +85,7 @@ function convertToTensor(data) {
     const tensorData = convertToTensor(preparedData);
     const { inputs, labels, inputMax, inputMin, labelMax, labelMin } = tensorData;
   
-    console.log(inputMin, inputMax, 'check range')
+    console.log(inputMin, inputMax, nameOfData, 'check range')
   
     // Train the model (optional, uncomment if you have training data)
     await model.fit(inputs, labels, {
@@ -112,7 +113,57 @@ function convertToTensor(data) {
     .flat(Infinity)
     .filter(v => v >= inputMin && v <= inputMax ) // Flatten the array if it's nested
     ; 
-      res.json({ predictions: result  });
+
+
+    // Create an object to count occurrences
+   const numberCount = {};
+
+     result.forEach(num => {
+          if (numberCount[num]) {
+            numberCount[num]++;
+          } else {
+            numberCount[num] = 1;
+          }
+        });
+
+
+        // console.log("Numbercount: ", numberCount)
+
+        let filteredValues;
+
+        if(nameOfData === "Pick 10"){
+
+            filteredValues = Object.entries(numberCount)
+                                   .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, 10, 11, 17, 19].includes(Number(key)))
+                                   .map(([, value]) => value);
+
+        }else if(nameOfData === "Mega Millions"){
+
+        }else if(nameOfData === "PowerBall"){
+
+          filteredValues = Object.entries(numberCount)
+                                   .filter(([key, value]) => [4, 2, 1, 3, 14, 12, 13, 11].includes(Number(value)))
+                                   .map(([key, value]) => Number(key));
+
+        }else if(nameOfData === "NewYork Lotto"){
+
+        }else if(nameOfData === "Cash4Life"){
+
+        }else if(nameOfData === "Take 5"){
+
+        }else if(nameOfData === "Win 4"){
+
+        }else if(nameOfData === "Numbers"){
+
+        }
+
+
+      const uniqueValues = new Set(filteredValues);  // No need to spread into an array, Set already handles uniqueness
+      
+      console.log("Result: ", Array.from(uniqueValues).sort((a, b) => a - b)); 
+      const uniqueResult = Array.from(uniqueValues).sort((a, b) => a - b)
+
+      res.json({ predictions: uniqueResult  });
     } catch (error) {
       console.error('Failed to make predictions:', error);
       return res.status(500).send('Failed to make predictions');
