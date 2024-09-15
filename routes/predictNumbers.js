@@ -134,8 +134,13 @@ function convertToTensor(data) {
         if(nameOfData === "Pick 10"){
 
             filteredValues = Object.entries(numberCount)
-                                   .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, 10, 11, 17, 19].includes(Number(key)))
-                                   .map(([, value]) => value);
+                                   .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, ].includes(Number(value))) //10, 11, 17, 19
+                                   .map(([key, value]) => Number(key));
+
+
+            // filteredValues = Object.entries(numberCount)
+            // .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, 10, 11, 17, 19 ].includes(Number(key))) //
+            // .map(([, value]) => value);
 
         }else if(nameOfData === "Mega Millions"){
 

@@ -68,7 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM
-cron.schedule('57 9 * * *', async () => {
+cron.schedule('38 16 * * *', async () => {
     try {
         await Pick10Update();
         await cashForLifeUpdate();
@@ -90,7 +90,7 @@ cron.schedule('57 9 * * *', async () => {
   });
 
   // Function to run on Wednesdays and Saturdays at 8:20 AM
-cron.schedule('58 9 * * 3,6', async () => {
+cron.schedule('0 6 * * 3,6', async () => {
   try {
     await megaMillionsUpdate();
     console.log('MegaMillions update executed at 8:20 AM on Wednesday and Saturday');
@@ -110,7 +110,7 @@ cron.schedule('0 3 * * 4,0', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 15:30 PM)
-cron.schedule('0 10 * * *', async () => {
+cron.schedule('30 5 * * *', async () => {
   try {
       await threeAtOnceDay();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
@@ -120,7 +120,7 @@ cron.schedule('0 10 * * *', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)
-cron.schedule('5 11 * * *', async () => {
+cron.schedule('50 6 * * *', async () => {
   try {
       await threeAtOnceNight();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
