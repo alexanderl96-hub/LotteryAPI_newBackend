@@ -19,7 +19,7 @@ const threeAtOnceDay = async () => {
 
           for(const key in newDataMegaMillions){
             if(key !== "status"){
-                const data = newDataMegaMillions[key];
+                const data = newDataMegaMillions[key]; 
 
                 if(data.name === "Take 5"){
          

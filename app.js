@@ -67,20 +67,30 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Schedule the cron job to run every day at 6:00 AM 10:53 PM
-cron.schedule('0 0 * * *', async () => {
+// Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
+cron.schedule('0 1 * * *', async () => {
     try {
         await Pick10Update();
-        await cashForLifeUpdate();
-
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   });
 
-// Function to run on Tuesdays, Thursdays, and Sundays at 8:20 AM
-  cron.schedule('0 0 * * 2,4,0', async () => {
+  // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
+cron.schedule('2 1 * * *', async () => {
+  try {
+
+      await cashForLifeUpdate();
+
+    console.log('Data fetched by cron job at 6:00 AM');
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
+
+// Function to run on Tuesdays,4  Thursdays, and Sundays at 8:20 AM Powerball
+  cron.schedule('3 1 * * 2,4,0', async () => {
     try {
         await powerBallUpdate();
       console.log('Data fetched by cron job at 6:00 AM');
@@ -89,8 +99,8 @@ cron.schedule('0 0 * * *', async () => {
     }
   });
 
-  // Function to run on Wednesdays and Saturdays at 8:20 AM
-cron.schedule('0 0 * * 3,6', async () => {
+  // Function to run on Wednesdays and Saturdays at 8:20 AM Mega Millions
+cron.schedule('4 1 * * 3,6', async () => {
   try {
     await megaMillionsUpdate();
     console.log('MegaMillions update executed at 8:20 AM on Wednesday and Saturday');
@@ -99,8 +109,8 @@ cron.schedule('0 0 * * 3,6', async () => {
   }
 });
 
-// Function to run on Thursdays and Sundays at 8:20 AM
-cron.schedule('0 0 * * 4,0', async () => {
+// Function to run on Thursdays and Sundays at 8:20 AM     new York lotto
+cron.schedule('5 1 * * 4,0', async () => {
   try {
      await newYorkLottoUpdate();
     console.log('NewYorkLotto update executed at 8:20 AM on Thursday and Sunday');
@@ -109,8 +119,8 @@ cron.schedule('0 0 * * 4,0', async () => {
   }
 });
 
-// Functions to run every 12 hours (at 8:20 AM and 15:30 PM)
-cron.schedule('0 0 * * *', async () => {
+// Functions to run every 12 hours (at 8:20 AM and 15:30 PM)     take5, win4, numbers (midday)
+cron.schedule('6 1 * * *', async () => {
   try {
       await threeAtOnceDay();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
@@ -119,8 +129,8 @@ cron.schedule('0 0 * * *', async () => {
   }
 });
 
-// Functions to run every 12 hours (at 8:20 AM and 8:20 PM)
-cron.schedule('0 0 * * *', async () => {
+// Functions to run every 12 hours (at 8:20 AM and 8:20 PM)  take5, win4, numbers (evening)
+cron.schedule('7 1 * * *', async () => {
   try {
       await threeAtOnceNight();
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
