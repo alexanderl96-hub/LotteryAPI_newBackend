@@ -87,7 +87,10 @@ cron.schedule('15 3 * * *', async () => {
       console.log('Cron job executed:', moment().tz("America/New_York").format());
         // await Pick10Update();
 
-
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexandr';
+        const reason = "Pick 10"
+        const schedule = '3:15am'
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
       console.log('Data fetched by cron job at 6:00 AM');
