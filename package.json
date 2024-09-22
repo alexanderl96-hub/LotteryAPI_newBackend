@@ -26,6 +26,7 @@
     "moment-timezone": "^0.5.45",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.15",
     "pg-promise": "^11.9.1",
     "simple-statistics": "^7.8.4"
   },

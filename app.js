@@ -4,11 +4,25 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const moment = require('moment-timezone');
 const cron = require('node-cron');
+const nodemailer = require('nodemailer');
 
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+
+
+
+const transporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: process.env.EMAIL_PORT,
+  secure: false, // Use TLS
+  auth: {
+      user: process.env.EMAIL_USER,  // Your email address
+      pass: process.env.EMAIL_PASS   // App password
+  }
+});
+
 
 
 var homeRoot = require('./routes/index.js')
@@ -68,9 +82,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('15 3 * * *', async () => {
     try {
-        await Pick10Update();
+      console.log('Cron job executed:', moment().tz("America/New_York").format());
+        // await Pick10Update();
+
+
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -83,6 +102,9 @@ cron.schedule('1 2 * * *', async () => {
 
       await cashForLifeUpdate();
 
+
+
+      await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     console.log('Data fetched by cron job at 6:00 AM');
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -93,6 +115,10 @@ cron.schedule('1 2 * * *', async () => {
   cron.schedule('3 2 * * 2,4,0', async () => {
     try {
         await powerBallUpdate();
+
+
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
       console.log('Data fetched by cron job at 6:00 AM');
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -103,6 +129,9 @@ cron.schedule('1 2 * * *', async () => {
 cron.schedule('4 2 * * 3,6', async () => {
   try {
     await megaMillionsUpdate();
+
+
+    await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     console.log('MegaMillions update executed at 8:20 AM on Wednesday and Saturday');
   } catch (error) {
     console.error('Error fetching MegaMillions data:', error);
@@ -113,6 +142,10 @@ cron.schedule('4 2 * * 3,6', async () => {
 cron.schedule('5 2 * * 4,0', async () => {
   try {
      await newYorkLottoUpdate();
+     
+
+
+     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     console.log('NewYorkLotto update executed at 8:20 AM on Thursday and Sunday');
   } catch (error) {
     console.error('Error fetching NewYorkLotto data:', error);
@@ -123,6 +156,10 @@ cron.schedule('5 2 * * 4,0', async () => {
 cron.schedule('6 2 * * *', async () => {
   try {
       await threeAtOnceDay();
+
+
+
+      await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
   } catch (error) {
     console.error('Error fetching 12-hour updates:', error);
@@ -133,6 +170,10 @@ cron.schedule('6 2 * * *', async () => {
 cron.schedule('7 2 * * *', async () => {
   try {
       await threeAtOnceNight();
+
+
+
+      await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
   } catch (error) {
     console.error('Error fetching 12-hour updates:', error);
@@ -188,6 +229,27 @@ app.use(function(err, req, res, next) {
     });
 });
   
+
+
+
+
+
+
+const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
+  try {
+      let info = await transporter.sendMail({
+          from: '"Support Team" <alexander.larosa.perez@gmail.com>', // Sender address
+          to: email, // Recipient email
+          subject: 'Request Data has been made', // Subject line
+          text: `Hello ${memberName}, the request data has been made. Game name: ${reason} at ${schedule}. Please contact support for more information.`, // Plain text body
+          html: `<p>Hello ${memberName},</p><p>Your account has been suspended for the following reason:</p><p><strong>${reason}</strong></p><p>Please contact support for more information.</p>` // HTML body
+      });
+
+      console.log('Email sent: %s', info.messageId);
+  } catch (error) {
+      console.error('Error sending email:', error);
+  }
+};
   
   module.exports = app;
 
