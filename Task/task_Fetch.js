@@ -22,7 +22,7 @@ var Pick10Update = require('../ServiceUpdate/Pick10_Update.js')
 
 
 
-// Endpoint to trigger the cron job or task manually
+// Endpoint to trigger the pick 10 or task manually
 router.get('/trigger-task',  async (req, res) => {
     
     if (checkTimePick10()) {
@@ -35,22 +35,105 @@ router.get('/trigger-task',  async (req, res) => {
         const schedule =  moment().tz("America/New_York").format()
     
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    }else {
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "Today data not suppose to be fetch"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
     }
+
     res.send('Task has been executed');
 });
 
-// Endpoint to trigger the cron job or task manually
+// Endpoint to trigger the Cash4life or task manually
 router.get('/trigger-task',  async (req, res) => {
+
+    if(checkTimeCash4Life()){
+        // await cashForLifeUpdate();
+
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "Cash4Life"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    }else {
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "Today data not suppose to be fetch"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    }
     
-    // await cashForLifeUpdate();
+    res.send('Task has been executed');
+});
 
-    const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-    const memberName = 'Alexander';
-    const reason = "Cash4Life"
-    const schedule =  moment().tz("America/New_York").format()
 
-    await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+// Endpoint to trigger the Powerball or task manually
+router.get('/trigger-task',  async (req, res) => {
 
+
+    if(checkTimePowerBall()){
+
+            if(checkDayPowerball()){
+                // await powerBallUpdate();
+
+                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+                const memberName = 'Alexander';
+                const reason = "Powerball"
+                const schedule =  moment().tz("America/New_York").format()
+
+                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+            }else{
+
+                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+                const memberName = 'Alexander';
+                const reason =  "Today data not suppose to be fetch"
+                const schedule =  moment().tz("America/New_York").format()
+
+                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+            }
+        }
+
+    res.send('Task has been executed');
+});
+
+
+// Endpoint to trigger the Mega Millions or task manually
+router.get('/trigger-task',  async (req, res) => {
+
+    if(checkTimeMegaMillions()){
+        if(checkDayMegaMillions() ){
+            // await megaMillionsUpdate();;
+    
+            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            const memberName = 'Alexander';
+            const reason = "MegaMillions"
+            const schedule =  moment().tz("America/New_York").format()
+    
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    
+        }else{
+
+            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            const memberName = 'Alexander';
+            const reason =  "Today data not suppose to be fetch";
+            const schedule =  moment().tz("America/New_York").format()
+    
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    
+        }
+    
+    }
+
+  
     res.send('Task has been executed');
 });
 
@@ -58,12 +141,49 @@ router.get('/trigger-task',  async (req, res) => {
 // Endpoint to trigger the cron job or task manually
 router.get('/trigger-task',  async (req, res) => {
 
-    if(checkDayPowerball()){
-        // await powerBallUpdate();
+    if(checkTimeNewYorkLotto()){
+        if(checkDayMegaNewYorkLotto()){
+            // await newYorkLottoUpdate();
+    
+            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            const memberName = 'Alexander';
+            const reason = "New York Lotto"
+            const schedule =  moment().tz("America/New_York").format()
+    
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    
+        }else{
+            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            const memberName = 'Alexander';
+            const reason = "Today data not suppose to be fetch"
+            const schedule =  moment().tz("America/New_York").format()
+    
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    
+        }
+    }
 
+    res.send('Task has been executed');
+});
+
+
+// Endpoint to trigger the Take5, Win4, numbers at midday
+router.get('/trigger-task',  async (req, res) => {
+
+    if(checkTimeComboDay()){
+         // await threeAtOnceDay();
+
+         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+         const memberName = 'Alexander';
+         const reason = "New York Lotto"
+         const schedule =  moment().tz("America/New_York").format()
+ 
+         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+ 
+    }else {
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
-        const reason = "Powerball"
+        const reason = "Today data not suppose to be fetch"
         const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
@@ -73,31 +193,11 @@ router.get('/trigger-task',  async (req, res) => {
     res.send('Task has been executed');
 });
 
-
-// Endpoint to trigger the cron job or task manually
+// Endpoint to trigger the Take5, Win4, numbers at night
 router.get('/trigger-task',  async (req, res) => {
 
-    if(checkDayMegaMillions() ){
-        // await megaMillionsUpdate();;
-
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = "MegaMillions"
-        const schedule =  moment().tz("America/New_York").format()
-
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
-    }
-
-    res.send('Task has been executed');
-});
-
-
-// Endpoint to trigger the cron job or task manually
-router.get('/trigger-task',  async (req, res) => {
-
-    if(checkDayMegaNewYorkLotto()){
-        // await newYorkLottoUpdate();
+    if(checkTimeComboNight()){
+        // await threeAtOnceNight();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
@@ -105,11 +205,24 @@ router.get('/trigger-task',  async (req, res) => {
         const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+       
+    }else {
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "Today data not suppose to be fetch"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
     }
 
     res.send('Task has been executed');
 });
+
+
+
+
+
 
 
 const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
@@ -118,8 +231,8 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
             from: '"Support Team" <alexander.lrperez@gmail.com>', // Sender address
             to: email, // Recipient email
             subject: 'Request Data has been made', // Subject line
-            text: `Hello ${memberName}, the request data has been made. Game name: ${reason} at ${schedule}. Please contact support for more information.`, // Plain text body
-            html: `<p>Hello ${memberName},</p><p>Your account has been suspended for the following reason:</p><p><strong>${reason}</strong></p><p>Please contact support for more information.</p>` // HTML body
+            text: `Hello ${memberName}, the request data has been made. Game name: ${reason} at ${schedule}.`, // Plain text body
+            html: `<p>Hello ${memberName},</p><p>the request data has been made. Game name:</p><p><strong>${reason}</strong></p>` // HTML body
         });
   
         console.log('Email sent: %s', info.messageId);
@@ -144,6 +257,22 @@ const checkDayPowerball = () => {
         return false;
     }
 };
+const checkTimePowerBall = () => {
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 13 && currentMinute >= 10 && currentMinute <= 15) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
 
 const checkDayMegaMillions = () => {
     const today = new Date();
@@ -158,6 +287,22 @@ const checkDayMegaMillions = () => {
         return false;
     }
 };
+const checkTimeMegaMillions = () => {
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 13 && currentMinute >= 15 && currentMinute <= 20) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
 
 const checkDayMegaNewYorkLotto = () => {
     const today = new Date();
@@ -172,15 +317,78 @@ const checkDayMegaNewYorkLotto = () => {
         return false;
     }
 };
+const checkTimeNewYorkLotto = () => {
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 13 && currentMinute >= 20 && currentMinute <= 25) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
 
 
 const checkTimePick10 = () => {
-    const now = new Date();
-    const currentHour = now.getHours(); // Get the current hour (0-23)
-    const currentMinute = now.getMinutes(); // Get the current minute (0-59)
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 0 && currentMinute <= 6) {
+    if (currentHour === 13 && currentMinute >= 0 && currentMinute <= 5) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
+const checkTimeCash4Life = () => {
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 13 && currentMinute >= 5 && currentMinute <= 10) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
+const checkTimeComboDay = () => {
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 13 && currentMinute >= 25 && currentMinute <= 30) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
+const checkTimeComboNight = () => {
+    const now = moment().tz("America/New_York");
+    const currentHour = now.hour();   // Get the current hour in New York (0-23)
+    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 13 && currentMinute >= 30 && currentMinute <= 35) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
