@@ -180,7 +180,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.getMinutes(); // Get the current minute (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 12 && currentMinute >= 0 && currentMinute <= 6) {
+    if (currentHour === 13 && currentMinute >= 0 && currentMinute <= 6) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
