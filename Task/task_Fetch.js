@@ -24,32 +24,92 @@ var Pick10Update = require('../ServiceUpdate/Pick10_Update.js')
 
 // Endpoint to trigger the cron job or task manually
 router.get('/trigger-task',  async (req, res) => {
+    
+    if (checkTimePick10()) {
+        console.log("Running the task since the time is between 2 AM and 3 AM.");
+     // await Pick10Update();
 
-// Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-    // cron.schedule('30 10 * * *', async () => {
-    //     try {
-    //     // console.log('Cron job executed:', moment().tz("America/New_York").format());
-    //         await Pick10Update();
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "Pick 10"
+        const schedule =  moment().tz("America/New_York").format()
+    
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    }
+    res.send('Task has been executed');
+});
 
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexandr';
-            const reason = "Pick 10"
-            const schedule =  moment().tz("America/New_York").format()
+// Endpoint to trigger the cron job or task manually
+router.get('/trigger-task',  async (req, res) => {
+    
+    // await cashForLifeUpdate();
 
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    //     console.log('Data fetched by cron job at 6:00 AM');
-    //     } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //     }
-    // });
+    const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+    const memberName = 'Alexander';
+    const reason = "Cash4Life"
+    const schedule =  moment().tz("America/New_York").format()
 
+    await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
-
-
-  res.send('Task has been executed');
+    res.send('Task has been executed');
 });
 
 
+// Endpoint to trigger the cron job or task manually
+router.get('/trigger-task',  async (req, res) => {
+
+    if(checkDayPowerball()){
+        // await powerBallUpdate();
+
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "Powerball"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    }
+
+    res.send('Task has been executed');
+});
+
+
+// Endpoint to trigger the cron job or task manually
+router.get('/trigger-task',  async (req, res) => {
+
+    if(checkDayMegaMillions() ){
+        // await megaMillionsUpdate();;
+
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "MegaMillions"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    }
+
+    res.send('Task has been executed');
+});
+
+
+// Endpoint to trigger the cron job or task manually
+router.get('/trigger-task',  async (req, res) => {
+
+    if(checkDayMegaNewYorkLotto()){
+        // await newYorkLottoUpdate();
+
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = "New York Lotto"
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    }
+
+    res.send('Task has been executed');
+});
 
 
 const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
@@ -67,6 +127,68 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
         console.error('Error sending email:', error);
     }
   };
+
+
+
+
+const checkDayPowerball = () => {
+    const today = new Date();
+    const currentDay = today.getDay(); // Get the current day of the week (0-6)
+
+    // Check if today is Tuesday (2), Thursday (4), or Sunday (0)
+    if (currentDay === 0 || currentDay === 2 || currentDay === 4) {
+        console.log("Today is either Tuesday, Thursday, or Sunday.");
+        return true;
+    } else {
+        console.log("Today is not Tuesday, Thursday, or Sunday.");
+        return false;
+    }
+};
+
+const checkDayMegaMillions = () => {
+    const today = new Date();
+    const currentDay = today.getDay(); // Get the current day of the week (0-6)
+
+    // Check if today is Wednesday (3), Saturday (6)
+    if (currentDay === 3 || currentDay === 6 ) {
+        console.log("Today is either Tuesday, Thursday, or Sunday.");
+        return true;
+    } else {
+        console.log("Today is not Tuesday, Thursday, or Sunday.");
+        return false;
+    }
+};
+
+const checkDayMegaNewYorkLotto = () => {
+    const today = new Date();
+    const currentDay = today.getDay(); // Get the current day of the week (0-6)
+
+    // Check if today is Thursday (4), Sunday (0)
+    if (currentDay === 4 || currentDay === 0 ) {
+        console.log("Today is either Tuesday, Thursday, or Sunday.");
+        return true;
+    } else {
+        console.log("Today is not Tuesday, Thursday, or Sunday.");
+        return false;
+    }
+};
+
+
+const checkTimePick10 = () => {
+    const now = new Date();
+    const currentHour = now.getHours(); // Get the current hour (0-23)
+    const currentMinute = now.getMinutes(); // Get the current minute (0-59)
+
+    // Check if the current time is between 2 AM (2) and 3 AM (3)
+    if (currentHour === 12 && currentMinute >= 0 && currentMinute <= 6) {
+        console.log("The current time is between 2 AM and 3 AM.");
+        return true;
+    } else {
+        console.log("The current time is not between 2 AM and 3 AM.");
+        return false;
+    }
+};
+
 
 
 
