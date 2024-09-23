@@ -58,6 +58,9 @@ var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
 var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
 
 
+var TaskSchedule = require('./Task/task_Fetch.js')
+
+
 
 const app = express();
 
@@ -82,15 +85,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-cron.schedule('15 3 * * *', async () => {
+cron.schedule('57 10 * * *', async () => {
     try {
-      console.log('Cron job executed:', moment().tz("America/New_York").format());
-        // await Pick10Update();
+      // console.log('Cron job executed:', moment().tz("America/New_York").format());
+        await Pick10Update();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexandr';
         const reason = "Pick 10"
-        const schedule = '3:15am'
+        const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
       console.log('Data fetched by cron job at 6:00 AM');
@@ -100,12 +103,15 @@ cron.schedule('15 3 * * *', async () => {
   });
 
   // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
-cron.schedule('1 2 * * *', async () => {
+cron.schedule('56 10 * * *', async () => {
   try {
 
       await cashForLifeUpdate();
 
-
+      const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+      const memberName = 'Alexandr';
+      const reason = "Pick 10"
+      const schedule =  moment().tz("America/New_York").format()
 
       await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     console.log('Data fetched by cron job at 6:00 AM');
@@ -115,11 +121,15 @@ cron.schedule('1 2 * * *', async () => {
 });
 
 // Function to run on Tuesdays,4  Thursdays, and Sundays at 8:20 AM Powerball
-  cron.schedule('3 2 * * 2,4,0', async () => {
+  cron.schedule('55 10 * * 2,4,0', async () => {
     try {
         await powerBallUpdate();
 
 
+ const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexandr';
+        const reason = "Pick 10"
+        const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
       console.log('Data fetched by cron job at 6:00 AM');
@@ -129,10 +139,14 @@ cron.schedule('1 2 * * *', async () => {
   });
 
   // Function to run on Wednesdays and Saturdays at 8:20 AM Mega Millions
-cron.schedule('4 2 * * 3,6', async () => {
+cron.schedule('54 10 * * 3,6', async () => {
   try {
     await megaMillionsUpdate();
 
+ const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexandr';
+        const reason = "Pick 10"
+        const schedule =  moment().tz("America/New_York").format()
 
     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     console.log('MegaMillions update executed at 8:20 AM on Wednesday and Saturday');
@@ -142,11 +156,14 @@ cron.schedule('4 2 * * 3,6', async () => {
 });
 
 // Function to run on Thursdays and Sundays at 8:20 AM     new York lotto
-cron.schedule('5 2 * * 4,0', async () => {
+cron.schedule('58 10 * * 4,0', async () => {
   try {
      await newYorkLottoUpdate();
      
-
+ const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexandr';
+        const reason = "Pick 10"
+        const schedule =  moment().tz("America/New_York").format()
 
      await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     console.log('NewYorkLotto update executed at 8:20 AM on Thursday and Sunday');
@@ -156,11 +173,14 @@ cron.schedule('5 2 * * 4,0', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 15:30 PM)     take5, win4, numbers (midday)
-cron.schedule('6 2 * * *', async () => {
+cron.schedule('52 10 * * *', async () => {
   try {
       await threeAtOnceDay();
 
-
+      const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+      const memberName = 'Alexandr';
+      const reason = "Pick 10"
+      const schedule =  moment().tz("America/New_York").format()
 
       await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
@@ -170,11 +190,14 @@ cron.schedule('6 2 * * *', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)  take5, win4, numbers (evening)
-cron.schedule('7 2 * * *', async () => {
+cron.schedule('53 10 * * *', async () => {
   try {
       await threeAtOnceNight();
 
-
+      const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+      const memberName = 'Alexandr';
+      const reason = "Pick 10"
+      const schedule =  moment().tz("America/New_York").format()
 
       await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
@@ -203,6 +226,9 @@ app.use('/generate_NYLotto', generateNYLotto);
 app.use('/generate_CashLife', generateCashLife);
 app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
+
+
+app.use('/api-fetch', TaskSchedule);
 
 
 app.use('/text', predictionText)
@@ -241,7 +267,7 @@ app.use(function(err, req, res, next) {
 const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
   try {
       let info = await transporter.sendMail({
-          from: '"Support Team" <alexander.larosa.perez@gmail.com>', // Sender address
+          from: '"Support Team" <alexander.lrperez@gmail.com>', // Sender address
           to: email, // Recipient email
           subject: 'Request Data has been made', // Subject line
           text: `Hello ${memberName}, the request data has been made. Game name: ${reason} at ${schedule}. Please contact support for more information.`, // Plain text body
