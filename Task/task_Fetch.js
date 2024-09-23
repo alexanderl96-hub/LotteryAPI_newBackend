@@ -27,23 +27,28 @@ router.get('/trigger-task',  async (req, res) => {
     
     if (checkTimePick10()) {
         console.log("Running the task since the time is between 2 AM and 3 AM.");
-     // await Pick10Update();
+        await Pick10Update();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
-        const reason = "Pick 10"
+        const reason = `The data retrieval from the Pick 10 API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
         const schedule =  moment().tz("America/New_York").format()
     
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    }else {
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = "Today data not suppose to be fetch"
-        const schedule =  moment().tz("America/New_York").format()
-
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
     }
+    // else {
+    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+    //     const memberName = 'Alexander';
+    //     const reason = `Today's request to the Pick 10 API has already been processed. As the 
+    //                    request for this data has been made successfully, no further requests 
+    //                    are needed for today.`
+    //     const schedule =  moment().tz("America/New_York").format()
+
+    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    // }
 
     res.send('Task has been executed');
 });
@@ -56,19 +61,24 @@ router.get('/trigger-task',  async (req, res) => {
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
-        const reason = "Cash4Life"
+        const reason = `The data retrieval from the Cash4life API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
         const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    }else {
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = "Today data not suppose to be fetch"
-        const schedule =  moment().tz("America/New_York").format()
-
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
     }
+    // else {
+    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+    //     const memberName = 'Alexander';
+    //     const reason =  `Today's request to the Cash4life API has already been processed. As the 
+    //     request for this data has been made successfully, no further requests 
+    //     are needed for today.`
+    //     const schedule =  moment().tz("America/New_York").format()
+
+    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    // }
     
     res.send('Task has been executed');
 });
@@ -85,21 +95,26 @@ router.get('/trigger-task',  async (req, res) => {
 
                 const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
                 const memberName = 'Alexander';
-                const reason = "Powerball"
-                const schedule =  moment().tz("America/New_York").format()
-
-                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
-            }else{
-
-                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-                const memberName = 'Alexander';
-                const reason =  "Today data not suppose to be fetch"
+                const reason = `The data retrieval from the Powerball API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
                 const schedule =  moment().tz("America/New_York").format()
 
                 await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
             }
+            // else{
+
+            //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            //     const memberName = 'Alexander';
+            //     const reason =   `Today's request to the Powerball API has already been processed. As the 
+            //     request for this data has been made successfully, no further requests 
+            //     are needed for today.`
+            //     const schedule =  moment().tz("America/New_York").format()
+
+            //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+            // }
         }
 
     res.send('Task has been executed');
@@ -115,21 +130,26 @@ router.get('/trigger-task',  async (req, res) => {
     
             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
             const memberName = 'Alexander';
-            const reason = "MegaMillions"
-            const schedule =  moment().tz("America/New_York").format()
-    
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    
-        }else{
-
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexander';
-            const reason =  "Today data not suppose to be fetch";
+            const reason =`The data retrieval from the Mega Millions API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
             const schedule =  moment().tz("America/New_York").format()
     
             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
         }
+        // else{
+
+        //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        //     const memberName = 'Alexander';
+        //     const reason =   `Today's request to the Mega millions API has already been processed. As the 
+        //     request for this data has been made successfully, no further requests 
+        //     are needed for today.`
+        //     const schedule =  moment().tz("America/New_York").format()
+    
+        //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    
+        // }
     
     }
 
@@ -138,7 +158,7 @@ router.get('/trigger-task',  async (req, res) => {
 });
 
 
-// Endpoint to trigger the cron job or task manually
+// Endpoint to trigger the new york lotto or task manually
 router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeNewYorkLotto()){
@@ -147,20 +167,25 @@ router.get('/trigger-task',  async (req, res) => {
     
             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
             const memberName = 'Alexander';
-            const reason = "New York Lotto"
-            const schedule =  moment().tz("America/New_York").format()
-    
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    
-        }else{
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexander';
-            const reason = "Today data not suppose to be fetch"
+            const reason = `The data retrieval from the New York Lotto API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
             const schedule =  moment().tz("America/New_York").format()
     
             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
         }
+        // else{
+        //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        //     const memberName = 'Alexander';
+        //     const reason = `Today's request to the New York Lotto API has already been processed. As the 
+        //     request for this data has been made successfully, no further requests 
+        //     are needed for today.`
+        //     const schedule =  moment().tz("America/New_York").format()
+    
+        //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+    
+        // }
     }
 
     res.send('Task has been executed');
@@ -175,20 +200,25 @@ router.get('/trigger-task',  async (req, res) => {
 
          const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
          const memberName = 'Alexander';
-         const reason = "New York Lotto"
+         const reason = `The data retrieval from the Take5, Win 4 an Numbers Midday API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
          const schedule =  moment().tz("America/New_York").format()
  
          await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
  
-    }else {
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = "Today data not suppose to be fetch"
-        const schedule =  moment().tz("America/New_York").format()
-
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
     }
+    // else {
+    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+    //     const memberName = 'Alexander';
+    //     const reason = `Today's request to the Take5, Win 4 and Numbers Midday API has already been processed. As the 
+    //     request for this data has been made successfully, no further requests 
+    //     are needed for today.`
+    //     const schedule =  moment().tz("America/New_York").format()
+
+    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    // }
 
     res.send('Task has been executed');
 });
@@ -201,20 +231,25 @@ router.get('/trigger-task',  async (req, res) => {
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
-        const reason = "New York Lotto"
+        const reason = `The data retrieval from the Take5, Win 4 an Numbers NIght API has been completed 
+                        successfully. All relevant information has been fetched, 
+                        and the process concluded without any issues.`
         const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
        
-    }else {
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = "Today data not suppose to be fetch"
-        const schedule =  moment().tz("America/New_York").format()
-
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
     }
+    // else {
+    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+    //     const memberName = 'Alexander';
+    //     const reason = `Today's request to the Take5, Win 4 and Numbers Night API has already been processed. As the 
+    //     request for this data has been made successfully, no further requests 
+    //     are needed for today.`
+    //     const schedule =  moment().tz("America/New_York").format()
+
+    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+    // }
 
     res.send('Task has been executed');
 });
@@ -264,7 +299,7 @@ const checkTimePowerBall = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 10 && currentMinute <= 15) {
+    if (currentHour === 1 && currentMinute >= 10 && currentMinute <= 15) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -294,7 +329,7 @@ const checkTimeMegaMillions = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 15 && currentMinute <= 20) {
+    if (currentHour === 1 && currentMinute >= 15 && currentMinute <= 20) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -324,7 +359,7 @@ const checkTimeNewYorkLotto = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 20 && currentMinute <= 25) {
+    if (currentHour === 1 && currentMinute >= 20 && currentMinute <= 25) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -341,7 +376,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 0 && currentMinute <= 5) {
+    if (currentHour === 1 && currentMinute >= 0 && currentMinute <= 5) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -357,7 +392,7 @@ const checkTimeCash4Life = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 5 && currentMinute <= 10) {
+    if (currentHour === 1 && currentMinute >= 5 && currentMinute <= 10) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -372,7 +407,7 @@ const checkTimeComboDay = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 25 && currentMinute <= 30) {
+    if (currentHour === 1 && currentMinute >= 25 && currentMinute <= 30) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -388,7 +423,7 @@ const checkTimeComboNight = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 13 && currentMinute >= 30 && currentMinute <= 35) {
+    if (currentHour === 1 && currentMinute >= 30 && currentMinute <= 35) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
