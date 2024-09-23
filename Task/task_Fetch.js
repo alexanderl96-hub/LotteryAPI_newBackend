@@ -23,13 +23,13 @@ var Pick10Update = require('../ServiceUpdate/Pick10_Update.js')
 
 
 // Endpoint to trigger the cron job or task manually
-router.get('/trigger-task', (req, res) => {
+router.get('/trigger-task',  async (req, res) => {
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-    cron.schedule('30 10 * * *', async () => {
-        try {
-        // console.log('Cron job executed:', moment().tz("America/New_York").format());
-            await Pick10Update();
+    // cron.schedule('30 10 * * *', async () => {
+    //     try {
+    //     // console.log('Cron job executed:', moment().tz("America/New_York").format());
+    //         await Pick10Update();
 
             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
             const memberName = 'Alexandr';
@@ -37,11 +37,11 @@ router.get('/trigger-task', (req, res) => {
             const schedule =  moment().tz("America/New_York").format()
 
             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-        console.log('Data fetched by cron job at 6:00 AM');
-        } catch (error) {
-        console.error('Error fetching data:', error);
-        }
-    });
+    //     console.log('Data fetched by cron job at 6:00 AM');
+    //     } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //     }
+    // });
 
 
 

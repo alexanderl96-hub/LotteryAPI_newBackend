@@ -285,3 +285,6 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
   /*
   "schema": "PGDATABASE_URL=$DATABASE_URL psql -f db/schema.sql",
   "seed": "PGDATABASE_URL=$DATABASE_URL psql -f db/seed.sql", */
+
+
+  // https://lotteryapi-newbackend2024.adaptable.app/api-fetch/trigger-task
