@@ -85,126 +85,126 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-cron.schedule('18 11 * * *', async () => {
-    try {
-      // console.log('Cron job executed:', moment().tz("America/New_York").format());
-        await Pick10Update();
+// cron.schedule('18 11 * * *', async () => {
+//     try {
+//       // console.log('Cron job executed:', moment().tz("America/New_York").format());
+//         await Pick10Update();
 
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexandr';
-        const reason = "Pick 10"
-        const schedule =  moment().tz("America/New_York").format()
+//         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexandr';
+//         const reason = "Pick 10"
+//         const schedule =  moment().tz("America/New_York").format()
 
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-      console.log('Data fetched by cron job at 6:00 AM');
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  });
+//         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//       console.log('Data fetched by cron job at 6:00 AM');
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   });
 
   // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
-cron.schedule('19 11 * * *', async () => {
-  try {
+// cron.schedule('19 11 * * *', async () => {
+//   try {
 
-      await cashForLifeUpdate();
+//       await cashForLifeUpdate();
 
-      const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-      const memberName = 'Alexandr';
-      const reason = "Pick 10"
-      const schedule =  moment().tz("America/New_York").format()
+//       const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//       const memberName = 'Alexandr';
+//       const reason = "Pick 10"
+//       const schedule =  moment().tz("America/New_York").format()
 
-      await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    console.log('Data fetched by cron job at 6:00 AM');
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-});
+//       await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//     console.log('Data fetched by cron job at 6:00 AM');
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// });
 
 // Function to run on Tuesdays,4  Thursdays, and Sundays at 8:20 AM Powerball
-  cron.schedule('55 10 * * 2,4,0', async () => {
-    try {
-        await powerBallUpdate();
+//   cron.schedule('55 10 * * 2,4,0', async () => {
+//     try {
+//         await powerBallUpdate();
 
 
- const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexandr';
-        const reason = "Pick 10"
-        const schedule =  moment().tz("America/New_York").format()
+//  const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexandr';
+//         const reason = "Pick 10"
+//         const schedule =  moment().tz("America/New_York").format()
 
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-      console.log('Data fetched by cron job at 6:00 AM');
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  });
+//         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//       console.log('Data fetched by cron job at 6:00 AM');
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   });
 
   // Function to run on Wednesdays and Saturdays at 8:20 AM Mega Millions
-cron.schedule('54 10 * * 3,6', async () => {
-  try {
-    await megaMillionsUpdate();
+// cron.schedule('54 10 * * 3,6', async () => {
+//   try {
+//     await megaMillionsUpdate();
 
- const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexandr';
-        const reason = "Pick 10"
-        const schedule =  moment().tz("America/New_York").format()
+//  const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexandr';
+//         const reason = "Pick 10"
+//         const schedule =  moment().tz("America/New_York").format()
 
-    await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    console.log('MegaMillions update executed at 8:20 AM on Wednesday and Saturday');
-  } catch (error) {
-    console.error('Error fetching MegaMillions data:', error);
-  }
-});
+//     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//     console.log('MegaMillions update executed at 8:20 AM on Wednesday and Saturday');
+//   } catch (error) {
+//     console.error('Error fetching MegaMillions data:', error);
+//   }
+// });
 
 // Function to run on Thursdays and Sundays at 8:20 AM     new York lotto
-cron.schedule('58 10 * * 4,0', async () => {
-  try {
-     await newYorkLottoUpdate();
+// cron.schedule('58 10 * * 4,0', async () => {
+//   try {
+//      await newYorkLottoUpdate();
      
- const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexandr';
-        const reason = "Pick 10"
-        const schedule =  moment().tz("America/New_York").format()
+//  const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexandr';
+//         const reason = "Pick 10"
+//         const schedule =  moment().tz("America/New_York").format()
 
-     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    console.log('NewYorkLotto update executed at 8:20 AM on Thursday and Sunday');
-  } catch (error) {
-    console.error('Error fetching NewYorkLotto data:', error);
-  }
-});
+//      await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//     console.log('NewYorkLotto update executed at 8:20 AM on Thursday and Sunday');
+//   } catch (error) {
+//     console.error('Error fetching NewYorkLotto data:', error);
+//   }
+// });
 
 // Functions to run every 12 hours (at 8:20 AM and 15:30 PM)     take5, win4, numbers (midday)
-cron.schedule('20 11 * * *', async () => {
-  try {
-      await threeAtOnceDay();
+// cron.schedule('20 11 * * *', async () => {
+//   try {
+//       await threeAtOnceDay();
 
-      const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-      const memberName = 'Alexandr';
-      const reason = "Pick 10"
-      const schedule =  moment().tz("America/New_York").format()
+//       const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//       const memberName = 'Alexandr';
+//       const reason = "Pick 10"
+//       const schedule =  moment().tz("America/New_York").format()
 
-      await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
-    console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
-  } catch (error) {
-    console.error('Error fetching 12-hour updates:', error);
-  }
-});
+//       await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
+//     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
+//   } catch (error) {
+//     console.error('Error fetching 12-hour updates:', error);
+//   }
+// });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)  take5, win4, numbers (evening)
-cron.schedule('21 11 * * *', async () => {
-  try {
-      await threeAtOnceNight();
+// cron.schedule('21 11 * * *', async () => {
+//   try {
+//       await threeAtOnceNight();
 
-      const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-      const memberName = 'Alexandr';
-      const reason = "Pick 10"
-      const schedule =  moment().tz("America/New_York").format()
+//       const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//       const memberName = 'Alexandr';
+//       const reason = "Pick 10"
+//       const schedule =  moment().tz("America/New_York").format()
 
-      await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
-    console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
-  } catch (error) {
-    console.error('Error fetching 12-hour updates:', error);
-  }
-});
+//       await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
+//     console.log('12-hour updates (Win4, NumbersDays, Take5) executed at 4:30 PM and 11:30 PM');
+//   } catch (error) {
+//     console.error('Error fetching 12-hour updates:', error);
+//   }
+// });
 
 
 

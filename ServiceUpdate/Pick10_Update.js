@@ -1,4 +1,7 @@
 const { default: axios } = require("axios");
+const moment = require('moment-timezone');
+const cron = require('node-cron');
+const nodemailer = require('nodemailer');
 
 
 const updatePick10API = async () => {
@@ -14,6 +17,8 @@ const updatePick10API = async () => {
 
 
 try {
+
+  const data = [];
 
     const options = {
       method: 'GET',
@@ -64,7 +69,7 @@ try {
                               amount: 500000,
                               image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCfHUupp_aPxgQ-XL47tt6G5wx6OnAisilvg&s'
                            };
-
+                           data = updatePick10;
 
                 axios.post('http://localhost:9080/pick10', updatePick10 )
                       .then( response =>  console.log(response.data))
@@ -72,18 +77,66 @@ try {
                       .then( response =>  console.log(response.data))
                               });
 
-
+                              
               });
           }
       }
     }
 
   } );
+
+  const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+  const memberName = 'Alexander';
+  const reason = `The data retrieval from the Pick 10 API has been completed 
+                  successfully. All relevant information has been fetched, 
+                  and the process concluded without any issues.
+                  Data: ${data}
+                  `
+  const schedule =  moment().tz("America/New_York").format()
+
+  await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 } catch (error) {
-  console.error(error);
+  console.error("Error in updatePick10API:", error.message);
+  console.error("Stack trace:", error.stack);
+
+  const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+  const memberName = 'Alexander';
+  const reason = `The data retrieval from the Pick 10 API has not been completed 
+                  successfully. All relevant information has been fetched, 
+                  and the process concluded wit any issues : ${error.message}
+                
+                  `
+  const schedule =  moment().tz("America/New_York").format()
+
+  await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+
+  throw error; 
+
+
+  
 }
 
 }
+
+
+
+const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
+  try {
+      let info = await transporter.sendMail({
+          from: '"Support Team" <alexander.lrperez@gmail.com>', // Sender address
+          to: email, // Recipient email
+          subject: 'Request Data has been made', // Subject line
+          text: `Hello ${memberName}, the request data has been made. Game name: ${reason} at ${schedule}.`, // Plain text body
+          html: `<p>Hello ${memberName},</p><p>the request data has been made. Game name:</p><p><strong>${reason}</strong></p>` // HTML body
+      });
+
+      console.log('Email sent: %s', info.messageId);
+  } catch (error) {
+      console.error('Error sending email:', error);
+
+  }
+};
 
 
 

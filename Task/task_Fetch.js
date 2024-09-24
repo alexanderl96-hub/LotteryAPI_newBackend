@@ -41,14 +41,14 @@ router.get('/trigger-task',  async (req, res) => {
         console.log("Running the task since the time is between 2 AM and 3 AM.");
         await updatePick10API();
 
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = `The data retrieval from the Pick 10 API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-        const schedule =  moment().tz("America/New_York").format()
+        // const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        // const memberName = 'Alexander';
+        // const reason = `The data retrieval from the Pick 10 API has been completed 
+        //                 successfully. All relevant information has been fetched, 
+        //                 and the process concluded without any issues.`
+        // const schedule =  moment().tz("America/New_York").format()
     
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+        // await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     }
 
 
@@ -162,11 +162,11 @@ router.get('/trigger-task',  async (req, res) => {
             res.status(500).send("An error occurred while executing the task."); 
 
             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = `An error occurred while executing the task.`
-        const schedule =  moment().tz("America/New_York").format()
+            const memberName = 'Alexander';
+            const reason = `An error occurred while executing the task: ${error.message}.`
+            const schedule =  moment().tz("America/New_York").format()
 
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
         }
 });
 
@@ -189,6 +189,7 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
         console.log('Email sent: %s', info.messageId);
     } catch (error) {
         console.error('Error sending email:', error);
+
     }
   };
 
@@ -292,7 +293,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 3 && currentMinute >= 0 && currentMinute < 5) {
+    if (currentHour === 3 && currentMinute >= 25 && currentMinute < 30) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
