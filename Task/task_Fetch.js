@@ -292,7 +292,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 0 && currentMinute < 5) {
+    if (currentHour === 3 && currentMinute >= 0 && currentMinute < 5) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
