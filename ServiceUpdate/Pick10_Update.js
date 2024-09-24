@@ -5,29 +5,20 @@ const nodemailer = require('nodemailer');
 
 
 const updatePick10API = async () => {
-  // const options = {
-  //   method: 'GET',
-  //   url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
-  //   headers: {
-  //       'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
-  //       'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
-  //   }
-  // };
+  let daterepose = [];
+
+  const options = {
+    method: 'GET',
+    url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
+    headers: {
+        'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
+        'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
+    }
+  };
 
 
 
 try {
-
-  const data = [];
-
-    const options = {
-      method: 'GET',
-      url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
-      headers: {
-          'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
-          'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
-      }
-    };
 
   axios.request(options)
   .then(response => {
@@ -69,7 +60,7 @@ try {
                               amount: 500000,
                               image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCfHUupp_aPxgQ-XL47tt6G5wx6OnAisilvg&s'
                            };
-                           data = updatePick10;
+                           daterepose = updatePick10;
 
                 axios.post('http://localhost:9080/pick10', updatePick10 )
                       .then( response =>  console.log(response.data))
@@ -113,8 +104,6 @@ try {
 
   throw error; 
 
-
-  
 }
 
 }

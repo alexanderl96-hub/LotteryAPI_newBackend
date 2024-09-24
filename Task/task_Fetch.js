@@ -35,21 +35,19 @@ router.get('/trigger-task',  async (req, res) => {
 
     try {
         
-  
-    
-    if (checkTimePick10()) {
-        console.log("Running the task since the time is between 2 AM and 3 AM.");
-        await updatePick10API();
+        if (checkTimePick10()) {
+            console.log("Running the task since the time is between 2 AM and 3 AM.");
+            await updatePick10API();
 
-        // const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        // const memberName = 'Alexander';
-        // const reason = `The data retrieval from the Pick 10 API has been completed 
-        //                 successfully. All relevant information has been fetched, 
-        //                 and the process concluded without any issues.`
-        // const schedule =  moment().tz("America/New_York").format()
-    
-        // await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    }
+            // const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            // const memberName = 'Alexander';
+            // const reason = `The data retrieval from the Pick 10 API has been completed 
+            //                 successfully. All relevant information has been fetched, 
+            //                 and the process concluded without any issues.`
+            // const schedule =  moment().tz("America/New_York").format()
+        
+            // await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+        }
 
 
 
@@ -293,7 +291,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 3 && currentMinute >= 25 && currentMinute < 30) {
+    if (currentHour === 5 && currentMinute >= 10 && currentMinute < 15) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
