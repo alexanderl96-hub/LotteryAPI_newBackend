@@ -31,6 +31,11 @@ const transporter = nodemailer.createTransport({
 
 // Endpoint to trigger the pick 10 or task manually
 router.get('/trigger-task',  async (req, res) => {
+
+
+    try {
+        
+  
     
     if (checkTimePick10()) {
         console.log("Running the task since the time is between 2 AM and 3 AM.");
@@ -151,6 +156,18 @@ router.get('/trigger-task',  async (req, res) => {
 
 
     res.send('Task has been executed');
+
+        } catch (error) {
+            console.error("Error executing task:", error);
+            res.status(500).send("An error occurred while executing the task."); 
+
+            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = `An error occurred while executing the task.`
+        const schedule =  moment().tz("America/New_York").format()
+
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+        }
 });
 
 
