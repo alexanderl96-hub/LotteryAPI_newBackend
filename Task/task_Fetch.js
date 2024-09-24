@@ -57,7 +57,7 @@ router.get('/trigger-task',  async (req, res) => {
 router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeCash4Life()){
-        // await cashForLifeUpdate();
+        await cashForLifeUpdate();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
@@ -91,7 +91,7 @@ router.get('/trigger-task',  async (req, res) => {
     if(checkTimePowerBall()){
 
             if(checkDayPowerball()){
-                // await powerBallUpdate();
+                await powerBallUpdate();
 
                 const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
                 const memberName = 'Alexander';
@@ -126,7 +126,7 @@ router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeMegaMillions()){
         if(checkDayMegaMillions() ){
-            // await megaMillionsUpdate();;
+            await megaMillionsUpdate();
     
             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
             const memberName = 'Alexander';
@@ -163,7 +163,7 @@ router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeNewYorkLotto()){
         if(checkDayMegaNewYorkLotto()){
-            // await newYorkLottoUpdate();
+            await newYorkLottoUpdate();
     
             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
             const memberName = 'Alexander';
@@ -196,7 +196,7 @@ router.get('/trigger-task',  async (req, res) => {
 router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeComboDay()){
-         // await threeAtOnceDay();
+         await threeAtOnceDay();
 
          const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
          const memberName = 'Alexander';
@@ -227,7 +227,7 @@ router.get('/trigger-task',  async (req, res) => {
 router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeComboNight()){
-        // await threeAtOnceNight();
+        await threeAtOnceNight();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
