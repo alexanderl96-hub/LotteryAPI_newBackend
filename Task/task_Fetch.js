@@ -6,6 +6,8 @@ const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 
 
+var updatePick10API = require('../ServiceUpdate/Pick10_Update.js')
+
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -18,7 +20,7 @@ const transporter = nodemailer.createTransport({
   });
   
 
-var Pick10Update = require('../ServiceUpdate/Pick10_Update.js')
+
 
 
 
@@ -27,7 +29,7 @@ router.get('/trigger-task',  async (req, res) => {
     
     if (checkTimePick10()) {
         console.log("Running the task since the time is between 2 AM and 3 AM.");
-        await Pick10Update();
+        await updatePick10API();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
         const memberName = 'Alexander';
@@ -38,23 +40,8 @@ router.get('/trigger-task',  async (req, res) => {
     
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     }
-    // else {
-    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-    //     const memberName = 'Alexander';
-    //     const reason = `Today's request to the Pick 10 API has already been processed. As the 
-    //                    request for this data has been made successfully, no further requests 
-    //                    are needed for today.`
-    //     const schedule =  moment().tz("America/New_York").format()
 
-    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
-    // }
-
-    res.send('Task has been executed');
-});
-
-// Endpoint to trigger the Cash4life or task manually
-router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeCash4Life()){
         await cashForLifeUpdate();
@@ -68,61 +55,27 @@ router.get('/trigger-task',  async (req, res) => {
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     }
-    // else {
-    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-    //     const memberName = 'Alexander';
-    //     const reason =  `Today's request to the Cash4life API has already been processed. As the 
-    //     request for this data has been made successfully, no further requests 
-    //     are needed for today.`
-    //     const schedule =  moment().tz("America/New_York").format()
 
-    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
-    // }
-    
-    res.send('Task has been executed');
-});
-
-
-// Endpoint to trigger the Powerball or task manually
-router.get('/trigger-task',  async (req, res) => {
 
 
     if(checkTimePowerBall()){
 
-            if(checkDayPowerball()){
-                await powerBallUpdate();
+        if(checkDayPowerball()){
+            await powerBallUpdate();
 
-                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-                const memberName = 'Alexander';
-                const reason = `The data retrieval from the Powerball API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-                const schedule =  moment().tz("America/New_York").format()
+            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            const memberName = 'Alexander';
+            const reason = `The data retrieval from the Powerball API has been completed 
+                    successfully. All relevant information has been fetched, 
+                    and the process concluded without any issues.`
+            const schedule =  moment().tz("America/New_York").format()
 
-                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
-            }
-            // else{
-
-            //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            //     const memberName = 'Alexander';
-            //     const reason =   `Today's request to the Powerball API has already been processed. As the 
-            //     request for this data has been made successfully, no further requests 
-            //     are needed for today.`
-            //     const schedule =  moment().tz("America/New_York").format()
-
-            //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
-            // }
         }
-
-    res.send('Task has been executed');
-});
+    }
 
 
-// Endpoint to trigger the Mega Millions or task manually
-router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeMegaMillions()){
         if(checkDayMegaMillions() ){
@@ -138,28 +91,10 @@ router.get('/trigger-task',  async (req, res) => {
             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
         }
-        // else{
-
-        //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        //     const memberName = 'Alexander';
-        //     const reason =   `Today's request to the Mega millions API has already been processed. As the 
-        //     request for this data has been made successfully, no further requests 
-        //     are needed for today.`
-        //     const schedule =  moment().tz("America/New_York").format()
-    
-        //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    
-        // }
     
     }
 
-  
-    res.send('Task has been executed');
-});
 
-
-// Endpoint to trigger the new york lotto or task manually
-router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeNewYorkLotto()){
         if(checkDayMegaNewYorkLotto()){
@@ -175,58 +110,26 @@ router.get('/trigger-task',  async (req, res) => {
             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
         }
-        // else{
-        //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        //     const memberName = 'Alexander';
-        //     const reason = `Today's request to the New York Lotto API has already been processed. As the 
-        //     request for this data has been made successfully, no further requests 
-        //     are needed for today.`
-        //     const schedule =  moment().tz("America/New_York").format()
-    
-        //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    
-        // }
     }
 
-    res.send('Task has been executed');
-});
-
-
-// Endpoint to trigger the Take5, Win4, numbers at midday
-router.get('/trigger-task',  async (req, res) => {
 
     if(checkTimeComboDay()){
-         await threeAtOnceDay();
+        await threeAtOnceDay();
 
-         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-         const memberName = 'Alexander';
-         const reason = `The data retrieval from the Take5, Win 4 an Numbers Midday API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-         const schedule =  moment().tz("America/New_York").format()
- 
-         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
- 
-    }
-    // else {
-    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-    //     const memberName = 'Alexander';
-    //     const reason = `Today's request to the Take5, Win 4 and Numbers Midday API has already been processed. As the 
-    //     request for this data has been made successfully, no further requests 
-    //     are needed for today.`
-    //     const schedule =  moment().tz("America/New_York").format()
+        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+        const memberName = 'Alexander';
+        const reason = `The data retrieval from the Take5, Win 4 an Numbers Midday API has been completed 
+                       successfully. All relevant information has been fetched, 
+                       and the process concluded without any issues.`
+        const schedule =  moment().tz("America/New_York").format()
 
-    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
-    // }
+   }
 
-    res.send('Task has been executed');
-});
 
-// Endpoint to trigger the Take5, Win4, numbers at night
-router.get('/trigger-task',  async (req, res) => {
 
-    if(checkTimeComboNight()){
+   if(checkTimeComboNight()){
         await threeAtOnceNight();
 
         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
@@ -237,19 +140,10 @@ router.get('/trigger-task',  async (req, res) => {
         const schedule =  moment().tz("America/New_York").format()
 
         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-       
+    
     }
-    // else {
-    //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-    //     const memberName = 'Alexander';
-    //     const reason = `Today's request to the Take5, Win 4 and Numbers Night API has already been processed. As the 
-    //     request for this data has been made successfully, no further requests 
-    //     are needed for today.`
-    //     const schedule =  moment().tz("America/New_York").format()
 
-    //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
-    // }
 
     res.send('Task has been executed');
 });
@@ -299,7 +193,7 @@ const checkTimePowerBall = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 10 && currentMinute <= 15) {
+    if (currentHour === 2 && currentMinute >= 10 && currentMinute < 15) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -329,7 +223,7 @@ const checkTimeMegaMillions = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 15 && currentMinute <= 20) {
+    if (currentHour === 2 && currentMinute >= 15 && currentMinute < 20) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -359,7 +253,7 @@ const checkTimeNewYorkLotto = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 20 && currentMinute <= 25) {
+    if (currentHour === 2 && currentMinute >= 20 && currentMinute < 25) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -376,7 +270,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 0 && currentMinute <= 5) {
+    if (currentHour === 2 && currentMinute >= 0 && currentMinute < 5) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -392,7 +286,7 @@ const checkTimeCash4Life = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 5 && currentMinute <= 10) {
+    if (currentHour === 2 && currentMinute >= 5 && currentMinute < 10) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -407,7 +301,7 @@ const checkTimeComboDay = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 25 && currentMinute <= 30) {
+    if (currentHour === 2 && currentMinute >= 25 && currentMinute < 30) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -423,7 +317,7 @@ const checkTimeComboNight = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 30 && currentMinute <= 35) {
+    if (currentHour === 2 && currentMinute >= 30 && currentMinute < 35) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
