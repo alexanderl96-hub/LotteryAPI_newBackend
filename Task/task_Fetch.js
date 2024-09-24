@@ -6,8 +6,13 @@ const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 
 
-var updatePick10API = require('../ServiceUpdate/Pick10_Update.js')
-
+var updatePick10API = require('../ServiceUpdate/Pick10_Update.js');
+var cashForLifeUpdate = require('../ServiceUpdate/CashForLife_Update.js');
+var powerBallUpdate = require('../ServiceUpdate/PowerBall_Update.js');
+var megaMillionsUpdate = require('../ServiceUpdate/MegaMillions_Update.js');
+var newYorkLottoUpdate = require('../ServiceUpdate/NewYorkLotto_Update.js');
+var threeAtOnceDay = require('../ServiceUpdate/threeAtOnces_Day_Update.js');
+var threeAtOnceNight = require('../ServiceUpdate/threeAtOnces_Night_Update.js')
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
