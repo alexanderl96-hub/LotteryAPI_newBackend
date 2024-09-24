@@ -2,17 +2,28 @@ const { default: axios } = require("axios");
 
 
 const updatePick10API = async () => {
-  const options = {
-    method: 'GET',
-    url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
-    headers: {
-        'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
-        'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
-    }
-};
+  // const options = {
+  //   method: 'GET',
+  //   url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
+  //   headers: {
+  //       'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
+  //       'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
+  //   }
+  // };
+
 
 
 try {
+
+    const options = {
+      method: 'GET',
+      url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
+      headers: {
+          'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
+          'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
+      }
+    };
+
   axios.request(options)
   .then(response => {
     const newDataMegaMillions = response.data
@@ -73,9 +84,6 @@ try {
 }
 
 }
-
-
-
 
 
 
