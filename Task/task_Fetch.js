@@ -111,7 +111,7 @@ router.get('/trigger-task',  async (req, res) => {
                                             `
                             const schedule =  moment().tz("America/New_York").format()
 
-                              sendSuspensionEmail(memberEmail, memberName, reason, schedule);        
+                            //   sendSuspensionEmail(memberEmail, memberName, reason, schedule);        
               
                                             
                             });
@@ -121,16 +121,16 @@ router.get('/trigger-task',  async (req, res) => {
               
                 } );
               
-                // const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-                // const memberName = 'Alexander';
-                // const reason = `The data retrieval from the Pick 10 API has been completed 
-                //                 successfully. All relevant information has been fetched, 
-                //                 and the process concluded without any issues.
-                //                 Data: ${data}
-                //                 `
-                // const schedule =  moment().tz("America/New_York").format()
+                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+                const memberName = 'Alexander';
+                const reason = `The data retrieval from the Pick 10 API has been completed 
+                                successfully. All relevant information has been fetched, 
+                                and the process concluded without any issues.
+                                Data: ${data}
+                                `
+                const schedule =  moment().tz("America/New_York").format()
               
-                // await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
               } catch (error) {
                 console.error("Error in updatePick10API:", error.message);
                 console.error("Stack trace:", error.stack);
@@ -149,6 +149,18 @@ router.get('/trigger-task',  async (req, res) => {
                 throw error; 
               
               }
+
+              const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+              const memberName = 'Alexander';
+              const reason = `The data retrieval from the Pick 10 API has not been completed 
+                              successfully. All relevant information has been fetched, 
+                              and the process concluded wit any issues : ${daterepose}
+                            
+                              `
+              const schedule =  moment().tz("America/New_York").format()
+            
+              await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
 
         }
 
