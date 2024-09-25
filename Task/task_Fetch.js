@@ -47,12 +47,9 @@ router.get('/trigger-task',  async (req, res) => {
     try {
         
         if (checkTimePick10()) {
-            console.log("Running the task since the time is between 2 AM and 3 AM.");
-            // await updatePick10API();
-
             try {
 
-                axios.request(options)
+               await axios.request(options)
                 .then(response => {
                   const newDataMegaMillions = response.data
               
@@ -94,10 +91,10 @@ router.get('/trigger-task',  async (req, res) => {
                                          };
                                          daterepose = updatePick10;
               
-                              axios.post('http://localhost:9080/pick10', updatePick10 )
-                                    .then( response =>  console.log(response.data))
-                              axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
-                                    .then( response =>  console.log(response.data))
+                            //   axios.post('http://localhost:9080/pick10', updatePick10 )
+                            //         .then( response =>  console.log(response.data))
+                            //   axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
+                            //         .then( response =>  console.log(response.data))
                                             });
 
 
@@ -111,7 +108,7 @@ router.get('/trigger-task',  async (req, res) => {
                                             `
                             const schedule =  moment().tz("America/New_York").format()
 
-                            //   sendSuspensionEmail(memberEmail, memberName, reason, schedule);        
+                            //  await sendSuspensionEmail(memberEmail, memberName, reason, schedule);        
               
                                             
                             });
@@ -126,7 +123,7 @@ router.get('/trigger-task',  async (req, res) => {
                 const reason = `The data retrieval from the Pick 10 API has been completed 
                                 successfully. All relevant information has been fetched, 
                                 and the process concluded without any issues.
-                                Data: ${data}
+                                Data: ${daterepose}
                                 `
                 const schedule =  moment().tz("America/New_York").format()
               
@@ -150,125 +147,114 @@ router.get('/trigger-task',  async (req, res) => {
               
               }
 
-              const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-              const memberName = 'Alexander';
-              const reason = `The data retrieval from the Pick 10 API has not been completed 
-                              successfully. All relevant information has been fetched, 
-                              and the process concluded wit any issues : ${daterepose}
-                            
-                              `
-              const schedule =  moment().tz("America/New_York").format()
             
-              await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
-
         }
 
 
 
-    if(checkTimeCash4Life()){
-        await cashForLifeUpdate();
+//     if(checkTimeCash4Life()){
+//         await cashForLifeUpdate();
 
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = `The data retrieval from the Cash4life API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-        const schedule =  moment().tz("America/New_York").format()
+//         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexander';
+//         const reason = `The data retrieval from the Cash4life API has been completed 
+//                         successfully. All relevant information has been fetched, 
+//                         and the process concluded without any issues.`
+//         const schedule =  moment().tz("America/New_York").format()
 
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-    }
-
-
-
-    if(checkTimePowerBall()){
-
-        if(checkDayPowerball()){
-            await powerBallUpdate();
-
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexander';
-            const reason = `The data retrieval from the Powerball API has been completed 
-                    successfully. All relevant information has been fetched, 
-                    and the process concluded without any issues.`
-            const schedule =  moment().tz("America/New_York").format()
-
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-
-        }
-    }
+//         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//     }
 
 
 
-    if(checkTimeMegaMillions()){
-        if(checkDayMegaMillions() ){
-            await megaMillionsUpdate();
+//     if(checkTimePowerBall()){
+
+//         if(checkDayPowerball()){
+//             await powerBallUpdate();
+
+//             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//             const memberName = 'Alexander';
+//             const reason = `The data retrieval from the Powerball API has been completed 
+//                     successfully. All relevant information has been fetched, 
+//                     and the process concluded without any issues.`
+//             const schedule =  moment().tz("America/New_York").format()
+
+//             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+
+//         }
+//     }
+
+
+
+//     if(checkTimeMegaMillions()){
+//         if(checkDayMegaMillions() ){
+//             await megaMillionsUpdate();
     
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexander';
-            const reason =`The data retrieval from the Mega Millions API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-            const schedule =  moment().tz("America/New_York").format()
+//             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//             const memberName = 'Alexander';
+//             const reason =`The data retrieval from the Mega Millions API has been completed 
+//                         successfully. All relevant information has been fetched, 
+//                         and the process concluded without any issues.`
+//             const schedule =  moment().tz("America/New_York").format()
     
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
-        }
+//         }
     
-    }
+//     }
 
 
 
-    if(checkTimeNewYorkLotto()){
-        if(checkDayMegaNewYorkLotto()){
-            await newYorkLottoUpdate();
+//     if(checkTimeNewYorkLotto()){
+//         if(checkDayMegaNewYorkLotto()){
+//             await newYorkLottoUpdate();
     
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexander';
-            const reason = `The data retrieval from the New York Lotto API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-            const schedule =  moment().tz("America/New_York").format()
+//             const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//             const memberName = 'Alexander';
+//             const reason = `The data retrieval from the New York Lotto API has been completed 
+//                         successfully. All relevant information has been fetched, 
+//                         and the process concluded without any issues.`
+//             const schedule =  moment().tz("America/New_York").format()
     
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//             await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
-        }
-    }
+//         }
+//     }
 
 
-    if(checkTimeComboDay()){
-        await threeAtOnceDay();
+//     if(checkTimeComboDay()){
+//         await threeAtOnceDay();
 
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = `The data retrieval from the Take5, Win 4 an Numbers Midday API has been completed 
-                       successfully. All relevant information has been fetched, 
-                       and the process concluded without any issues.`
-        const schedule =  moment().tz("America/New_York").format()
+//         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexander';
+//         const reason = `The data retrieval from the Take5, Win 4 an Numbers Midday API has been completed 
+//                        successfully. All relevant information has been fetched, 
+//                        and the process concluded without any issues.`
+//         const schedule =  moment().tz("America/New_York").format()
 
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
 
-   }
+//    }
 
 
 
-   if(checkTimeComboNight()){
-        await threeAtOnceNight();
+//    if(checkTimeComboNight()){
+//         await threeAtOnceNight();
 
-        const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-        const memberName = 'Alexander';
-        const reason = `The data retrieval from the Take5, Win 4 an Numbers NIght API has been completed 
-                        successfully. All relevant information has been fetched, 
-                        and the process concluded without any issues.`
-        const schedule =  moment().tz("America/New_York").format()
+//         const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+//         const memberName = 'Alexander';
+//         const reason = `The data retrieval from the Take5, Win 4 an Numbers NIght API has been completed 
+//                         successfully. All relevant information has been fetched, 
+//                         and the process concluded without any issues.`
+//         const schedule =  moment().tz("America/New_York").format()
 
-        await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+//         await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
     
-    }
+//     }
 
 
 
-    res.send('Task has been executed');
+             res.send('Task has been executed');
 
         } catch (error) {
             console.error("Error executing task:", error);
@@ -309,94 +295,94 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
 
 
 
-const checkDayPowerball = () => {
-    const today = new Date();
-    const currentDay = today.getDay(); // Get the current day of the week (0-6)
+// const checkDayPowerball = () => {
+//     const today = new Date();
+//     const currentDay = today.getDay(); // Get the current day of the week (0-6)
 
-    // Check if today is Tuesday (2), Thursday (4), or Sunday (0)
-    if (currentDay === 0 || currentDay === 2 || currentDay === 4) {
-        console.log("Today is either Tuesday, Thursday, or Sunday.");
-        return true;
-    } else {
-        console.log("Today is not Tuesday, Thursday, or Sunday.");
-        return false;
-    }
-};
-const checkTimePowerBall = () => {
-    const now = moment().tz("America/New_York");
-    const currentHour = now.hour();   // Get the current hour in New York (0-23)
-    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
-
-
-    // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 10 && currentMinute < 15) {
-        console.log("The current time is between 2 AM and 3 AM.");
-        return true;
-    } else {
-        console.log("The current time is not between 2 AM and 3 AM.");
-        return false;
-    }
-};
+//     // Check if today is Tuesday (2), Thursday (4), or Sunday (0)
+//     if (currentDay === 0 || currentDay === 2 || currentDay === 4) {
+//         console.log("Today is either Tuesday, Thursday, or Sunday.");
+//         return true;
+//     } else {
+//         console.log("Today is not Tuesday, Thursday, or Sunday.");
+//         return false;
+//     }
+// };
+// const checkTimePowerBall = () => {
+//     const now = moment().tz("America/New_York");
+//     const currentHour = now.hour();   // Get the current hour in New York (0-23)
+//     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
 
-const checkDayMegaMillions = () => {
-    const today = new Date();
-    const currentDay = today.getDay(); // Get the current day of the week (0-6)
-
-    // Check if today is Wednesday (3), Saturday (6)
-    if (currentDay === 3 || currentDay === 6 ) {
-        console.log("Today is either Tuesday, Thursday, or Sunday.");
-        return true;
-    } else {
-        console.log("Today is not Tuesday, Thursday, or Sunday.");
-        return false;
-    }
-};
-const checkTimeMegaMillions = () => {
-    const now = moment().tz("America/New_York");
-    const currentHour = now.hour();   // Get the current hour in New York (0-23)
-    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+//     // Check if the current time is between 2 AM (2) and 3 AM (3)
+//     if (currentHour === 2 && currentMinute >= 10 && currentMinute < 15) {
+//         console.log("The current time is between 2 AM and 3 AM.");
+//         return true;
+//     } else {
+//         console.log("The current time is not between 2 AM and 3 AM.");
+//         return false;
+//     }
+// };
 
 
-    // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 15 && currentMinute < 20) {
-        console.log("The current time is between 2 AM and 3 AM.");
-        return true;
-    } else {
-        console.log("The current time is not between 2 AM and 3 AM.");
-        return false;
-    }
-};
+// const checkDayMegaMillions = () => {
+//     const today = new Date();
+//     const currentDay = today.getDay(); // Get the current day of the week (0-6)
+
+//     // Check if today is Wednesday (3), Saturday (6)
+//     if (currentDay === 3 || currentDay === 6 ) {
+//         console.log("Today is either Tuesday, Thursday, or Sunday.");
+//         return true;
+//     } else {
+//         console.log("Today is not Tuesday, Thursday, or Sunday.");
+//         return false;
+//     }
+// };
+// const checkTimeMegaMillions = () => {
+//     const now = moment().tz("America/New_York");
+//     const currentHour = now.hour();   // Get the current hour in New York (0-23)
+//     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
 
-const checkDayMegaNewYorkLotto = () => {
-    const today = new Date();
-    const currentDay = today.getDay(); // Get the current day of the week (0-6)
-
-    // Check if today is Thursday (4), Sunday (0)
-    if (currentDay === 4 || currentDay === 0 ) {
-        console.log("Today is either Tuesday, Thursday, or Sunday.");
-        return true;
-    } else {
-        console.log("Today is not Tuesday, Thursday, or Sunday.");
-        return false;
-    }
-};
-const checkTimeNewYorkLotto = () => {
-    const now = moment().tz("America/New_York");
-    const currentHour = now.hour();   // Get the current hour in New York (0-23)
-    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+//     // Check if the current time is between 2 AM (2) and 3 AM (3)
+//     if (currentHour === 2 && currentMinute >= 15 && currentMinute < 20) {
+//         console.log("The current time is between 2 AM and 3 AM.");
+//         return true;
+//     } else {
+//         console.log("The current time is not between 2 AM and 3 AM.");
+//         return false;
+//     }
+// };
 
 
-    // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 20 && currentMinute < 25) {
-        console.log("The current time is between 2 AM and 3 AM.");
-        return true;
-    } else {
-        console.log("The current time is not between 2 AM and 3 AM.");
-        return false;
-    }
-};
+// const checkDayMegaNewYorkLotto = () => {
+//     const today = new Date();
+//     const currentDay = today.getDay(); // Get the current day of the week (0-6)
+
+//     // Check if today is Thursday (4), Sunday (0)
+//     if (currentDay === 4 || currentDay === 0 ) {
+//         console.log("Today is either Tuesday, Thursday, or Sunday.");
+//         return true;
+//     } else {
+//         console.log("Today is not Tuesday, Thursday, or Sunday.");
+//         return false;
+//     }
+// };
+// const checkTimeNewYorkLotto = () => {
+//     const now = moment().tz("America/New_York");
+//     const currentHour = now.hour();   // Get the current hour in New York (0-23)
+//     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+
+
+//     // Check if the current time is between 2 AM (2) and 3 AM (3)
+//     if (currentHour === 2 && currentMinute >= 20 && currentMinute < 25) {
+//         console.log("The current time is between 2 AM and 3 AM.");
+//         return true;
+//     } else {
+//         console.log("The current time is not between 2 AM and 3 AM.");
+//         return false;
+//     }
+// };
 
 
 
@@ -406,7 +392,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 0 && currentMinute < 5) {
+    if (currentHour === 18 && currentMinute >= 20 && currentMinute < 25) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -415,52 +401,52 @@ const checkTimePick10 = () => {
     }
 };
 
-const checkTimeCash4Life = () => {
-    const now = moment().tz("America/New_York");
-    const currentHour = now.hour();   // Get the current hour in New York (0-23)
-    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+// const checkTimeCash4Life = () => {
+//     const now = moment().tz("America/New_York");
+//     const currentHour = now.hour();   // Get the current hour in New York (0-23)
+//     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
 
-    // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 5 && currentMinute < 10) {
-        console.log("The current time is between 2 AM and 3 AM.");
-        return true;
-    } else {
-        console.log("The current time is not between 2 AM and 3 AM.");
-        return false;
-    }
-};
+//     // Check if the current time is between 2 AM (2) and 3 AM (3)
+//     if (currentHour === 2 && currentMinute >= 5 && currentMinute < 10) {
+//         console.log("The current time is between 2 AM and 3 AM.");
+//         return true;
+//     } else {
+//         console.log("The current time is not between 2 AM and 3 AM.");
+//         return false;
+//     }
+// };
 
-const checkTimeComboDay = () => {
-    const now = moment().tz("America/New_York");
-    const currentHour = now.hour();   // Get the current hour in New York (0-23)
-    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+// const checkTimeComboDay = () => {
+//     const now = moment().tz("America/New_York");
+//     const currentHour = now.hour();   // Get the current hour in New York (0-23)
+//     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
-    // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 25 && currentMinute < 30) {
-        console.log("The current time is between 2 AM and 3 AM.");
-        return true;
-    } else {
-        console.log("The current time is not between 2 AM and 3 AM.");
-        return false;
-    }
-};
+//     // Check if the current time is between 2 AM (2) and 3 AM (3)
+//     if (currentHour === 2 && currentMinute >= 25 && currentMinute < 30) {
+//         console.log("The current time is between 2 AM and 3 AM.");
+//         return true;
+//     } else {
+//         console.log("The current time is not between 2 AM and 3 AM.");
+//         return false;
+//     }
+// };
 
-const checkTimeComboNight = () => {
-    const now = moment().tz("America/New_York");
-    const currentHour = now.hour();   // Get the current hour in New York (0-23)
-    const currentMinute = now.minute(); // Get the current minute in New York (0-59)
+// const checkTimeComboNight = () => {
+//     const now = moment().tz("America/New_York");
+//     const currentHour = now.hour();   // Get the current hour in New York (0-23)
+//     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
 
-    // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 2 && currentMinute >= 30 && currentMinute < 35) {
-        console.log("The current time is between 2 AM and 3 AM.");
-        return true;
-    } else {
-        console.log("The current time is not between 2 AM and 3 AM.");
-        return false;
-    }
-};
+//     // Check if the current time is between 2 AM (2) and 3 AM (3)
+//     if (currentHour === 2 && currentMinute >= 30 && currentMinute < 35) {
+//         console.log("The current time is between 2 AM and 3 AM.");
+//         return true;
+//     } else {
+//         console.log("The current time is not between 2 AM and 3 AM.");
+//         return false;
+//     }
+// };
 
 
 
