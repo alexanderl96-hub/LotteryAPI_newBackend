@@ -45,110 +45,205 @@ router.get('/trigger-task',  async (req, res) => {
   
 
     try {
-        
+
         if (checkTimePick10()) {
-            try {
 
-               await axios.request(options)
-                .then(response => {
-                  const newDataMegaMillions = response.data
+
+        let apiResponse;
+        try {
+            apiResponse = await axios.request(options);  // Use await for axios request
+            console.log('API request successful:', apiResponse.status);
+        } catch (error) {
+            console.error("Error during the API request:", error.message);
+            return res.status(500).send("API request failed: " + error.message); // Exit if API request fails
+        }
+
+
+
+        try {
+            const newDataMegaMillions = apiResponse.data;
+
+            for (const key in newDataMegaMillions) {
+                if (key !== "status") {
+                    const data = newDataMegaMillions[key];
+
+                    if (data.name === "Pick 10") {
+                        data.plays.forEach((play, index) => {
+                            play.draws.forEach(a => {
+                                const numbersArray = a.numbers.map(a => Number(a.value));
+
+                                let updatePick10 = {
+                                    date: a.date,
+                                    one: numbersArray[0],
+                                    two: numbersArray[1],
+                                    three: numbersArray[2],
+                                    four: numbersArray[3],
+                                    five: numbersArray[4],
+                                    six: numbersArray[5],
+                                    seven: numbersArray[6],
+                                    eight: numbersArray[7],
+                                    nine: numbersArray[8],
+                                    ten: numbersArray[9],
+                                    eleven: numbersArray[10],
+                                    twelve: numbersArray[11],
+                                    thirteen: numbersArray[12],
+                                    fourteen: numbersArray[13],
+                                    fifteen: numbersArray[14],
+                                    sixteen: numbersArray[15],
+                                    seventeen: numbersArray[16],
+                                    eighteen: numbersArray[17],
+                                    nineteen: numbersArray[18],
+                                    twenty: numbersArray[19],
+                                    amount: 500000,
+                                    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCfHUupp_aPxgQ-XL47tt6G5wx6OnAisilvg&s'
+                                };
+
+                                daterepose = updatePick10;
+
+                                // POST the data
+                                // axios.post('http://localhost:9080/pick10', updatePick10)
+                                //     .then(response => console.log('Posted to localhost:', response.data))
+                                //     .catch(err => console.log('Error posting to localhost:', err.message));
+
+                                // axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
+                                //     .then(response => console.log('Posted to external API:', response.data))
+                                //     .catch(err => console.log('Error posting to external API:', err.message));
+
+                                console.log(daterepose)
+                            });
+                        });
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Error processing API data:", error.message);
+            return res.status(500).send("Error processing API data: " + error.message); // Exit if processing fails
+        }
+
+        try {
+            const memberEmail = 'alexander.lrperez@gmail.com';
+            const memberName = 'Alexander';
+            const reason = `The data retrieval from the Pick 10 API has been completed successfully. Data: ${JSON.stringify(daterepose)}`;
+            const schedule = moment().tz("America/New_York").format();
+
+            await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
+            console.log('Email sent successfully');
+        } catch (error) {
+            console.error("Error sending email:", error.message);
+            return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
+        }
+
+    }
+        
+        // if (checkTimePick10()) {
+            // try {
+            //    console.log("innnnnn")
+
+            //    await axios.request(options)
+            //     .then(response => {
+            //       const newDataMegaMillions = response.data
               
-                  for(const key in newDataMegaMillions){
-                    if(key !== "status"){
-                        const data = newDataMegaMillions[key];
+            //       for(const key in newDataMegaMillions){
+            //         if(key !== "status"){
+            //             const data = newDataMegaMillions[key];
               
-                        if(data.name === "Pick 10"){
-                            // Log Lotto data with more specific checks
-                            data.plays.forEach((play, index) => {
-                                  console.log("Play inside: ", play)
-                                 play.draws.map(a =>  {
-                                    const numbersArray = a.numbers.map(a => Number(a.value));
+            //             if(data.name === "Pick 10"){
+            //                 // Log Lotto data with more specific checks
+            //                 data.plays.forEach((play, index) => {
+            //                       console.log("Play inside: ", play)
+            //                      play.draws.map(a =>  {
+            //                         console.log("numbers",a.numbers)
+            //                         const numbersArray = a.numbers.map(a => Number(a.value));
               
-                                    let updatePick10 = {
-                                            date: a.date,
-                                            one: numbersArray[0],
-                                            two: numbersArray[1],
-                                            three: numbersArray[2],
-                                            four: numbersArray[3],
-                                            five: numbersArray[4],
-                                            six: numbersArray[5],
-                                            seven: numbersArray[6],
-                                            eight: numbersArray[7],
-                                            nine: numbersArray[8],
-                                            ten: numbersArray[9],
-                                            eleven: numbersArray[10],
-                                            twelve: numbersArray[11],
-                                            thirteen: numbersArray[12],
-                                            fourteen: numbersArray[13],
-                                            fifteen: numbersArray[14],
-                                            sixteen: numbersArray[15],
-                                            seventeen: numbersArray[16],
-                                            eighteen: numbersArray[17],
-                                            nineteen: numbersArray[18],
-                                            twenty: numbersArray[19],   
-                                            amount: 500000,
-                                            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCfHUupp_aPxgQ-XL47tt6G5wx6OnAisilvg&s'
-                                         };
-                                         daterepose = updatePick10;
+            //                         let updatePick10 = {
+            //                                 date: a.date,
+            //                                 one: numbersArray[0],
+            //                                 two: numbersArray[1],
+            //                                 three: numbersArray[2],
+            //                                 four: numbersArray[3],
+            //                                 five: numbersArray[4],
+            //                                 six: numbersArray[5],
+            //                                 seven: numbersArray[6],
+            //                                 eight: numbersArray[7],
+            //                                 nine: numbersArray[8],
+            //                                 ten: numbersArray[9],
+            //                                 eleven: numbersArray[10],
+            //                                 twelve: numbersArray[11],
+            //                                 thirteen: numbersArray[12],
+            //                                 fourteen: numbersArray[13],
+            //                                 fifteen: numbersArray[14],
+            //                                 sixteen: numbersArray[15],
+            //                                 seventeen: numbersArray[16],
+            //                                 eighteen: numbersArray[17],
+            //                                 nineteen: numbersArray[18],
+            //                                 twenty: numbersArray[19],   
+            //                                 amount: 500000,
+            //                                 image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCfHUupp_aPxgQ-XL47tt6G5wx6OnAisilvg&s'
+            //                              };
+            //                              daterepose = updatePick10;
               
-                            //   axios.post('http://localhost:9080/pick10', updatePick10 )
-                            //         .then( response =>  console.log(response.data))
-                            //   axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
-                            //         .then( response =>  console.log(response.data))
-                                            });
+            //                 //   axios.post('http://localhost:9080/pick10', updatePick10 )
+            //                 //         .then( response =>  console.log(response.data))
+            //                 //   axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
+            //                 //         .then( response =>  console.log(response.data))
+            //                                 });
 
 
 
-                            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-                            const memberName = 'Alexander';
-                            const reason = `The data retrieval from the Pick 10 API has been completed 
-                                            successfully. All relevant information has been fetched, 
-                                            and the process concluded without any issues.
-                                            Data: ${numbersArray}
-                                            `
-                            const schedule =  moment().tz("America/New_York").format()
+            //                 const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            //                 const memberName = 'Alexander';
+            //                 const reason = `error first.
+            //                                 Data: ${numbersArray}
+            //                                 `
+            //                                 // const reason = `The data retrieval from the Pick 10 API has been completed 
+            //                                 // successfully. All relevant information has been fetched, 
+            //                                 // and the process concluded without any issues.
+            //                                 // Data: ${numbersArray}
+            //                                 // `
+            //                 const schedule =  moment().tz("America/New_York").format()
 
-                            //  await sendSuspensionEmail(memberEmail, memberName, reason, schedule);        
+            //                 //  await sendSuspensionEmail(memberEmail, memberName, reason, schedule);        
               
                                             
-                            });
-                        }
-                    }
-                  }
+            //                 });
+            //             }
+            //         }
+            //       }
               
-                } );
+            //     } );
               
-                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-                const memberName = 'Alexander';
-                const reason = `The data retrieval from the Pick 10 API has been completed 
-                                successfully. All relevant information has been fetched, 
-                                and the process concluded without any issues.
-                                Data: ${daterepose}
-                                `
-                const schedule =  moment().tz("America/New_York").format()
+            //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            //     const memberName = 'Alexander';
+            //     const reason = `eeror.
+            //                     Data: ${daterepose}
+            //                     `
+            //                     // const reason = `The data retrieval from the Pick 10 API has been completed 
+            //                     // successfully. All relevant information has been fetched, 
+            //                     // and the process concluded without any issues.
+            //                     // Data: ${daterepose}
+            //                     // `
+            //     const schedule =  moment().tz("America/New_York").format()
               
-                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
-              } catch (error) {
-                console.error("Error in updatePick10API:", error.message);
-                console.error("Stack trace:", error.stack);
+            //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+            //   } catch (error) {
+            //     console.error("Error in updatePick10API:", error.message);
+            //     console.error("Stack trace:", error.stack);
               
-                const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-                const memberName = 'Alexander';
-                const reason = `The data retrieval from the Pick 10 API has not been completed 
-                                successfully. All relevant information has been fetched, 
-                                and the process concluded wit any issues : ${error.message}
+            //     const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            //     const memberName = 'Alexander';
+            //     const reason = `errror last : ${error.message}
                               
-                                `
-                const schedule =  moment().tz("America/New_York").format()
+            //                     `
+            //     const schedule =  moment().tz("America/New_York").format()
               
-                await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+            //     await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
               
-                throw error; 
+            //     throw error; 
               
-              }
+            //   }
 
             
-        }
+        // }
 
 
 
@@ -258,14 +353,14 @@ router.get('/trigger-task',  async (req, res) => {
 
         } catch (error) {
             console.error("Error executing task:", error);
-            res.status(500).send("An error occurred while executing the task."); 
+            // res.status(500).send("An error occurred while executing the task."); 
 
-            const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
-            const memberName = 'Alexander';
-            const reason = `An error occurred while executing the task: ${error.message}.`
-            const schedule =  moment().tz("America/New_York").format()
+            // const memberEmail = 'alexander.lrperez@gmail.com'; // Get member's email from your database
+            // const memberName = 'Alexander';
+            // const reason = `An error occurred while executing the task: ${error.message}.`
+            // const schedule =  moment().tz("America/New_York").format()
 
-            await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
+            // await sendSuspensionEmail(memberEmail, memberName, reason, schedule); 
         }
 });
 
@@ -392,7 +487,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 18 && currentMinute >= 40 && currentMinute < 45) {
+    if (currentHour === 18 && currentMinute >= 55 && currentMinute < 60) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
