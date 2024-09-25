@@ -104,7 +104,7 @@ router.get('/trigger-task',  async (req, res) => {
                             const reason = `The data retrieval from the Pick 10 API has been completed 
                                             successfully. All relevant information has been fetched, 
                                             and the process concluded without any issues.
-                                            Data: ${updatePick10}
+                                            Data: ${numbersArray}
                                             `
                             const schedule =  moment().tz("America/New_York").format()
 
@@ -392,7 +392,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 18 && currentMinute >= 20 && currentMinute < 25) {
+    if (currentHour === 18 && currentMinute >= 40 && currentMinute < 45) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
