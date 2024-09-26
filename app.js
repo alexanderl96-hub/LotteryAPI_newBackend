@@ -59,6 +59,7 @@ var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
 
 
 var TaskSchedule = require('./Task/task_Fetch.js')
+var TestSchedule = require('./Task/test-fecthdata.js')
 
 
 
@@ -103,7 +104,7 @@ cron.schedule('55 17 * * *', async () => {
   });
 
   // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
-cron.schedule('56 17 * * *', async () => {
+cron.schedule('27 13 * * *', async () => {
   try {
 
       await cashForLifeUpdate();
@@ -121,7 +122,7 @@ cron.schedule('56 17 * * *', async () => {
 });
 
 // Function to run on Tuesdays,4  Thursdays, and Sundays at 8:20 AM Powerball
-  cron.schedule('38 13 * * 2,4,0', async () => {
+  cron.schedule('28 13 * * 2,4,0', async () => {
     try {
         await powerBallUpdate();
 
@@ -156,7 +157,7 @@ cron.schedule('57 17 * * 3,6', async () => {
 });
 
 // Function to run on Thursdays and Sundays at 8:20 AM     new York lotto
-cron.schedule('58 10 * * 4,0', async () => {
+cron.schedule('29 13 * * 4,0', async () => {
   try {
      await newYorkLottoUpdate();
      
@@ -173,7 +174,7 @@ cron.schedule('58 10 * * 4,0', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 15:30 PM)     take5, win4, numbers (midday)
-cron.schedule('52 14 * * *', async () => {
+cron.schedule('30 13 * * *', async () => {
   try {
       await threeAtOnceDay();
 
@@ -190,7 +191,7 @@ cron.schedule('52 14 * * *', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)  take5, win4, numbers (evening)
-cron.schedule('54 14 * * *', async () => {
+cron.schedule('31 13 * * *', async () => {
   try {
       await threeAtOnceNight();
 
@@ -228,7 +229,8 @@ app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
 
-app.use('/api-fetch', TaskSchedule);
+app.use('/api-fetch', TaskSchedule);TestSchedule
+app.use('/api-fetch', TestSchedule)
 
 
 app.use('/text', predictionText)
