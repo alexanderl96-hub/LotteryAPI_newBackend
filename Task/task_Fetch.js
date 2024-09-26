@@ -877,7 +877,7 @@ const checkTimeCash4Life = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 12 && currentMinute >= 55 && currentMinute < 60) {
+    if (currentHour === 13 && currentMinute >= 0 && currentMinute < 5) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
