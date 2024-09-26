@@ -135,76 +135,85 @@ router.get('/trigger-task',  async (req, res) => {
          }
 
 
-        //  if(checkTimeCash4Life()){
+         if(checkTimeCash4Life()){
+            const options = {
+                method: 'GET',
+                url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
+                headers: {
+                    'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
+                    'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
+                }
+              };
 
-        //     let apiResponse;
-        //     try {
-        //         apiResponse = await axios.request(options);  // Use await for axios request
-        //         console.log('API request successful:', apiResponse.status);
-        //     } catch (error) {
-        //         console.error("Error during the API request:", error.message);
-        //         return res.status(500).send("API request failed: " + error.message); // Exit if API request fails
-        //     }
+            let apiResponse;
+            try {
+                apiResponse = await axios.request(options);  // Use await for axios request
+                console.log('API request successful:', apiResponse.status);
+            } catch (error) {
+                console.error("Error during the API request:", error.message);
+                return res.status(500).send("API request failed: " + error.message); // Exit if API request fails
+            }
 
-        //     try {
-        //         const newDataMegaMillions = response.data
+            try {
+                const newDataMegaMillions = response.data
 
-        //             for(const key in newDataMegaMillions){
-        //             if(key !== "status"){
-        //                 const data = newDataMegaMillions[key];
+                    for(const key in newDataMegaMillions){
+                    if(key !== "status"){
+                        const data = newDataMegaMillions[key];
 
-        //                 if(data.name === "Cash4Life"){
-        //                     data.plays.forEach((play, index) => {
-        //                             console.log("Play: ", play)
-        //                         play.draws.map(a =>  {
-        //                             const numbersArray = a.numbers.map(a => Number(a.value));
+                        if(data.name === "Cash4Life"){
+                            data.plays.forEach((play, index) => {
+                                    console.log("Play: ", play)
+                                play.draws.map(a =>  {
+                                    const numbersArray = a.numbers.map(a => Number(a.value));
 
-        //                             let updatePick10 = {
-        //                                     date: a.date,
-        //                                     one: numbersArray[0],
-        //                                     two: numbersArray[1],
-        //                                     three: numbersArray[2],
-        //                                     four: numbersArray[3],
-        //                                     five: numbersArray[4],
-        //                                     cashball: numbersArray[5],
-        //                                     amount: 1000,
-        //                                     image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
-        //                                 };
+                                    let updatePick10 = {
+                                            date: a.date,
+                                            one: numbersArray[0],
+                                            two: numbersArray[1],
+                                            three: numbersArray[2],
+                                            four: numbersArray[3],
+                                            five: numbersArray[4],
+                                            cashball: numbersArray[5],
+                                            amount: 1000,
+                                            image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                        };
 
-        //                                 console.log("Cash4Life: ", updatePick10)
+                                        console.log("Cash4Life: ", updatePick10)
 
-        //                             axios.post('http://localhost:9080/cash4Life', updatePick10)
-        //                                  .then(response => console.log('Posted to localhost:', response.data))
-        //                                  .catch(err => console.log('Error posting to localhost:', err.message));
-        //                             axios.post('https://lotteryapi-newbackend2024.adaptable.app/cash4Life', updatePick10)
-        //                                  .then(response => console.log('Posted to localhost:', response.data))
-        //                                  .catch(err => console.log('Error posting to localhost:', err.message));
+                                    // axios.post('http://localhost:9080/cash4Life', updatePick10)
+                                    //      .then(response => console.log('Posted to localhost:', response.data))
+                                    //      .catch(err => console.log('Error posting to localhost:', err.message));
+                                    // axios.post('https://lotteryapi-newbackend2024.adaptable.app/cash4Life', updatePick10)
+                                    //      .then(response => console.log('Posted to localhost:', response.data))
+                                    //      .catch(err => console.log('Error posting to localhost:', err.message));
 
-        //                         });
-        //                     });
-        //                 }
-        //             }
-        //             }
-        //     } catch (error) {
-        //           console.error("Error processing API data:", error.message);
-        //             return res.status(500).send("Error processing API data: " + error.message);
-        //     }
+                                });
+                            });
+                        }
+                    }
+                    }
+            } catch (error) {
+                  console.error("Error processing API data:", error.message);
+                    return res.status(500).send("Error processing API data: " + error.message);
+            }
 
-        //     try {
-        //         const memberEmail = 'alexander.lrperez@gmail.com';
-        //         const memberName = 'Alexander';
-        //         const reason = `The data retrieval from the Cash4Life API has been completed successfully. Data: ${JSON.stringify(daterepose)}`;
-        //         const schedule = moment().tz("America/New_York").format();
+            try {
+                const memberEmail = 'alexander.lrperez@gmail.com';
+                const memberName = 'Alexander';
+                const reason = `The data retrieval from the Cash4Life API has been completed successfully. Data: ${JSON.stringify(daterepose)}`;
+                const schedule = moment().tz("America/New_York").format();
 
-        //         await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
-        //         console.log('Email sent successfully');
-        //     } catch (error) {
-        //         console.error("Error sending email:", error.message);
-        //         return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
-        //     }
+                await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
+                console.log('Email sent successfully');
+            } catch (error) {
+                console.error("Error sending email:", error.message);
+                return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
+            }
 
 
-        //  }
+         }
+
 
 
         //  if(checkTimePowerBall() && checkDayPowerball() ){
@@ -852,7 +861,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 12 && currentMinute >= 35 && currentMinute < 40) {
+    if (currentHour === 12 && currentMinute >= 50 && currentMinute < 55) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -868,7 +877,7 @@ const checkTimeCash4Life = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 5 && currentMinute < 10) {
+    if (currentHour === 12 && currentMinute >= 55 && currentMinute < 60) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
