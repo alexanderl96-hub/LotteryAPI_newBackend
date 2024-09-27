@@ -845,13 +845,13 @@ router.get('/trigger-task-pick10',  async (req, res) => {
          res.send('Task has been executed');
 
     } catch (error) {
-            console.error("Error executing task:", error);
+            console.error("Error executing task Pick 10:", error);
 
     }
 });
 
 
-router.get('/trigger-task-cash4life',  async (req, res) => {
+router.get('/trigger-task/cash4life',  async (req, res) => {
     let daterepose = [];
     const options = {
         method: 'GET',
@@ -875,7 +875,7 @@ router.get('/trigger-task-cash4life',  async (req, res) => {
                 }
         
                 try {
-                    const newDataMegaMillions = response.data
+                    const newDataMegaMillions = apiResponse.data
         
                         for(const key in newDataMegaMillions){
                         if(key !== "status"){
@@ -900,6 +900,7 @@ router.get('/trigger-task-cash4life',  async (req, res) => {
                                             };
         
                                             console.log("Cash4Life: ", updatePick10)
+                                            daterepose = updatePick10;
         
                                         axios.post('http://localhost:9080/cash4Life', updatePick10)
                                              .then(response => console.log('Posted to localhost:', response.data))
@@ -937,13 +938,104 @@ router.get('/trigger-task-cash4life',  async (req, res) => {
          res.send('Task has been executed');
 
       } catch (error) {
-        console.error("Error executing task:", error);
+        console.error("Error executing task for Cash4Life:", error);
       }
 });
 
 
 
 
+
+router.get('/trigger-task/powerball',  async (req, res) => {
+    let daterepose = [];
+    const options = {
+        method: 'GET',
+        url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
+        headers: {
+            'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
+            'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
+        }
+      };
+     
+    try {
+
+         if(checkTimePowerBall() && checkDayPowerball() ){
+
+            let apiResponse;
+            try {
+                apiResponse = await axios.request(options);  // Use await for axios request
+                console.log('API request successful:', apiResponse.status);
+            } catch (error) {
+                console.error("Error during the API request:", error.message);
+                return res.status(500).send("API request failed: " + error.message); // Exit if API request fails
+            }
+
+            try {
+                const newDataMegaMillions = apiResponse.data
+
+                for(const key in newDataMegaMillions){
+                    if(key !== "status"){
+                        const data = newDataMegaMillions[key];
+          
+                        if(data.name === "Powerball"){
+        //                 //     // Log Lotto data with more specific checks
+                            data.plays.forEach((play, index) => {
+          
+                                 play.draws.map(a =>  {
+                                    const numbersArray = a.numbers.map(a => Number(a.value));
+          
+                                    let updatePick10 = {
+                                            date: a.date,
+                                            one: numbersArray[0],
+                                            two: numbersArray[1],
+                                            three: numbersArray[2],
+                                            four: numbersArray[3],
+                                            five: numbersArray[4],
+                                            powerball_lucky: numbersArray[5],
+                                            powerplay: numbersArray[6],
+                                            amount: a.nextDrawJackpot,
+                                            image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                         };
+
+                                         daterepose = updatePick10
+          
+                                    // axios.post('http://localhost:9080/powerBall', updatePick10)
+                                    //      .then( response =>  console.log(response.data))
+                                    //      .catch(response =>  console.log(response.data))
+                                    // axios.post('https://lotteryapi-newbackend2024.adaptable.app/powerBall', updatePick10)
+                                    //      .then( response =>  console.log(response.data))
+                                    //      .catch(response =>  console.log(response.data))
+          
+                                 });
+                            });
+                        }
+                    }
+                  }
+            } catch (error) {
+                  console.error("Error processing API data:", error.message);
+                    return res.status(500).send("Error processing API data: " + error.message);
+            }
+
+            try {
+                const memberEmail = 'alexander.lrperez@gmail.com';
+                const memberName = 'Alexander';
+                const reason = `The data retrieval from the PowerBall API has been completed successfully. Data: ${JSON.stringify(daterepose)}`;
+                const schedule = moment().tz("America/New_York").format();
+
+                await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
+                console.log('Email sent successfully');
+            } catch (error) {
+                console.error("Error sending email:", error.message);
+                return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
+            }
+
+         }
+        
+    } catch (error) {
+        console.error("Error executing task for PowerBall:", error);
+    }
+
+});
 
 
 const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
@@ -1080,7 +1172,7 @@ const checkTimeCash4Life = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 14 && currentMinute >= 15 && currentMinute < 20) {
+    if (currentHour === 14 && currentMinute >= 45 && currentMinute < 50) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
