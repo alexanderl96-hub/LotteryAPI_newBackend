@@ -174,7 +174,7 @@ cron.schedule('29 13 * * 4,0', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 15:30 PM)     take5, win4, numbers (midday)
-cron.schedule('30 13 * * *', async () => {
+cron.schedule('49 13 * * *', async () => {
   try {
       await threeAtOnceDay();
 
@@ -191,7 +191,7 @@ cron.schedule('30 13 * * *', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)  take5, win4, numbers (evening)
-cron.schedule('31 13 * * *', async () => {
+cron.schedule('50 13 * * *', async () => {
   try {
       await threeAtOnceNight();
 
