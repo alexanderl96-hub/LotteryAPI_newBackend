@@ -18,38 +18,6 @@ const transporter = nodemailer.createTransport({
   
 
 
-// Endpoint to trigger the pick 10 or task manually
-// router.get('/trigger-task',  async (req, res) => {
-//     let daterepose = [];
-
-//     // const options = {
-//     //   method: 'GET',
-//     //   url: 'https://lottery-results.p.rapidapi.com/games-by-state/us/ny',
-//     //   headers: {
-//     //       'x-rapidapi-key': '4be35f9dcbmshc5f07ead15abe9ep1399e7jsn4fb04336cc72',
-//     //       'x-rapidapi-host': 'lottery-results.p.rapidapi.com'
-//     //   }
-//     // };
-  
-
-//     // try {
-
-
-       
-
-
-
-
-
-
-//         res.send('Task has been executed');
-
-//         } catch (error) {
-//             console.error("Error executing task:", error);
-
-//         }
-// });
-
 
 // Endpoint to trigger the pick 10 or task manually
 router.get('/trigger-task-pick10',  async (req, res) => {
@@ -268,8 +236,8 @@ router.get('/trigger-task/powerball',  async (req, res) => {
       };
      
     try {
-        // && checkDayPowerball() 
-         if(checkTimePowerBall() ){
+        
+         if(checkTimePowerBall() && checkDayPowerball()  ){
 
             let apiResponse;
             try {
@@ -363,8 +331,8 @@ router.get('/trigger-task/megamillions', async (req, res) => {
 
       try {
         
-        // && checkDayMegaMillions()
-         if(checkTimeMegaMillions()  ){
+        // 
+         if(checkTimeMegaMillions() && checkDayMegaMillions() ){
 
             let apiResponse;
             try {
@@ -406,12 +374,12 @@ router.get('/trigger-task/megamillions', async (req, res) => {
 
                                          daterepose = updatePick10;
           
-                            //   axios.post('http://localhost:9080/megamillions', updatePick10)
-                            //        .then( response =>  console.log(response.data))
-                            //        .catch( response =>  console.log(response.data))
-                            //   axios.post('https://lotteryapi-newbackend2024.adaptable.app/megamillions', updatePick10)
-                            //        .then( response =>  console.log(response.data))
-                            //        .catch( response =>  console.log(response.data))
+                              axios.post('http://localhost:9080/megamillions', updatePick10)
+                                   .then( response =>  console.log(response.data))
+                                   .catch( response =>  console.log(response.data))
+                              axios.post('https://lotteryapi-newbackend2024.adaptable.app/megamillions', updatePick10)
+                                   .then( response =>  console.log(response.data))
+                                   .catch( response =>  console.log(response.data))
           
                                  });
                             });
@@ -458,8 +426,8 @@ router.get("/trigger-task/newyorklotto", async (req, res) => {
 
 
       try {
-        // && checkDayMegaNewYorkLotto() 
-         if(checkTimeNewYorkLotto()){
+        // 
+         if(checkTimeNewYorkLotto() && checkDayMegaNewYorkLotto() ){
 
             let apiResponse;
             try {
@@ -499,12 +467,12 @@ router.get("/trigger-task/newyorklotto", async (req, res) => {
 
                                          daterepose = updatePick10
         
-                                        //  axios.post('http://localhost:9080/newyorklotto', updatePick10 )
-                                        //       .then( response =>  console.log(response.data))
-                                        //       .catch( response =>  console.log(response.data))
-                                        //  axios.post('https://lotteryapi-newbackend2024.adaptable.app/newyorklotto', updatePick10)
-                                        //       .then( response =>  console.log(response.data))
-                                        //       .catch( response =>  console.log(response.data))
+                                         axios.post('http://localhost:9080/newyorklotto', updatePick10 )
+                                              .then( response =>  console.log(response.data))
+                                              .catch( response =>  console.log(response.data))
+                                         axios.post('https://lotteryapi-newbackend2024.adaptable.app/newyorklotto', updatePick10)
+                                              .then( response =>  console.log(response.data))
+                                              .catch( response =>  console.log(response.data))
         
                                  });
                             });
@@ -632,12 +600,12 @@ router.get("/trigger-task/comboday", async (req, res) => {
                                             console.log("Check the structure of Win 4: ", updatePick10)
                                             daterepose = updatePick10 ;
 
-                                            // axios.post('http://localhost:9080/win4Day', updatePick10 )
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
-                                            // axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
+                                            axios.post('http://localhost:9080/win4Day', updatePick10 )
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
+                                            axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
            
                                     });
         
@@ -667,12 +635,12 @@ router.get("/trigger-task/comboday", async (req, res) => {
                                             console.log("Check the structure of Numbers: ", updatePick10)
                                             daterepose = updatePick10 ;
 
-                                            // axios.post('http://localhost:9080/numbersday', updatePick10 )
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
-                                            // axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
+                                            axios.post('http://localhost:9080/numbersday', updatePick10 )
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
+                                            axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
            
                                     });
         
@@ -771,12 +739,12 @@ router.get("/trigger-task/combonight", async (req, res) => {
             
                                              daterepose = updatePick10;
 
-                                            //  axios.post('http://localhost:9080/take5Day', updatePick10 )
-                                            //       .then( response =>  console.log(response.data))
-                                            //       .catch( response =>  console.log(response.data))
-                                            //  axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
-                                            //       .then( response =>  console.log(response.data))
-                                            //       .catch( response =>  console.log(response.data))
+                                             axios.post('http://localhost:9080/take5Day', updatePick10 )
+                                                  .then( response =>  console.log(response.data))
+                                                  .catch( response =>  console.log(response.data))
+                                             axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
+                                                  .then( response =>  console.log(response.data))
+                                                  .catch( response =>  console.log(response.data))
             
                                      });
         
@@ -807,12 +775,12 @@ router.get("/trigger-task/combonight", async (req, res) => {
                                             console.log("Check the structure of Win 4: ", updatePick10)
                                             daterepose = updatePick10;
 
-                                            // axios.post('http://localhost:9080/win4Day', updatePick10 )
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
-                                            // axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
+                                            axios.post('http://localhost:9080/win4Day', updatePick10 )
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
+                                            axios.post('https://lotteryapi-newbackend2024.adaptable.app/win4Day', updatePick10)
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
            
                                     });
         
@@ -842,12 +810,12 @@ router.get("/trigger-task/combonight", async (req, res) => {
                                             console.log("Check the structure of Numbers: ", updatePick10)
                                             daterepose = updatePick10;
 
-                                            // axios.post('http://localhost:9080/numbersday', updatePick10 )
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
-                                            // axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
-                                            //      .then( response =>  console.log(response.data))
-                                            //      .catch( response =>  console.log(response.data))
+                                            axios.post('http://localhost:9080/numbersday', updatePick10 )
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
+                                            axios.post('https://lotteryapi-newbackend2024.adaptable.app/numbersday', updatePick10)
+                                                 .then( response =>  console.log(response.data))
+                                                 .catch( response =>  console.log(response.data))
            
                                     });
         
@@ -929,7 +897,7 @@ const checkTimePowerBall = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 16 && currentMinute >= 15 && currentMinute < 20) {
+    if (currentHour === 1 && currentMinute >= 25 && currentMinute < 30) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -959,7 +927,7 @@ const checkTimeMegaMillions = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 16 && currentMinute >= 20 && currentMinute < 25) {
+    if (currentHour === 1 && currentMinute >= 30 && currentMinute < 35) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -989,7 +957,7 @@ const checkTimeNewYorkLotto = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 14 && currentMinute >= 25 && currentMinute < 30) {
+    if (currentHour === 1 && currentMinute >= 35 && currentMinute < 40) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -1006,7 +974,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 14 && currentMinute >= 5 && currentMinute < 10) {
+    if (currentHour === 1 && currentMinute >= 0 && currentMinute < 5) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -1022,7 +990,7 @@ const checkTimeCash4Life = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 15 && currentMinute >= 0 && currentMinute < 5) {
+    if (currentHour === 1 && currentMinute >= 5 && currentMinute < 10) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -1037,7 +1005,7 @@ const checkTimeComboDay = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 14 && currentMinute >= 30 && currentMinute < 35) {
+    if (currentHour === 1 && currentMinute >= 15 && currentMinute < 20) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -1053,7 +1021,7 @@ const checkTimeComboNight = () => {
 
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 14 && currentMinute >= 35 && currentMinute < 40) {
+    if (currentHour === 1 && currentMinute >= 20 && currentMinute < 25) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {

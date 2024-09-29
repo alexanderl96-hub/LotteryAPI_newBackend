@@ -122,7 +122,7 @@ cron.schedule('27 13 * * *', async () => {
 });
 
 // Function to run on Tuesdays,4  Thursdays, and Sundays at 8:20 AM Powerball
-  cron.schedule('28 13 * * 2,4,0', async () => {
+  cron.schedule('28 23 * * 2,4,0', async () => {
     try {
         await powerBallUpdate();
 
@@ -140,7 +140,7 @@ cron.schedule('27 13 * * *', async () => {
   });
 
   // Function to run on Wednesdays and Saturdays at 8:20 AM Mega Millions
-cron.schedule('57 17 * * 3,6', async () => {
+cron.schedule('15 23 * * 3,6', async () => {
   try {
     await megaMillionsUpdate();
 
@@ -174,7 +174,7 @@ cron.schedule('29 13 * * 4,0', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 15:30 PM)     take5, win4, numbers (midday)
-cron.schedule('49 13 * * *', async () => {
+cron.schedule('10 12 * * *', async () => {
   try {
       await threeAtOnceDay();
 
@@ -191,7 +191,7 @@ cron.schedule('49 13 * * *', async () => {
 });
 
 // Functions to run every 12 hours (at 8:20 AM and 8:20 PM)  take5, win4, numbers (evening)
-cron.schedule('50 13 * * *', async () => {
+cron.schedule('11 12 * * *', async () => {
   try {
       await threeAtOnceNight();
 
