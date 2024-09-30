@@ -22,6 +22,7 @@ router.get('/:id', async (req, res) => {
     try {
         const element = await db.one('SELECT * FROM numbers_day WHERE id = $1',[req.params.id]);
         res.json(element);
+        
     } catch (error) {
         res.send({
             status: 404,
@@ -56,9 +57,9 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const element = await db.one('DELETE FROM numbers_day WHERE id = $1', [req.params.id]);
-        res.json(element)
-        res.send({
-            status: "Success", message: 'Element ID has been deleted successfully'
+        // res.json(element)
+        res.json({
+            status: "Success", message: `Element  ID :${element} has been deleted successfully`
         })
     } catch (error) {
         res.send({

@@ -17,8 +17,6 @@ const transporter = nodemailer.createTransport({
   });
   
 
-
-
 // Endpoint to trigger the pick 10 or task manually
 router.get('/trigger-task-pick10',  async (req, res) => {
     let daterepose = [];
@@ -855,6 +853,8 @@ router.get("/trigger-task/combonight", async (req, res) => {
 })
 
 
+
+
 const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
     try {
         let info = await transporter.sendMail({
@@ -871,7 +871,6 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
 
     }
   };
-
 
 
 
@@ -973,7 +972,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 20 && currentMinute >= 30 && currentMinute < 35) {
+    if (currentHour === 1 && currentMinute >= 0 && currentMinute < 5) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -1030,6 +1029,4 @@ const checkTimeComboNight = () => {
 };
 
 
-
-
-  module.exports = router;
+module.exports = router;

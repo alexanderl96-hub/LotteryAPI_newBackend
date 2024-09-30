@@ -58,8 +58,7 @@ var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
 var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
 
 
-var TaskSchedule = require('./Task/task_Fetch.js')
-var TestSchedule = require('./Task/test-fecthdata.js')
+var TaskSchedule = require('./Task/task_Fetch.js');
 
 
 
@@ -86,7 +85,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-cron.schedule('55 17 * * *', async () => {
+cron.schedule('27 20 * * *', async () => {
     try {
       // console.log('Cron job executed:', moment().tz("America/New_York").format());
         await Pick10Update();
@@ -104,7 +103,7 @@ cron.schedule('55 17 * * *', async () => {
   });
 
   // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
-cron.schedule('27 13 * * *', async () => {
+cron.schedule('39 20 * * *', async () => {
   try {
 
       await cashForLifeUpdate();
@@ -229,8 +228,7 @@ app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
 
-app.use('/api-fetch', TaskSchedule);TestSchedule
-app.use('/api-fetch', TestSchedule)
+app.use('/api-fetch', TaskSchedule);
 
 
 app.use('/text', predictionText)

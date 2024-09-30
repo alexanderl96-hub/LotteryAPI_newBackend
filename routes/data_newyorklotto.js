@@ -56,9 +56,9 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const element = await db.one('DELETE FROM new_york_lotto WHERE id = $1', [req.params.id]);
-        res.json(element)
-        res.send({
-            status: "Success", message: 'Element ID has been deleted successfully'
+        // res.json(element)
+        res.json({
+            status: "Success", message: `Element  ID :${element} has been deleted successfully`
         })
     } catch (error) {
         res.send({
