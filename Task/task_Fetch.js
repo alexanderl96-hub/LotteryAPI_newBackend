@@ -47,7 +47,6 @@ router.get('/trigger-task-pick10',  async (req, res) => {
                 }
 
 
-
                 try {
                     const newDataMegaMillions = apiResponse.data;
 
@@ -93,9 +92,9 @@ router.get('/trigger-task-pick10',  async (req, res) => {
                                             .then(response => console.log('Posted to localhost:', response.data))
                                             .catch(err => console.log('Error posting to localhost:', err.message));
 
-                                        axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
-                                            .then(response => console.log('Posted to external API:', response.data))
-                                            .catch(err => console.log('Error posting to external API:', err.message));
+                                        // axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
+                                        //     .then(response => console.log('Posted to external API:', response.data))
+                                        //     .catch(err => console.log('Error posting to external API:', err.message));
 
                                         console.log(daterepose)
                                     });
@@ -974,7 +973,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 0 && currentMinute < 5) {
+    if (currentHour === 20 && currentMinute >= 30 && currentMinute < 35) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
