@@ -101,8 +101,7 @@ const megaMillionsUpdate = async () => {
 
                     axios.post('http://localhost:9080/megamillions', updatePick10)
                          .then( response =>  console.log(response.data))
-                    axios.post('https://lotteryapi-newbackend2024.adaptable.app/megamillions', updatePick10)
-                         .then( response =>  console.log(response.data))
+                  
 
                        });
                   });

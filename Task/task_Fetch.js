@@ -86,13 +86,9 @@ router.get('/trigger-task-pick10',  async (req, res) => {
                                         daterepose = updatePick10;
 
                                         // POST the data
-                                        axios.post('http://localhost:9080/pick10', updatePick10)
-                                            .then(response => console.log('Posted to localhost:', response.data))
-                                            .catch(err => console.log('Error posting to localhost:', err.message));
-
-                                        // axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
-                                        //     .then(response => console.log('Posted to external API:', response.data))
-                                        //     .catch(err => console.log('Error posting to external API:', err.message));
+                                        axios.post('https://lotteryapi-newbackend2024.adaptable.app/pick10', updatePick10)
+                                            .then(response => console.log('Posted to external API:', response.data))
+                                            .catch(err => console.log('Error posting to external API:', err.message));
 
                                         console.log(daterepose)
                                     });
@@ -179,10 +175,7 @@ router.get('/trigger-task/cash4life',  async (req, res) => {
         
                                             console.log("Cash4Life: ", updatePick10)
                                             daterepose = updatePick10;
-        
-                                        axios.post('http://localhost:9080/cash4Life', updatePick10)
-                                             .then(response => console.log('Posted to localhost:', response.data))
-                                             .catch(err => console.log('Error posting to localhost:', err.message));
+    
                                         axios.post('https://lotteryapi-newbackend2024.adaptable.app/cash4Life', updatePick10)
                                              .then(response => console.log('Posted to localhost:', response.data))
                                              .catch(err => console.log('Error posting to localhost:', err.message));
@@ -274,9 +267,6 @@ router.get('/trigger-task/powerball',  async (req, res) => {
 
                                          daterepose = updatePick10
           
-                                    axios.post('http://localhost:9080/powerBall', updatePick10)
-                                         .then( response =>  console.log(response.data))
-                                         .catch(response =>  console.log(response.data))
                                     axios.post('https://lotteryapi-newbackend2024.adaptable.app/powerBall', updatePick10)
                                          .then( response =>  console.log(response.data))
                                          .catch(response =>  console.log(response.data))
@@ -371,9 +361,6 @@ router.get('/trigger-task/megamillions', async (req, res) => {
 
                                          daterepose = updatePick10;
           
-                              axios.post('http://localhost:9080/megamillions', updatePick10)
-                                   .then( response =>  console.log(response.data))
-                                   .catch( response =>  console.log(response.data))
                               axios.post('https://lotteryapi-newbackend2024.adaptable.app/megamillions', updatePick10)
                                    .then( response =>  console.log(response.data))
                                    .catch( response =>  console.log(response.data))
@@ -464,9 +451,6 @@ router.get("/trigger-task/newyorklotto", async (req, res) => {
 
                                          daterepose = updatePick10
         
-                                         axios.post('http://localhost:9080/newyorklotto', updatePick10 )
-                                              .then( response =>  console.log(response.data))
-                                              .catch( response =>  console.log(response.data))
                                          axios.post('https://lotteryapi-newbackend2024.adaptable.app/newyorklotto', updatePick10)
                                               .then( response =>  console.log(response.data))
                                               .catch( response =>  console.log(response.data))
@@ -561,9 +545,6 @@ router.get("/trigger-task/comboday", async (req, res) => {
                                              console.log("Check the structure of Take 5: ", updatePick10)
                                              daterepose = updatePick10 ;
 
-                                             axios.post('http://localhost:9080/take5Day', updatePick10 )
-                                                  .then( response =>  console.log(response.data))
-                                                  .catch( response =>  console.log(response.data))
                                              axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
                                                   .then( response =>  console.log(response.data))
                                                   .catch( response =>  console.log(response.data))
@@ -736,9 +717,6 @@ router.get("/trigger-task/combonight", async (req, res) => {
             
                                              daterepose = updatePick10;
 
-                                             axios.post('http://localhost:9080/take5Day', updatePick10 )
-                                                  .then( response =>  console.log(response.data))
-                                                  .catch( response =>  console.log(response.data))
                                              axios.post('https://lotteryapi-newbackend2024.adaptable.app/take5Day', updatePick10)
                                                   .then( response =>  console.log(response.data))
                                                   .catch( response =>  console.log(response.data))
@@ -873,7 +851,6 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
   };
 
 
-
 const checkDayPowerball = () => {
     const today = new Date();
     const currentDay = today.getDay(); // Get the current day of the week (0-6)
@@ -972,7 +949,7 @@ const checkTimePick10 = () => {
     const currentMinute = now.minute(); // Get the current minute in New York (0-59)
 
     // Check if the current time is between 2 AM (2) and 3 AM (3)
-    if (currentHour === 1 && currentMinute >= 0 && currentMinute < 5) {
+    if (currentHour === 9 && currentMinute >= 50 && currentMinute < 55) {
         console.log("The current time is between 2 AM and 3 AM.");
         return true;
     } else {
@@ -1027,6 +1004,7 @@ const checkTimeComboNight = () => {
         return false;
     }
 };
+
 
 
 module.exports = router;
