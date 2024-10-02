@@ -85,7 +85,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-cron.schedule('22 14 * * *', async () => {
+cron.schedule('57 17 * * *', async () => {
     try {
       // console.log('Cron job executed:', moment().tz("America/New_York").format());
         await Pick10Update();
@@ -103,7 +103,7 @@ cron.schedule('22 14 * * *', async () => {
   });
 
   // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
-cron.schedule('21 14 * * *', async () => {
+cron.schedule('58 17 * * *', async () => {
   try {
 
       await cashForLifeUpdate();
@@ -121,7 +121,7 @@ cron.schedule('21 14 * * *', async () => {
 });
 
 // Function to run on Tuesdays,4  Thursdays, and Sundays at 8:20 AM Powerball
-  cron.schedule('20 14 * * 2,4,0', async () => {
+  cron.schedule('59 17 * * 2,4,0', async () => {
     try {
         await powerBallUpdate();
 
