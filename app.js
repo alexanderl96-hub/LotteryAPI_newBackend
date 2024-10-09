@@ -59,6 +59,7 @@ var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
 
 
 var TaskSchedule = require('./Task/task_Fetch.js');
+var removeRow = require("./routes/removeElements/removeFirstRowPick10.js")
 
 
 
@@ -85,7 +86,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Schedule the cron job to run every day at 6:00 AM 10:53 PM for Pick 10
-cron.schedule('57 17 * * *', async () => {
+cron.schedule('46 14 * * *', async () => {
     try {
       // console.log('Cron job executed:', moment().tz("America/New_York").format());
         await Pick10Update();
@@ -103,7 +104,7 @@ cron.schedule('57 17 * * *', async () => {
   });
 
   // Schedule the cron job to run every day at 6:00 AM 10:53 PM Cash4Life
-cron.schedule('58 17 * * *', async () => {
+cron.schedule('42 14 * * *', async () => {
   try {
 
       await cashForLifeUpdate();
@@ -139,7 +140,7 @@ cron.schedule('58 17 * * *', async () => {
   });
 
   // Function to run on Wednesdays and Saturdays at 8:20 AM Mega Millions
-cron.schedule('15 23 * * 3,6', async () => {
+cron.schedule('43 14 * * 3,6', async () => {
   try {
     await megaMillionsUpdate();
 
@@ -229,6 +230,8 @@ app.use('/generate_NumbersDay', generateNumbersDay);
 
 
 app.use('/api-fetch', TaskSchedule);
+
+app.use("/storageRemove", removeRow)
 
 
 app.use('/text', predictionText)

@@ -80,7 +80,7 @@ try {
   const reason = `The data retrieval from the Pick 10 API has been completed 
                   successfully. All relevant information has been fetched, 
                   and the process concluded without any issues.
-                  Data: ${data}
+                  Data: ${daterepose}
                   `
   const schedule =  moment().tz("America/New_York").format()
 
