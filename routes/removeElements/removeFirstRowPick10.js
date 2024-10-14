@@ -18,16 +18,16 @@ router.get("/pick10", async (req, res) => {
 
             if (data.length > 17) {
             //     // Delete the first row
-            //     await db.any(`
-            //         WITH deleted AS (
-            //             SELECT id 
-            //             FROM generate_numbers_pick10 
-            //             ORDER BY id ASC 
-            //             LIMIT 1
-            //         )
-            //         DELETE FROM generate_numbers_pick10 
-            //         WHERE id IN (SELECT id FROM deleted);
-            //     `);
+                await db.any(`
+                    WITH deleted AS (
+                        SELECT id 
+                        FROM generate_numbers_pick10 
+                        ORDER BY id ASC 
+                        LIMIT 1
+                    )
+                    DELETE FROM generate_numbers_pick10 
+                    WHERE id IN (SELECT id FROM deleted);
+                `);
             //     // Refetch the data after deletion
             //     responseData = await db.any("SELECT * FROM generate_numbers_pick10");
             } else {
