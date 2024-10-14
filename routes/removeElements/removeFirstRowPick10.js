@@ -16,7 +16,7 @@ router.get("/pick10", async (req, res) => {
 
             console.log("Data: ", data.length)
 
-            // if (data.length > 17) {
+            if (data.length > 17) {
             //     // Delete the first row
             //     await db.any(`
             //         WITH deleted AS (
@@ -30,14 +30,13 @@ router.get("/pick10", async (req, res) => {
             //     `);
             //     // Refetch the data after deletion
             //     responseData = await db.any("SELECT * FROM generate_numbers_pick10");
-            // } else {
-            //     responseData = data;
-            // }
+            } else {
+                responseData = data;
+            }
 
             res.send({
                 status: "Sucesss",
-                // data: responseData,
-                data: data
+                data: responseData,
             })
       
         // }
