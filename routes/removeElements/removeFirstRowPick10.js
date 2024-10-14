@@ -29,7 +29,7 @@ router.get("/pick10", async (req, res) => {
                     WHERE id IN (SELECT id FROM deleted);
                 `);
             //     // Refetch the data after deletion
-            //     responseData = await db.any("SELECT * FROM generate_numbers_pick10");
+                responseData = await db.any("SELECT * FROM generate_numbers_pick10");
             } else {
                 responseData = data;
             }
