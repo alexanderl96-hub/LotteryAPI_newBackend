@@ -10,6 +10,10 @@ router.get("/pick10", async (req, res) => {
     try {
 
         // if(timeForProcessComplain()){
+            if (!timeForProcessComplain()) {
+                return res.send({ status: "Error", message: "Not the right time for processing" });
+            }
+
 
             let responseData = []
             const data = await db.any("SELECT * FROM generate_numbers_pick10")
