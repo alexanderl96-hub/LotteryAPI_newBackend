@@ -69,9 +69,11 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 // app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:3000', // Frontend origin
-  credentials: true // Allow cookies or auth headers if needed
-}))
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With'],
+  credentials: true
+}));
 
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
