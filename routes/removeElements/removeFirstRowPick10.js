@@ -10,9 +10,9 @@ router.get("/pick10", async (req, res) => {
     try {
 
         // if(timeForProcessComplain()){
-            if (!timeForProcessComplain()) {
-                return res.send({ status: "Error", message: "Not the right time for processing" });
-            }
+            // if (!timeForProcessComplain()) {
+            //     return res.send({ status: "Error", message: "Not the right time for processing" });
+            // }
 
 
             let responseData = []
@@ -20,7 +20,7 @@ router.get("/pick10", async (req, res) => {
 
             console.log("Data: ", data.length)
 
-            if (data.length > 17) {
+            if (data.length > 15) {
             //     // Delete the first row
                 await db.any(`
                     WITH deleted AS (
