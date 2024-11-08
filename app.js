@@ -67,7 +67,11 @@ const app = express();
 
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Frontend origin
+  credentials: true // Allow cookies or auth headers if needed
+}))
 
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
@@ -238,6 +242,11 @@ app.use('/text', predictionText)
 
 
 app.use('/', homeRoot);
+
+
+// Handle preflight requests for CORS
+app.options('*', cors());
+
 
 
 app.all('/*', (req, res, next) => {
