@@ -299,7 +299,7 @@ router.get('/trigger-task/powerball',  async (req, res) => {
          }
 
         }
-        
+
         res.send('Task has been executed');
         
     } catch (error) {
@@ -324,8 +324,9 @@ router.get('/trigger-task/megamillions', async (req, res) => {
 
       try {
         
-        // 
-         if(checkTimeMegaMillions() && checkDayMegaMillions() ){
+        if(checkDayMegaMillions()){
+
+         if(checkTimeMegaMillions()){
 
             let apiResponse;
             try {
@@ -395,6 +396,9 @@ router.get('/trigger-task/megamillions', async (req, res) => {
             }
          }
 
+        }
+
+         res.send('Task has been executed');
 
       } catch (error) {
         console.error("Error executing task for MegaMillions:", error);
@@ -416,74 +420,78 @@ router.get("/trigger-task/newyorklotto", async (req, res) => {
 
 
       try {
-        // 
-         if(checkTimeNewYorkLotto() && checkDayMegaNewYorkLotto() ){
 
-            let apiResponse;
-            try {
-                apiResponse = await axios.request(options);  // Use await for axios request
-                console.log('API request successful:', apiResponse.status);
-            } catch (error) {
-                console.error("Error during the API request:", error.message);
-                return res.status(500).send("API request failed: " + error.message); // Exit if API request fails
-            }
+        if(checkDayMegaNewYorkLotto()){
+            if(checkTimeNewYorkLotto() ){
 
-            try {
-                const newDataMegaMillions = apiResponse.data
+                let apiResponse;
+                try {
+                    apiResponse = await axios.request(options);  // Use await for axios request
+                    console.log('API request successful:', apiResponse.status);
+                } catch (error) {
+                    console.error("Error during the API request:", error.message);
+                    return res.status(500).send("API request failed: " + error.message); // Exit if API request fails
+                }
 
-                for(const key in newDataMegaMillions){
-                    if(key !== "status"){
-                        const data = newDataMegaMillions[key];
-        
-                        if(data.name === "Lotto"){
-        //                     // Log Lotto data with more specific checks
-                            data.plays.forEach((play, index) => {
-        
-                                 play.draws.map(a =>  {
-                                    const numbersArray = a.numbers.map(a => Number(a.value));
-        
-                                    let updatePick10 = {
-                                            date: a.date,
-                                            one: numbersArray[0],
-                                            two: numbersArray[1],
-                                            three: numbersArray[2],
-                                            four: numbersArray[3],
-                                            five: numbersArray[4],
-                                            six: numbersArray[5],
-                                            bonus: numbersArray[6],
-                                            amount: a.nextDrawJackpot,
-                                            image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
-                                         };
+                try {
+                    const newDataMegaMillions = apiResponse.data
 
-                                         daterepose = updatePick10
-        
-                                         axios.post('https://lotteryapi-newbackend2024.adaptable.app/newyorklotto', updatePick10)
-                                              .then( response =>  console.log(response.data))
-                                              .catch( response =>  console.log(response.data))
-        
-                                 });
-                            });
+                    for(const key in newDataMegaMillions){
+                        if(key !== "status"){
+                            const data = newDataMegaMillions[key];
+            
+                            if(data.name === "Lotto"){
+            //                     // Log Lotto data with more specific checks
+                                data.plays.forEach((play, index) => {
+            
+                                    play.draws.map(a =>  {
+                                        const numbersArray = a.numbers.map(a => Number(a.value));
+            
+                                        let updatePick10 = {
+                                                date: a.date,
+                                                one: numbersArray[0],
+                                                two: numbersArray[1],
+                                                three: numbersArray[2],
+                                                four: numbersArray[3],
+                                                five: numbersArray[4],
+                                                six: numbersArray[5],
+                                                bonus: numbersArray[6],
+                                                amount: a.nextDrawJackpot,
+                                                image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                            };
+
+                                            daterepose = updatePick10
+            
+                                            axios.post('https://lotteryapi-newbackend2024.adaptable.app/newyorklotto', updatePick10)
+                                                .then( response =>  console.log(response.data))
+                                                .catch( response =>  console.log(response.data))
+            
+                                    });
+                                });
+                            }
                         }
                     }
-                  }
-            } catch (error) {
-                  console.error("Error processing API data:", error.message);
-                    return res.status(500).send("Error processing API data: " + error.message);
-            }
+                } catch (error) {
+                    console.error("Error processing API data:", error.message);
+                        return res.status(500).send("Error processing API data: " + error.message);
+                }
 
-            try {
-                const memberEmail = 'alexander.lrperez@gmail.com';
-                const memberName = 'Alexander';
-                const reason = `The data retrieval from the NewYork Lotto API has been completed successfully. Data: ${JSON.stringify(daterepose)}`;
-                const schedule = moment().tz("America/New_York").format();
+                try {
+                    const memberEmail = 'alexander.lrperez@gmail.com';
+                    const memberName = 'Alexander';
+                    const reason = `The data retrieval from the NewYork Lotto API has been completed successfully. Data: ${JSON.stringify(daterepose)}`;
+                    const schedule = moment().tz("America/New_York").format();
 
-                await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
-                console.log('Email sent successfully');
-            } catch (error) {
-                console.error("Error sending email:", error.message);
-                return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
+                    await sendSuspensionEmail(memberEmail, memberName, reason, schedule);
+                    console.log('Email sent successfully');
+                } catch (error) {
+                    console.error("Error sending email:", error.message);
+                    return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
+                }
             }
-         }
+        }
+
+        res.send('Task has been executed');
         
       } catch (error) {
         console.error("Error executing task for New York Lotto:", error);
@@ -657,6 +665,8 @@ router.get("/trigger-task/comboday", async (req, res) => {
             }
          }
 
+         res.send('Task has been executed');
+
       } catch (error) {
         console.error("Error executing task for ComboDay:", error);
       }
@@ -829,6 +839,8 @@ router.get("/trigger-task/combonight", async (req, res) => {
                 return res.status(500).send("Error sending email: " + error.message); // Exit if email fails
             }
          }
+
+         res.send('Task has been executed');
         
       } catch (error) {
         console.error("Error executing task for Combo Night:", error);
