@@ -344,8 +344,8 @@ router.get('/trigger-task/megamillions', async (req, res) => {
                     if(key !== "status"){
                         const data = newDataMegaMillions[key];
           
-                        if(data.name === "MEGA Millions"){
-        //                 //     // Log Lotto data with more specific checks
+                        if(data.name === "Mega Millions"){
+
                             data.plays.forEach((play, index) => {
           
                                  play.draws.map(a =>  {
@@ -361,7 +361,7 @@ router.get('/trigger-task/megamillions', async (req, res) => {
                                             mega_millions_lucky: numbersArray[5],
                                             megaplier: numbersArray[6],
                                             amount: a.nextDrawJackpot,
-                                            image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                            image: "https://upload.wikimedia.org/wikipedia/en/a/a0/Mega_Millions_Lottery_logo.svg"
                                          };
           
                                          console.log("Mega Millions: ", updatePick10)

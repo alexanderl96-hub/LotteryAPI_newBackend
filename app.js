@@ -69,7 +69,7 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 // app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3001' ,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With'],
   credentials: true
