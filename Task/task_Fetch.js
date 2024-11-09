@@ -226,8 +226,10 @@ router.get('/trigger-task/powerball',  async (req, res) => {
       };
      
     try {
-        
-         if(checkTimePowerBall() && checkDayPowerball()  ){
+
+        if(checkDayPowerball()){
+
+         if(checkTimePowerBall()){
 
             let apiResponse;
             try {
@@ -246,7 +248,7 @@ router.get('/trigger-task/powerball',  async (req, res) => {
                         const data = newDataMegaMillions[key];
           
                         if(data.name === "Powerball"){
-        //                 //     // Log Lotto data with more specific checks
+
                             data.plays.forEach((play, index) => {
           
                                  play.draws.map(a =>  {
@@ -295,6 +297,8 @@ router.get('/trigger-task/powerball',  async (req, res) => {
             }
 
          }
+
+        }
         
     } catch (error) {
         console.error("Error executing task for PowerBall:", error);
