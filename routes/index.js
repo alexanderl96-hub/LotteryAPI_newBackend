@@ -3,13 +3,7 @@ var router = express.Router();
 
 
 router.get('/', (req, res) => {
-    res.json({ message: 'Hello from Express!' });
+    res.json({ message: 'Welcome to Lottery Storage Express!' });
 });
-
-
-// router.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-//   });
-
 
 module.exports = router;

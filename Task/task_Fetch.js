@@ -170,7 +170,7 @@ router.get('/trigger-task/cash4life',  async (req, res) => {
                                                 five: numbersArray[4],
                                                 cashball: numbersArray[5],
                                                 amount: 1000,
-                                                image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                                image: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Cash4Life_logo.png"
                                             };
         
                                             console.log("Cash4Life: ", updatePick10)
@@ -264,7 +264,7 @@ router.get('/trigger-task/powerball',  async (req, res) => {
                                             powerball_lucky: numbersArray[5],
                                             powerplay: numbersArray[6],
                                             amount: a.nextDrawJackpot,
-                                            image: 'https://www.mynylottery.org/portal/portal/static/img/game-logos/lotto.png'
+                                            image: "https://www.mdlottery.com/wp-content/themes/mdlottery/images/logos/jackpot-logo-powerball.png"
                                          };
 
                                          daterepose = updatePick10
