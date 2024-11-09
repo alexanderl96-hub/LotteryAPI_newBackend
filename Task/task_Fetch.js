@@ -300,6 +300,8 @@ router.get('/trigger-task/powerball',  async (req, res) => {
 
         }
         
+        res.send('Task has been executed');
+        
     } catch (error) {
         console.error("Error executing task for PowerBall:", error);
     }
