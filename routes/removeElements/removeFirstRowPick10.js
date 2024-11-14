@@ -20,7 +20,7 @@ router.get("/pick10", async (req, res) => {
 
             console.log("Data: ", data.length)
 
-            if (data.length > 15) {
+            if (data.length > 5) {
             //     // Delete the first row
                 await db.any(`
                     WITH deleted AS (

@@ -108,11 +108,11 @@ function convertToTensor(data) {
   
       // Convert predictions to a more readable format if necessary
       const result = unNormPreds.arraySync()
-    .map(parseFloat) // Convert string representations of numbers to floats
-    .map(Math.round) // Round each number to the nearest integer
-    .flat(Infinity)
-    .filter(v => v >= inputMin && v <= inputMax ) // Flatten the array if it's nested
-    ; 
+                                .map(parseFloat) // Convert string representations of numbers to floats
+                                .map(Math.round) // Round each number to the nearest integer
+                                .flat(Infinity)
+                                .filter(v => v >= inputMin && v <= inputMax ) // Flatten the array if it's nested
+                                ; 
 
 
     // Create an object to count occurrences
@@ -127,20 +127,20 @@ function convertToTensor(data) {
         });
 
 
-        // console.log("Numbercount: ", numberCount)
+        console.log("Numbercount: ", numberCount)
 
         let filteredValues;
 
         if(nameOfData === "Pick 10"){
 
-            filteredValues = Object.entries(numberCount)
-                                   .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, ].includes(Number(value))) //10, 11, 17, 19
-                                   .map(([key, value]) => Number(key));
-
-
             // filteredValues = Object.entries(numberCount)
-            // .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, 10, 11, 17, 19 ].includes(Number(key))) //
-            // .map(([, value]) => value);
+            //                        .filter(([key, value]) => [3, 4, 5, 7, 6, 18, 14, 12, 9, ].includes(Number(value))) //10, 11, 17, 19
+            //                        .map(([key, value]) => Number(key));
+
+
+            filteredValues = Object.entries(numberCount)
+            .filter(([key, value]) => [10, 11, 12, 13, 14, 15, 18, 19].includes(Number(key))) //
+            .map(([, value]) => value);
 
         }else if(nameOfData === "Mega Millions"){
 
@@ -151,6 +151,9 @@ function convertToTensor(data) {
                                    .map(([key, value]) => Number(key));
 
         }else if(nameOfData === "NewYork Lotto"){
+          filteredValues = Object.entries(numberCount)
+                                  .filter(([key, value]) => [5, 2, 1, 4, 6, 11, 3, 7, 9, 8, 10, 12].includes(Number(key))) //
+                                  .map(([, value]) => value);
 
         }else if(nameOfData === "Cash4Life"){
 
