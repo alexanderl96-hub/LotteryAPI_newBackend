@@ -56,6 +56,8 @@ var cashForLifeUpdate = require('./ServiceUpdate/CashForLife_Update.js')
 var newYorkLottoUpdate = require('./ServiceUpdate/NewYorkLotto_Update.js')
 var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
 var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
+var requestApiJson = require('./ServiceUpdate/dataJson_RequestApi.js')
+
 
 
 var TaskSchedule = require('./Task/task_Fetch.js');
@@ -69,7 +71,7 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 // app.use(cors());
 app.use(cors({
-  // origin: 'http://localhost:3000' ,
+  origin: 'http://localhost:3001' ,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With'],
   credentials: true
@@ -233,6 +235,8 @@ app.use('/generate_NYLotto', generateNYLotto);
 app.use('/generate_CashLife', generateCashLife);
 app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
+
+app.use("/apiJson", requestApiJson)
 
 
 app.use('/api-fetch', TaskSchedule);

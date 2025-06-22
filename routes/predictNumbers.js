@@ -37,9 +37,12 @@ function convertToTensor(data) {
   router.post('/', async (req, res) => {
     // Extract data from the body
     const numbersDataStr = req.body.predict;
+    console.log(req.body,'inputLength inputLength')
     const numbersData = numbersDataStr.map(Number);
     const nameOfData = req.body.name
     inputLength = numbersDataStr[0].length
+
+    
   
     console.log(inputLength,'inputLength inputLength')
     const model = tf.sequential();
@@ -139,8 +142,8 @@ function convertToTensor(data) {
 
 
             filteredValues = Object.entries(numberCount)
-            .filter(([key, value]) => [10, 11, 12, 13, 14, 15, 18, 19].includes(Number(key))) //
-            .map(([, value]) => value);
+            .filter(([key, value]) => [10, 11, 12, 13, 14, 15, 18, 19].includes(Number(value))) //
+            .map(([key, value]) => key);
 
         }else if(nameOfData === "Mega Millions"){
 
