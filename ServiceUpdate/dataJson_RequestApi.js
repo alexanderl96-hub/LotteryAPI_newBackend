@@ -6,9 +6,9 @@ const dataJsonRequest = async () => {
    const gameSeparateByState = []
 
    const allState = [
-    'NY', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC' 
-    // 'CO', 'CT', 'DC','DE', 'FL', 'GA', 'IA', 'ID', 'IL', 'IN', 'KS', 
-    // 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 
+    'NY', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
+    'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 
+    // 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 
     // 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 
     // 'WA', 'WI', 'WV'
 ]
@@ -75,26 +75,25 @@ const wait = ms => new Promise(res => setTimeout(res, ms)); // optional delay fu
                 }
               }
               
-
             gameSeparateByState.push({state: `${allState[state]}`, draw : gameConstants })
           } );
       } catch (error) {
           console.error(error);
          
       }
-      await wait(3000); // optional: wait 500ms to avoid rate-limiting
+      await wait(6000); // optional: wait 500ms to avoid rate-limiting
 
     }
 
-    // console.log(gameSeparateByState)
+    console.log(gameSeparateByState)
     return gameSeparateByState; 
 }
 
 router.get('/', async function (req, res, next) {
     try {
         const all_data =  await dataJsonRequest()
-        console.log(all_data)
-        res.json({ data_: all_data.filter(a => a.state === "NY") });
+        // console.log(all_data)
+        res.json({ data_: all_data });
     } catch (error) {
         res.send({
             status : 404,
