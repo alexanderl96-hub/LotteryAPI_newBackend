@@ -1,3 +1,247 @@
+-- CREATE TABLE lottery_raw (
+--     id SERIAL PRIMARY KEY,
+--     draw_data JSONB,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- CREATE TABLE state (
+--     id SERIAL PRIMARY KEY,
+--     name TEXT NOT NULL,
+--     abbreviation CHAR(2) UNIQUE NOT NULL
+-- );
+
+-- CREATE TABLE powerBall (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE mega_millions (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE cash4life (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE lotto (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE take_5 (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE pick_10 (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE win_4 (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE numbers (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE lucky_for_life (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE natural_state_jackpot (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE cash_4 (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE cash_3(
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE the_pick (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE fantasy_5 (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE triple_twist (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE pick_3 (
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE daily_derby(
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+-- CREATE TABLE superlotto_plus(
+--     id SERIAL PRIMARY KEY,
+--     state_id INTEGER NOT NULL REFERENCES state(id) ON DELETE CASCADE,
+--     date TEXT,
+--     nextDrawDate TEXT,
+--     nextDrawJackpot BIGINT,
+--     numbers INTEGER[],      -- array of numbers
+--     extraFields TEXT[],     -- array of extra fields (strings)
+--     gameName TEXT,
+--     playName TEXT
+-- );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 -- CREATE TABLE powerBall (
