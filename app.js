@@ -56,8 +56,9 @@ var cashForLifeUpdate = require('./ServiceUpdate/CashForLife_Update.js')
 var newYorkLottoUpdate = require('./ServiceUpdate/NewYorkLotto_Update.js')
 var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
 var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
-var requestApiJson = require('./ServiceUpdate/dataJson_RequestApi.js')
-
+var powerball = require('./routesNew/powerball.js')
+var megamillions = require('./routesNew/megamillions.js')
+var lotteryRaw = require('./routesNew/lottery_raw.js')
 
 
 var TaskSchedule = require('./Task/task_Fetch.js');
@@ -236,14 +237,16 @@ app.use('/generate_CashLife', generateCashLife);
 app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
-app.use("/apiJson", requestApiJson)
+
+
+
+app.use("/new-Powerball", powerball)
+app.use("/new-MegaMillions", megamillions)
+app.use("/remainData", lotteryRaw)
 
 
 app.use('/api-fetch', TaskSchedule);
-
 app.use("/storageRemove", removeRow)
-
-
 app.use('/text', predictionText)
 
 
