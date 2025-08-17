@@ -6,13 +6,15 @@ const storedData = require("../ServiceUpdate/dataJsonAPiRequest");
 // GET all remaindata entries
 router.get("/", async (req, res) => {
   try {
-    await storedData();
-    const result = await db.any("SELECT * FROM remaindata ORDER BY id DESC");
+      await storedData();
+    
+      const result = await db.any("SELECT * FROM allremaindata ORDER BY id DESC");
 
-    const data = [{
-       dataDate: result[0].date,
-       dataResult: result[0].data_.replaceAll("\\", "")
-    }]
+      const data = [{
+        dataDate: result[0].date,
+        dataResult: result[0].data_
+      }]
+   
     res.json({ status: 200, data_lottery_raw: data });
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -24,7 +26,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const draw = await db.oneOrNone(`SELECT * FROM remaindata WHERE id = $1`, [
+    const draw = await db.oneOrNone(`SELECT * FROM allremaindata WHERE id = $1`, [
       id,
     ]);
 
@@ -41,46 +43,65 @@ router.get("/:id", async (req, res) => {
 // POST new remaindata entry
 router.post("/", async (req, res) => {
   try {
-    const data = req.body;
-
-    if (!data) {
-      return res.status(400).json({ status: 400, message: "No data provided" });
+    const { date, data_ } = req.body;
+    if (date == null || data_ == null) {
+      return res.status(400).json({ status: 400, message: "Missing date or data_" });
     }
 
-    const insertQuery = `
-        INSERT INTO remaindata(
-          date,
-          data_
-        )
-        VALUES($1, $2)
-        RETURNING *
-      `;
+    // 1) Normalize date to ISO (YYYY-MM-DD)
+    const normalizeDate = (input) => {
+      if (typeof input !== "string") input = String(input);
+      // already ISO
+      if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input;
+      // MM/DD/YYYY
+      const mdy = input.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (mdy) return `${mdy[2].padStart(2,'0')}-${mdy[1].padStart(2,'0')}-${mdy[3]}`;
+      // Fallback: let JS parse things like "Sun Aug 17 2025"
+      const d = new Date(input);
+      if (!isNaN(d)) return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      throw new Error(`Unparseable date: ${input}`);
+    };
 
-    const values = [data.date, data.data_];
+    // 2) Unwrap possibly stringified JSON (1x/2x)
+    const toOriginal = (input) => {
+      let v = input;
+      for (let i = 0; i < 5 && typeof v === "string"; i++) {
+        try { v = JSON.parse(v); } catch { break; }
+      }
+      return v;
+    };
 
-    // insert
-    await db.one(insertQuery, values);
+    const isoDate = normalizeDate(date);
+    const jsonPayload = toOriginal(data_);
 
-    // fetch last 10 rows
-    const last10RemainData = await db.any(`
-        SELECT *
-        FROM remaindata
-        ORDER BY id DESC
-        LIMIT 10
-      `);
+    const sql = `
+      INSERT INTO allremaindata (date, data_)
+      VALUES ($1::date, $2::jsonb)
+      RETURNING id, to_char(date,'YYYY-MM-DD') AS date, data_
+    `;
 
-    res.json({ status: 200, last10Draws: last10RemainData });
+    const row = await db.one(sql, [isoDate, JSON.stringify(jsonPayload)]);
+
+    const last10 = await db.any(`
+      SELECT id, to_char(date,'YYYY-MM-DD') AS date, data_
+      FROM allremaindata
+      ORDER BY id DESC
+      LIMIT 10
+    `);
+
+    return res.json({ status: 200, inserted: row, last10Draws: last10 });
   } catch (error) {
-    console.error("Error inserting into DB:", error.message);
-    res.status(500).json({ status: 500, message: error.message });
+    console.error("Error inserting into DB:", error);
+    return res.status(500).json({ status: 500, message: error.message });
   }
 });
+
 
 // DELETE draw by ID
 router.delete("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const result = await db.result(`DELETE FROM remaindata WHERE id = $1`, [
+    const result = await db.result(`DELETE FROM allremaindata WHERE id = $1`, [
       id,
     ]);
 
@@ -96,6 +117,7 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ status: 500, message: error.message });
   }
 });
+
 
 
 module.exports = router;

@@ -8,10 +8,11 @@ const dataJsonRequest = async () => {
     const gameSeparateByState = [];
 
     const allState = [
-        'NY', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
-        'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
-        'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
-        'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
+        'NY', 'AR',
+        //  'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
+        // 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
+        // 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
+        // 'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
     ];
 
     for (let stateIndex = 0; stateIndex < allState.length; stateIndex++) {
@@ -91,7 +92,8 @@ const dataJsonRequest = async () => {
 function splitLotteryDataUnique(data_, gamesToPick) {
     const selectedGames = [];
     const seen = new Set(); // to track duplicates
-    const remainingData = JSON.parse(JSON.stringify(data_)); // deep copy
+    // const remainingData = JSON.parse(JSON.stringify(data_)); // deep copy
+    const remainingData = JSON.parse(JSON.stringify(data_))
   
     remainingData.forEach(stateEntry => {
       Object.keys(stateEntry.draw).forEach(gameKey => {
@@ -101,7 +103,7 @@ function splitLotteryDataUnique(data_, gamesToPick) {
         const matched = gameArray.filter(draw => gamesToPick.includes(draw.gameName));
   
         matched.forEach(draw => {
-          const uniqueKey = `${draw.gameName}`;
+           const uniqueKey = `${draw.gameName + "_" + draw.playName}`;
           if (!seen.has(uniqueKey)) {
             selectedGames.push(draw);
             seen.add(uniqueKey);
@@ -136,7 +138,7 @@ const storedData = async () => {
         // "5 Star Draw", "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Loto Plus", "Wild Money",
         // "Pega 4", "Palmetto Cash 5", "Dakota Cash",  "Tennessee Cash",  "Daily Tennessee", "Two Step",
         // "Bank a Million", "Megabucks Plus", "Gimme 5", "Hit 5", "Match 4", "Daily Game", "Badger 5",
-        // "Cash 25", "Win for Life", "Lucky Lines", "Pega 2", "Pega 3", "Georgia FIVE"
+        // "Cash 25", "Win for Life", "Lucky Lines", "Pega 2", "Pega 3", "Georgia FIVE", "Win 4"
     ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
@@ -173,33 +175,33 @@ const storedData = async () => {
     const jackpotTriplePlay = selectedGames.filter(a => a.gameName === "Jackpot Triple Play")
 
 
-    axios.post('http://localhost:9001/remainData', remain)
-    axios.post('http://localhost:9001/new-Powerball', powerBall[0]);
-    axios.post('http://localhost:9001/new-MegaMillions', megaMillion[0]);
-    axios.post('http://localhost:9001/new-LottoAmerica', lottoAmerica[0]);
-    axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
-    axios.post('http://localhost:9001/new-NaturalStateJackpot', naturalStateJackpot[0]);
-    axios.post('http://localhost:9001/new-PowerballDoublePlay', powerballDoublePlay[0]);
-    axios.post('http://localhost:9001/new-SuperlottoPlus', superlottoPlus[0]);
-    axios.post('http://localhost:9001/new-Pick10', pick10[0]);
-    axios.post('http://localhost:9001/new-CashForLife', cashforlife[0]);
-    axios.post('http://localhost:9001/new-DailyDerby', dailyDerby[0]);
-    axios.post('http://localhost:9001/new-DC2', dc2);
-    axios.post('http://localhost:9001/new-DC3', dc3);
-    axios.post('http://localhost:9001/new-DC4', dc4);
-    axios.post('http://localhost:9001/new-DC5', dc5);
-    axios.post('http://localhost:9001/new-JackpotTriplePlays', jackpotTriplePlay[0]);
-    axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto[0]);
-    axios.post('http://localhost:9001/new-MultiWinLotto', multiWinLotto[0]);
-    axios.post('http://localhost:9001/new-Play_3', play_3);
-    axios.post('http://localhost:9001/new-Play_4', play_4);
-    axios.post('http://localhost:9001/new-Play_5', play_5);
-    axios.post('http://localhost:9001/new-Play3', play3);
-    axios.post('http://localhost:9001/new-Play4', play4);
-    axios.post('http://localhost:9001/new-Take5', take5);
-    axios.post('http://localhost:9001/new-ThePick', thePick[0]);
-    axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
-    axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
+    // axios.post('http://localhost:9001/remainData', remain)
+    // axios.post('http://localhost:9001/new-Powerball', powerBall[0]);
+    // axios.post('http://localhost:9001/new-MegaMillions', megaMillion[0]);
+    // axios.post('http://localhost:9001/new-LottoAmerica', lottoAmerica[0]);
+    // axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
+    // axios.post('http://localhost:9001/new-NaturalStateJackpot', naturalStateJackpot[0]);
+    // axios.post('http://localhost:9001/new-PowerballDoublePlay', powerballDoublePlay[0]);
+    // axios.post('http://localhost:9001/new-SuperlottoPlus', superlottoPlus[0]);
+    // axios.post('http://localhost:9001/new-Pick10', pick10[0]);
+    // axios.post('http://localhost:9001/new-CashForLife', cashforlife[0]);
+    // axios.post('http://localhost:9001/new-DailyDerby', dailyDerby[0]);
+    // axios.post('http://localhost:9001/new-DC2', dc2);
+    // axios.post('http://localhost:9001/new-DC3', dc3);
+    // axios.post('http://localhost:9001/new-DC4', dc4);
+    // axios.post('http://localhost:9001/new-DC5', dc5);
+    // axios.post('http://localhost:9001/new-JackpotTriplePlays', jackpotTriplePlay[0]);
+    // axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto[0]);
+    // axios.post('http://localhost:9001/new-MultiWinLotto', multiWinLotto[0]);
+    // axios.post('http://localhost:9001/new-Play_3', play_3);
+    // axios.post('http://localhost:9001/new-Play_4', play_4);
+    // axios.post('http://localhost:9001/new-Play_5', play_5);
+    // axios.post('http://localhost:9001/new-Play3', play3);
+    // axios.post('http://localhost:9001/new-Play4', play4);
+    // axios.post('http://localhost:9001/new-Take5', take5);
+    // axios.post('http://localhost:9001/new-ThePick', thePick[0]);
+    // axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
+    // axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
                             
 }
 
