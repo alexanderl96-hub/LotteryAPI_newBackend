@@ -8,7 +8,12 @@ router.get("/", async (req, res) => {
   try {
     await storedData();
     const result = await db.any("SELECT * FROM remaindata ORDER BY id DESC");
-    res.json({ status: 200, data_lottery_raw: result });
+
+    const data = [{
+       dataDate: result[0].date,
+       dataResult: result[0].data_.replaceAll("\\", "")
+    }]
+    res.json({ status: 200, data_lottery_raw: data });
   } catch (error) {
     console.error("Error fetching data:", error.message);
     res.status(500).json({ status: 500, message: error.message });
@@ -91,5 +96,6 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ status: 500, message: error.message });
   }
 });
+
 
 module.exports = router;

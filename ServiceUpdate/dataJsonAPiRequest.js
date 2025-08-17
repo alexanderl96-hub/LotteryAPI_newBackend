@@ -126,11 +126,18 @@ const storedData = async () => {
     const todayStr = new Date().toDateString();
     const all_data = await dataJsonRequest();
 
-    const gamesToPick = ['Powerball', 'Pick 10', 'Mega Millions', "Cashforlife",
-          'Lucky For Life', 'Powerball Double Play', 'Natural State Jackpot', "Take 5",
-          "2 by 2", "Luckyday Lotto", "Daily Derby", "Multi-Win Lotto", "The Pick", " Triple Twist",
-          "Play4", "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", 
-         "Jackpot Triple Play", 'SuperLotto Plus', 'Lotto America'];
+    const gamesToPick = [
+        'Powerball', 'Mega Millions', 'Lotto America', 'Lucky For Life',  'Natural State Jackpot',
+        'Powerball Double Play', 'SuperLotto Plus', "Cash4Life", 'Pick 10', "Take 5", "2 By 2", 
+        "LuckyDay Lotto", "Daily Derby", "Multi-Win Lotto", "The Pick", "Triple Twist", "Play4", 
+        "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", "Jackpot Triple Play", 
+
+        
+        // "5 Star Draw", "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Loto Plus", "Wild Money",
+        // "Pega 4", "Palmetto Cash 5", "Dakota Cash",  "Tennessee Cash",  "Daily Tennessee", "Two Step",
+        // "Bank a Million", "Megabucks Plus", "Gimme 5", "Hit 5", "Match 4", "Daily Game", "Badger 5",
+        // "Cash 25", "Win for Life", "Lucky Lines", "Pega 2", "Pega 3", "Georgia FIVE"
+    ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
     const remain = {
@@ -145,6 +152,25 @@ const storedData = async () => {
     const naturalStateJackpot = selectedGames.filter(a => a.gameName === "Natural State Jackpot")
     const powerballDoublePlay = selectedGames.filter(a => a.gameName === "Powerball Double Play")
     const superlottoPlus = selectedGames.filter(a => a.gameName === "SuperLotto Plus")
+    const cashforlife = selectedGames.filter(a => a.gameName === "Cash4Life")
+    const pick10 = selectedGames.filter(a => a.gameName === "Pick 10")
+    const take5 = selectedGames.filter(a => a.gameName === "Take 5")
+    const twoby2 = selectedGames.filter(a => a.gameName === "2 By 2")
+    const luckydayLotto = selectedGames.filter(a => a.gameName === "LuckyDay Lotto")
+    const dailyDerby = selectedGames.filter(a => a.gameName === "Daily Derby")
+    const multiWinLotto = selectedGames.filter(a => a.gameName === "Multi-Win Lotto")
+    const thePick = selectedGames.filter(a => a.gameName === "The Pick")
+    const tripleTwist = selectedGames.filter(a => a.gameName === "Triple Twist") 
+    const play4 = selectedGames.filter(a => a.gameName === "Play4")
+    const play3 = selectedGames.filter(a => a.gameName === "Play3")
+    const dc5 = selectedGames.filter(a => a.gameName === "DC 5")
+    const dc4 = selectedGames.filter(a => a.gameName === "DC 4")
+    const dc3 = selectedGames.filter(a => a.gameName === "DC 3")
+    const dc2 = selectedGames.filter(a => a.gameName === "DC 2")
+    const play_5 = selectedGames.filter(a => a.gameName === "Play 5")
+    const play_4 = selectedGames.filter(a => a.gameName === "Play 4")
+    const play_3 = selectedGames.filter(a => a.gameName === "Play 3")
+    const jackpotTriplePlay = selectedGames.filter(a => a.gameName === "Jackpot Triple Play")
 
 
     axios.post('http://localhost:9001/remainData', remain)
@@ -155,6 +181,25 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-NaturalStateJackpot', naturalStateJackpot[0]);
     axios.post('http://localhost:9001/new-PowerballDoublePlay', powerballDoublePlay[0]);
     axios.post('http://localhost:9001/new-SuperlottoPlus', superlottoPlus[0]);
+    axios.post('http://localhost:9001/new-Pick10', pick10[0]);
+    axios.post('http://localhost:9001/new-CashForLife', cashforlife[0]);
+    axios.post('http://localhost:9001/new-DailyDerby', dailyDerby[0]);
+    axios.post('http://localhost:9001/new-DC2', dc2);
+    axios.post('http://localhost:9001/new-DC3', dc3);
+    axios.post('http://localhost:9001/new-DC4', dc4);
+    axios.post('http://localhost:9001/new-DC5', dc5);
+    axios.post('http://localhost:9001/new-JackpotTriplePlays', jackpotTriplePlay[0]);
+    axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto[0]);
+    axios.post('http://localhost:9001/new-MultiWinLotto', multiWinLotto[0]);
+    axios.post('http://localhost:9001/new-Play_3', play_3);
+    axios.post('http://localhost:9001/new-Play_4', play_4);
+    axios.post('http://localhost:9001/new-Play_5', play_5);
+    axios.post('http://localhost:9001/new-Play3', play3);
+    axios.post('http://localhost:9001/new-Play4', play4);
+    axios.post('http://localhost:9001/new-Take5', take5);
+    axios.post('http://localhost:9001/new-ThePick', thePick[0]);
+    axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
+    axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
                             
 }
 

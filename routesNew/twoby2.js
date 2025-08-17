@@ -2,22 +2,22 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db"); // this is your pg-promise db
 
-// GET all superlotto_plus entries
+// GET all twoby2 entries
 router.get("/", async (req, res) => {
   try {
-    const result = await db.any("SELECT * FROM superlotto_plus ORDER BY id DESC");
-    res.json({ status: 200, data_superlottoPlus: result });
+    const result = await db.any("SELECT * FROM twoby2 ORDER BY id DESC");
+    res.json({ status: 200, data_twoby2: result });
   } catch (error) {
     console.error("Error fetching data:", error.message);
     res.status(500).json({ status: 500, message: error.message });
   }
 });
 
-// GET superlotto_plus entry by ID
+// GET twoby2 entry by ID
 router.get('/:id', async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const draw = await db.oneOrNone(`SELECT * FROM superlotto_plus WHERE id = $1`, [id]);
+      const draw = await db.oneOrNone(`SELECT * FROM twoby2 WHERE id = $1`, [id]);
   
       if (!draw) return res.status(404).json({ status: 404, message: "Draw not found" });
   
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST new superlotto_plus entry
+// POST new twoby2 entry
 router.post('/', async (req, res) => {
     try {
       const data = req.body;
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
       }
   
       const insertQuery = `
-        INSERT INTO superlotto_plus(
+        INSERT INTO twoby2 (
           date,
           nextDrawDate,
           nextDrawJackpot,
@@ -65,14 +65,14 @@ router.post('/', async (req, res) => {
       await db.one(insertQuery, values);
   
       // fetch last 10 rows
-      const last10SuperlottoPlus = await db.any(`
+      const last10Twoby2 = await db.any(`
         SELECT *
-        FROM superlotto_plus
+        FROM twoby2
         ORDER BY id DESC
         LIMIT 10
       `);
   
-      res.json({ status: 200, last10Draws: last10SuperlottoPlus});
+      res.json({ status: 200, last10Draws: last10Twoby2 });
   
     } catch (error) {
       console.error("Error inserting into DB:", error.message);
@@ -84,7 +84,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const result = await db.result(`DELETE FROM superlotto_plus WHERE id = $1`, [id]);
+      const result = await db.result(`DELETE FROM twoby2 WHERE id = $1`, [id]);
   
       if (result.rowCount === 0) {
         return res.status(404).json({ status: 404, message: "Draw not found or already deleted" });

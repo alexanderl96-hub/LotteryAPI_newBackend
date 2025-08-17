@@ -253,6 +253,25 @@ app.use("/new-LuckyforLife", luckyforLife)
 app.use("/new-NaturalStateJackpot", naturalStateJackpot)
 app.use("/new-PowerballDoublePlay", powerballDoublePlay)
 app.use("/new-SuperlottoPlus", superlottoPlus)
+app.use("/new-Pick10", require('./routesNew/pick_10.js'));
+app.use("/new-CashForLife", require('./routesNew/cashForLife.js'));
+app.use("/new-DailyDerby", require('./routesNew/dailyDerby.js'));
+app.use("/new-DC2", require('./routesNew/dc2.js'));
+app.use("/new-DC3", require('./routesNew/dc3.js'));
+app.use("/new-DC4", require('./routesNew/dc4.js'));
+app.use("/new-DC5", require('./routesNew/dc5.js'));
+app.use("/new-JackpotTriplePlays", require('./routesNew/jackpotTriplePlay.js'));
+app.use("/new-LuckydayLotto", require('./routesNew/luckydayLotto.js'));
+app.use("/new-MultiWinLotto", require('./routesNew/multi-WinLotto.js'));
+app.use("/new-Play_3", require('./routesNew/play_3.js'));
+app.use("/new-Play_4", require('./routesNew/play_4.js'));
+app.use("/new-Play_5", require('./routesNew/play_5.js'));
+app.use("/new-Play3", require('./routesNew/play3.js'));
+app.use("/new-Play4", require('./routesNew/play4.js'));
+app.use("/new-Take5", require('./routesNew/take5.js'));
+app.use("/new-ThePick", require('./routesNew/thePick.js'));
+app.use("/new-TripleTwist", require('./routesNew/tripleTwist.js'));
+app.use("/new-TwoBy2", require('./routesNew/twoby2.js'));
 app.use("/remainData", lotteryRaw)
 app.use("/all_data", allData)
 
@@ -264,10 +283,8 @@ app.use('/text', predictionText)
 
 app.use('/', homeRoot);
 
-
 // Handle preflight requests for CORS
 app.options('*', cors());
-
 
 
 app.all('/*', (req, res, next) => {
@@ -283,7 +300,6 @@ app.use(function(req, res, next) {
   });
 
 
-
 // error handler
 app.use(function(err, req, res, next) {
     res.status(err.status || 500).json({
@@ -291,11 +307,6 @@ app.use(function(err, req, res, next) {
     });
 });
   
-
-
-
-
-
 
 const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
   try {
