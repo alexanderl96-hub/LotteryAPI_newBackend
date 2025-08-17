@@ -8,12 +8,10 @@ const dataJsonRequest = async () => {
     const gameSeparateByState = [];
 
     const allState = [
-        'NY', 'AR',
-        //  'AZ', 'CA', 
-        // 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
-        // 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
-        // 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
-        // 'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
+        'NY', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
+        'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
+        'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
+        'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
     ];
 
     for (let stateIndex = 0; stateIndex < allState.length; stateIndex++) {
@@ -128,9 +126,11 @@ const storedData = async () => {
     const todayStr = new Date().toDateString();
     const all_data = await dataJsonRequest();
 
-    const gamesToPick = ['Powerball', 'Pick 10', 'Mega Millions', 
-          'Lucky For Life', 'Powerball Double Play', 'Natural State Jackpot', 
-          'SuperLotto Plus', 'Lotto America'];
+    const gamesToPick = ['Powerball', 'Pick 10', 'Mega Millions', "Cashforlife",
+          'Lucky For Life', 'Powerball Double Play', 'Natural State Jackpot', "Take 5",
+          "2 by 2", "Luckyday Lotto", "Daily Derby", "Multi-Win Lotto", "The Pick", " Triple Twist",
+          "Play4", "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", 
+         "Jackpot Triple Play", 'SuperLotto Plus', 'Lotto America'];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
     const remain = {
@@ -140,12 +140,22 @@ const storedData = async () => {
 
     const powerBall = selectedGames.filter(a => a.gameName === "Powerball")
     const megaMillion = selectedGames.filter(a => a.gameName === "Mega Millions")
+    const lottoAmerica = selectedGames.filter(a => a.gameName === "Lotto America")
+    const luckyforLife = selectedGames.filter(a => a.gameName === "Lucky For Life")
+    const naturalStateJackpot = selectedGames.filter(a => a.gameName === "Natural State Jackpot")
+    const powerballDoublePlay = selectedGames.filter(a => a.gameName === "Powerball Double Play")
+    const superlottoPlus = selectedGames.filter(a => a.gameName === "SuperLotto Plus")
+
 
     axios.post('http://localhost:9001/remainData', remain)
     axios.post('http://localhost:9001/new-Powerball', powerBall[0]);
     axios.post('http://localhost:9001/new-MegaMillions', megaMillion[0]);
+    axios.post('http://localhost:9001/new-LottoAmerica', lottoAmerica[0]);
+    axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
+    axios.post('http://localhost:9001/new-NaturalStateJackpot', naturalStateJackpot[0]);
+    axios.post('http://localhost:9001/new-PowerballDoublePlay', powerballDoublePlay[0]);
+    axios.post('http://localhost:9001/new-SuperlottoPlus', superlottoPlus[0]);
                             
-
 }
 
-module.exports = storedData;
+module.exports =  storedData;

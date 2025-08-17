@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dataJsonRequest = require("..//ServiceUpdate/dataJson_RequestApi")
+var dataJsonRequest = require("..//ServiceUpdate/dataJsonAPiRequest")
 
 
 router.get('/', (req, res) => {

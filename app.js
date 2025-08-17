@@ -58,7 +58,13 @@ var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
 var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
 var powerball = require('./routesNew/powerball.js')
 var megamillions = require('./routesNew/megamillions.js')
+var lottoAmerica = require('./routesNew/lotto_America.js')
+var luckyforLife = require('./routesNew/lucky_for_life.js')
+var naturalStateJackpot =  require('./routesNew/natural_sate_jackpot.js')
+var powerballDoublePlay = require('./routesNew/powerball_double_play.js')
+var superlottoPlus = require('./routesNew/superlotto_plus.js')
 var lotteryRaw = require('./routesNew/lottery_raw.js')
+var allData = require('./routesNew/getAllData.js')
 
 
 var TaskSchedule = require('./Task/task_Fetch.js');
@@ -242,7 +248,13 @@ app.use('/generate_NumbersDay', generateNumbersDay);
 
 app.use("/new-Powerball", powerball)
 app.use("/new-MegaMillions", megamillions)
+app.use("/new-LottoAmerica", lottoAmerica)
+app.use("/new-LuckyforLife", luckyforLife)
+app.use("/new-NaturalStateJackpot", naturalStateJackpot)
+app.use("/new-PowerballDoublePlay", powerballDoublePlay)
+app.use("/new-SuperlottoPlus", superlottoPlus)
 app.use("/remainData", lotteryRaw)
+app.use("/all_data", allData)
 
 
 app.use('/api-fetch', TaskSchedule);
