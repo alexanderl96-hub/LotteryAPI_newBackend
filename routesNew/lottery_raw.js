@@ -43,7 +43,8 @@ router.get("/:id", async (req, res) => {
 // POST new remaindata entry
 router.post("/", async (req, res) => {
   try {
-    const { date, data_ } = req.body;
+    // const { date, data_ } = req.body;
+    const { date, dateSelect, data_ } = req.body;
     if (date == null || data_ == null) {
       return res.status(400).json({ status: 400, message: "Missing date or data_" });
     }
@@ -72,18 +73,26 @@ router.post("/", async (req, res) => {
     };
 
     const isoDate = normalizeDate(date);
+    const jsonSelected = toOriginal(dateSelect);
     const jsonPayload = toOriginal(data_);
 
     const sql = `
-      INSERT INTO allremaindata (date, data_)
-      VALUES ($1::date, $2::jsonb)
-      RETURNING id, to_char(date,'YYYY-MM-DD') AS date, data_
+      INSERT INTO allremaindata (date, dateSelect, data_)
+      VALUES ($1::date, $2::jsonb, $3::jsonb)
+      RETURNING id, to_char(date,'YYYY-MM-DD') AS date, dateSelect, data_
     `;
 
-    const row = await db.one(sql, [isoDate, JSON.stringify(jsonPayload)]);
+      const params = [
+      isoDate,
+      jsonSelected == null ? null : JSON.stringify(jsonSelected),
+      jsonPayload  == null ? null : JSON.stringify(jsonPayload),
+    ];
+
+    // const row = await db.one(sql, [isoDate, JSON.stringify(jsonPayload)]);
+    const row = await db.one(sql, params);
 
     const last10 = await db.any(`
-      SELECT id, to_char(date,'YYYY-MM-DD') AS date, data_
+      SELECT id, to_char(date,'YYYY-MM-DD') AS date, dateSelect, data_
       FROM allremaindata
       ORDER BY id DESC
       LIMIT 10

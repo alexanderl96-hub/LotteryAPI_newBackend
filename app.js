@@ -332,3 +332,5 @@ const sendSuspensionEmail = async (email, memberName, reason, schedule) => {
 
 
   // https://lotteryapi-newbackend2024.adaptable.app/api-fetch/trigger-task
+
+  // https://replit.com/@alexanderl96hub/check-for-intervalos-and-repetition#index.js

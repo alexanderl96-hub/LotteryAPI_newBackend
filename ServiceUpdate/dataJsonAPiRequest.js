@@ -8,8 +8,8 @@ const dataJsonRequest = async () => {
     const gameSeparateByState = [];
 
     const allState = [
-        'NY', 'AR',
-        //  'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
+        'NY', 
+        // 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
         // 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
         // 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
         // 'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
@@ -124,6 +124,46 @@ function splitLotteryDataUnique(data_, gamesToPick) {
     return { selectedGames, remainingData };
   }
 
+// Returns true if a is exactly one day before b (by calendar date)
+function isOneDayBefore(a, b) {
+  const toUtcDateOnly = (input) => {
+    if (input == null) throw new Error("Missing date");
+    const s = String(input).trim();
+
+    // MM/DD/YYYY  -> YYYY,MM,DD
+    let m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (m) {
+      const [, mm, dd, yyyy] = m;
+      return new Date(Date.UTC(+yyyy, +mm - 1, +dd));
+    }
+
+    // e.g., "Tue Aug 19 2025"
+    m = s.match(/^[A-Za-z]{3}\s+([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/);
+    if (m) {
+      const [, monStr, dStr, yStr] = m;
+      const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+      const mon = months[monStr];
+      if (mon == null) throw new Error("Bad month: " + monStr);
+      return new Date(Date.UTC(+yStr, mon, +dStr));
+    }
+
+    // Fallback: let Date parse it, then strip time to UTC date
+    const d = new Date(s);
+    if (!isNaN(d)) {
+      return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+    }
+
+    throw new Error("Unparseable date: " + input);
+  };
+
+  const d1 = toUtcDateOnly(a);
+  const d2 = toUtcDateOnly(b);
+
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  return (d2 - d1) === ONE_DAY;
+}
+
+
 const storedData = async () => {
     const todayStr = new Date().toDateString();
     const all_data = await dataJsonRequest();
@@ -144,6 +184,7 @@ const storedData = async () => {
 
     const remain = {
         date: todayStr,
+        dateSelect: selectedGames,
         data_: remainingData
     }
 
@@ -175,33 +216,71 @@ const storedData = async () => {
     const jackpotTriplePlay = selectedGames.filter(a => a.gameName === "Jackpot Triple Play")
 
 
-    // axios.post('http://localhost:9001/remainData', remain)
-    // axios.post('http://localhost:9001/new-Powerball', powerBall[0]);
-    // axios.post('http://localhost:9001/new-MegaMillions', megaMillion[0]);
-    // axios.post('http://localhost:9001/new-LottoAmerica', lottoAmerica[0]);
-    // axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
-    // axios.post('http://localhost:9001/new-NaturalStateJackpot', naturalStateJackpot[0]);
-    // axios.post('http://localhost:9001/new-PowerballDoublePlay', powerballDoublePlay[0]);
-    // axios.post('http://localhost:9001/new-SuperlottoPlus', superlottoPlus[0]);
-    // axios.post('http://localhost:9001/new-Pick10', pick10[0]);
-    // axios.post('http://localhost:9001/new-CashForLife', cashforlife[0]);
-    // axios.post('http://localhost:9001/new-DailyDerby', dailyDerby[0]);
-    // axios.post('http://localhost:9001/new-DC2', dc2);
-    // axios.post('http://localhost:9001/new-DC3', dc3);
-    // axios.post('http://localhost:9001/new-DC4', dc4);
-    // axios.post('http://localhost:9001/new-DC5', dc5);
-    // axios.post('http://localhost:9001/new-JackpotTriplePlays', jackpotTriplePlay[0]);
-    // axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto[0]);
-    // axios.post('http://localhost:9001/new-MultiWinLotto', multiWinLotto[0]);
-    // axios.post('http://localhost:9001/new-Play_3', play_3);
-    // axios.post('http://localhost:9001/new-Play_4', play_4);
-    // axios.post('http://localhost:9001/new-Play_5', play_5);
-    // axios.post('http://localhost:9001/new-Play3', play3);
-    // axios.post('http://localhost:9001/new-Play4', play4);
-    // axios.post('http://localhost:9001/new-Take5', take5);
-    // axios.post('http://localhost:9001/new-ThePick', thePick[0]);
-    // axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
-    // axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
+    if(powerBall && isOneDayBefore(powerBall[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Powerball', powerBall[0]);
+     } else {
+        console.log("Failed to post Powerball")
+    }
+
+    if(megaMillion && isOneDayBefore(megaMillion[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-MegaMillions', powerBall[0]);
+    } else {
+        console.log("Failed to post MegaMillion");
+    }
+
+    if(lottoAmerica && isOneDayBefore(lottoAmerica[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-LottoAmerica', lottoAmerica[0]);
+    } else{
+        console.log("Failed to post LottoAmerica")
+    }
+
+     if(jackpotTriplePlay && isOneDayBefore(jackpotTriplePlay[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-JackpotTriplePlays', jackpotTriplePlay[0]);
+    } else{
+        console.log("Failed to post JackpotTriplePlay")
+    }
+
+    if(superlottoPlus && isOneDayBefore(superlottoPlus[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-SuperlottoPlus', superlottoPlus[0]);
+    } else{
+        console.log("Failed to post SuperlottoPlus")
+    }
+
+     if(powerballDoublePlay && isOneDayBefore(powerballDoublePlay[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-PowerballDoublePlay', powerballDoublePlay[0]);
+    } else{
+        console.log("Failed to post PowerballDoublePlay")
+    }
+
+    if(thePick && isOneDayBefore(thePick[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-ThePick', thePick[0]);
+    } else{
+        console.log("Failed to post ThePick")
+    }
+
+
+
+    axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
+    axios.post('http://localhost:9001/new-NaturalStateJackpot', naturalStateJackpot[0]);
+    axios.post('http://localhost:9001/new-Pick10', pick10[0]);
+    axios.post('http://localhost:9001/new-CashForLife', cashforlife[0]);
+    axios.post('http://localhost:9001/new-DailyDerby', dailyDerby[0]);
+    axios.post('http://localhost:9001/new-DC2', dc2);
+    axios.post('http://localhost:9001/new-DC3', dc3);
+    axios.post('http://localhost:9001/new-DC4', dc4);
+    axios.post('http://localhost:9001/new-DC5', dc5);
+    axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto[0]);
+    axios.post('http://localhost:9001/new-MultiWinLotto', multiWinLotto[0]);
+    axios.post('http://localhost:9001/new-Play_3', play_3);
+    axios.post('http://localhost:9001/new-Play_4', play_4);
+    axios.post('http://localhost:9001/new-Play_5', play_5);
+    axios.post('http://localhost:9001/new-Play3', play3);
+    axios.post('http://localhost:9001/new-Play4', play4);
+    axios.post('http://localhost:9001/new-Take5', take5);
+    axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
+    axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
+
+    axios.post('http://localhost:9001/remainData', remain)
                             
 }
 
