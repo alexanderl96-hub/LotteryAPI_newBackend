@@ -29,57 +29,6 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST new dc5 entry
-// router.post('/', async (req, res) => {
-//     try {
-//       const data = req.body;
-  
-//       if (!data) {
-//         return res.status(400).json({ status: 400, message: "No data provided" });
-//       }
-  
-//       const insertQuery = `
-//         INSERT INTO dc5 (
-//           date,
-//           nextDrawDate,
-//           nextDrawJackpot,
-//           numbers,
-//           extraFields,
-//           gameName,
-//           playName
-//         )
-//         VALUES($1, $2, $3, $4, $5, $6, $7)
-//         RETURNING *
-//       `;
-  
-//       const values = [
-//         data.date,
-//         data.nextDrawDate,
-//         data.nextDrawJackpot,
-//         data.numbers,    // text[]
-//         data.extraFields,               // empty extraFields
-//         data.gameName,
-//         data.playName
-//       ];
-  
-//       // insert
-//       await db.one(insertQuery, values);
-  
-//       // fetch last 10 rows
-//       const last10DC5 = await db.any(`
-//         SELECT *
-//         FROM dc5
-//         ORDER BY id DESC
-//         LIMIT 10
-//       `);
-  
-//       res.json({ status: 200, last10Draws: last10DC5 });
-  
-//     } catch (error) {
-//       console.error("Error inserting into DB:", error.message);
-//       res.status(500).json({ status: 500, message: error.message });
-//     }
-//   });
-
 router.post('/', async (req, res) => {
   try {
     const payload = req.body;
