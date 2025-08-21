@@ -272,6 +272,11 @@ app.use("/new-Take5", require('./routesNew/take5.js'));
 app.use("/new-ThePick", require('./routesNew/thePick.js'));
 app.use("/new-TripleTwist", require('./routesNew/tripleTwist.js'));
 app.use("/new-TwoBy2", require('./routesNew/twoby2.js'));
+
+app.use("/new-FiveStarDraw", require('./routesNew/fiveStartDraw.js'));
+app.use("/new-Gimme_Five", require('./routesNew/gimme5.js'));
+app.use("/new-Megabucks_Plus", require('./routesNew/megabucksPlus.js'));
+app.use("/new-Win_4", require('./routesNew/win4.js'));
 app.use("/remainData", lotteryRaw)
 app.use("/all_data", allData)
 

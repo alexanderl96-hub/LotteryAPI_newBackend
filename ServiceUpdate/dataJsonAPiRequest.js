@@ -8,11 +8,10 @@ const dataJsonRequest = async () => {
     const gameSeparateByState = [];
 
     const allState = [
-        'NY', 
-        // 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
-        // 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
-        // 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
-        // 'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
+        'NY', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'IA', 'ID',
+        'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MT', 
+        'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 
+        'RI', 'SC', 'SD', 'TN', 'TX', 'VA', 'VT', 'WA', 'WI', 'WV'
     ];
 
     for (let stateIndex = 0; stateIndex < allState.length; stateIndex++) {
@@ -173,12 +172,12 @@ const storedData = async () => {
         'Powerball Double Play', 'SuperLotto Plus', "Cash4Life", 'Pick 10', "Take 5", "2 By 2", 
         "LuckyDay Lotto", "Daily Derby", "Multi-Win Lotto", "The Pick", "Triple Twist", "Play4", 
         "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", "Jackpot Triple Play", 
-
+        "5 Star Draw", "Gimme 5", "Megabucks Plus", "Win 4",
         
-        // "5 Star Draw", "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Loto Plus", "Wild Money",
+        // "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Loto Plus", "Wild Money",
         // "Pega 4", "Palmetto Cash 5", "Dakota Cash",  "Tennessee Cash",  "Daily Tennessee", "Two Step",
-        // "Bank a Million", "Megabucks Plus", "Gimme 5", "Hit 5", "Match 4", "Daily Game", "Badger 5",
-        // "Cash 25", "Win for Life", "Lucky Lines", "Pega 2", "Pega 3", "Georgia FIVE", "Win 4"
+        // "Bank a Million",   "Hit 5", "Match 4", "Daily Game", "Badger 5",
+        // "Cash 25", "Win for Life", "Lucky Lines", "Pega 2", "Pega 3", "Georgia FIVE", 
     ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
@@ -214,6 +213,10 @@ const storedData = async () => {
     const play_4 = selectedGames.filter(a => a.gameName === "Play 4")
     const play_3 = selectedGames.filter(a => a.gameName === "Play 3")
     const jackpotTriplePlay = selectedGames.filter(a => a.gameName === "Jackpot Triple Play")
+    const fiveStarDraw = selectedGames.filter(a => a.gameName === "5 Star Draw")
+    const gimme_5 = selectedGames.filter(a => a.gameName === "Gimme 5")
+    const megabucks_Plus = selectedGames.filter(a => a.gameName === "Megabucks Plus")
+    const win_4 = selectedGames.filter(a => a.gameName === "Win 4")
 
 
     if(powerBall && isOneDayBefore(powerBall[0].date, todayStr)){
@@ -223,7 +226,7 @@ const storedData = async () => {
     }
 
     if(megaMillion && isOneDayBefore(megaMillion[0].date, todayStr)){
-       axios.post('http://localhost:9001/new-MegaMillions', powerBall[0]);
+       axios.post('http://localhost:9001/new-MegaMillions', megaMillion[0]);
     } else {
         console.log("Failed to post MegaMillion");
     }
@@ -258,6 +261,18 @@ const storedData = async () => {
         console.log("Failed to post ThePick")
     }
 
+     if(fiveStarDraw && isOneDayBefore(fiveStarDraw[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-FiveStarDraw', fiveStarDraw[0]);
+    } else{
+        console.log("Failed to post 5 Star Draw")
+    }
+
+    if(megabucks_Plus && isOneDayBefore(megabucks_Plus[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Megabucks_Plus', megabucks_Plus[0]);
+    } else{
+        console.log("Failed to post Megabucks Plus")
+    }
+
 
 
     axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
@@ -269,7 +284,7 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-DC3', dc3);
     axios.post('http://localhost:9001/new-DC4', dc4);
     axios.post('http://localhost:9001/new-DC5', dc5);
-    axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto[0]);
+    axios.post('http://localhost:9001/new-LuckydayLotto', luckydayLotto);
     axios.post('http://localhost:9001/new-MultiWinLotto', multiWinLotto[0]);
     axios.post('http://localhost:9001/new-Play_3', play_3);
     axios.post('http://localhost:9001/new-Play_4', play_4);
@@ -279,6 +294,8 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-Take5', take5);
     axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
     axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
+    axios.post('http://localhost:9001/new-Gimme_Five', gimme_5[0]);
+    axios.post('http://localhost:9001/new-Win_4', win_4);
 
     axios.post('http://localhost:9001/remainData', remain)
                             

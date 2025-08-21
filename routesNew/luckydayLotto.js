@@ -29,56 +29,142 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST new luckydaylotto entry
+// router.post('/', async (req, res) => {
+//     try {
+//       const data = req.body;
+  
+//       if (!data) {
+//         return res.status(400).json({ status: 400, message: "No data provided" });
+//       }
+  
+//       const insertQuery = `
+//         INSERT INTO luckydaylotto (
+//           date,
+//           nextDrawDate,
+//           nextDrawJackpot,
+//           numbers,
+//           extraFields,
+//           gameName,
+//           playName
+//         )
+//         VALUES($1, $2, $3, $4, $5, $6, $7)
+//         RETURNING *
+//       `;
+  
+//       const values = [
+//         data.date,
+//         data.nextDrawDate,
+//         data.nextDrawJackpot,
+//         data.numbers,    // text[]
+//         data.extraFields,               // empty extraFields
+//         data.gameName,
+//         data.playName
+//       ];
+  
+//       // insert
+//       await db.one(insertQuery, values);
+  
+//       // fetch last 10 rows
+//       const last10LuckydayLotto = await db.any(`
+//         SELECT *
+//         FROM luckydaylotto
+//         ORDER BY id DESC
+//         LIMIT 10
+//       `);
+  
+//       res.json({ status: 200, last10Draws: last10LuckydayLotto });
+  
+//     } catch (error) {
+//       console.error("Error inserting into DB:", error.message);
+//       res.status(500).json({ status: 500, message: error.message });
+//     }
+//   });
+
 router.post('/', async (req, res) => {
-    try {
-      const data = req.body;
-  
-      if (!data) {
-        return res.status(400).json({ status: 400, message: "No data provided" });
-      }
-  
-      const insertQuery = `
-        INSERT INTO luckydaylotto (
-          date,
-          nextDrawDate,
-          nextDrawJackpot,
-          numbers,
-          extraFields,
-          gameName,
-          playName
-        )
-        VALUES($1, $2, $3, $4, $5, $6, $7)
-        RETURNING *
-      `;
-  
-      const values = [
-        data.date,
-        data.nextDrawDate,
-        data.nextDrawJackpot,
-        data.numbers,    // text[]
-        data.extraFields,               // empty extraFields
-        data.gameName,
-        data.playName
-      ];
-  
-      // insert
-      await db.one(insertQuery, values);
-  
-      // fetch last 10 rows
-      const last10LuckydayLotto = await db.any(`
-        SELECT *
-        FROM luckydaylotto
-        ORDER BY id DESC
-        LIMIT 10
-      `);
-  
-      res.json({ status: 200, last10Draws: last10LuckydayLotto });
-  
-    } catch (error) {
-      console.error("Error inserting into DB:", error.message);
-      res.status(500).json({ status: 500, message: error.message });
+  try {
+    const payload = req.body;
+    if (!Array.isArray(payload) || payload.length === 0) {
+      return res.status(400).json({ status: 400, message: 'No data provided' });
     }
-  });
+
+    // helper to format dates as "MM/DD/YYYY"
+    const fmt = (d) => {
+      if (!d) return d;
+      const toDate = (x) =>
+        x instanceof Date ? x :
+        typeof x === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(x) ? new Date(x + 'T00:00:00Z') :
+        new Date(x); // fallback
+      const dt = toDate(d);
+      const mm = String(dt.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(dt.getUTCDate()).padStart(2, '0');
+      const yyyy = dt.getUTCFullYear();
+      return `${mm}/${dd}/${yyyy}`;
+    };
+
+    const insertSQL = `
+      INSERT INTO luckydaylotto (
+        date,
+        nextDrawDate,
+        nextDrawJackpot,
+        numbers,
+        extraFields,
+        gameName,
+        playName
+      )
+      VALUES (
+        to_date($1,'MM/DD/YYYY'),
+        to_date($2,'MM/DD/YYYY'),
+        $3,
+        $4::text[],
+        $5::text[],
+        $6,
+        $7
+      )
+      RETURNING id, date, nextDrawDate, nextDrawJackpot, numbers, extraFields, gameName, playName
+    `;
+
+    const inserted = [];
+
+    await db.tx(async t => {
+      for (const d of payload) {
+        const vals = [
+          d.date,
+          d.nextDrawDate,
+          d.nextDrawJackpot ?? 0,
+          d.numbers ?? [],
+          d.extraFields ?? [],
+          d.gameName,
+          d.playName
+        ];
+        const row = await t.one(insertSQL, vals);
+        inserted.push(row);
+      }
+    });
+
+    // Build the response in your requested shape
+    const draw = inserted.map(r => ({
+      date: fmt(r.date),
+      nextDrawDate: fmt(r.nextdrawdate),
+      nextDrawJackpot: Number(r.nextdrawjackpot),
+      numbers: (r.numbers || []).map(String),
+      extraFields: r.extrafields ?? [],
+      gameName: r.gamename,
+      playName: r.playname
+    }));
+
+    const response = [{
+      id: inserted[0].id,                 // first inserted row id
+      date: draw[0].date,                 // first draw's date (MM/DD/YYYY)
+      nextDrawDate: draw[0].nextDrawDate, // first draw's nextDrawDate
+      draw                                  // full array you sent, normalized from DB
+    }];
+
+    return res.json(response);
+  } catch (error) {
+    console.error('Insert error:', error);
+    return res.status(500).json({ status: 500, message: error.message });
+  }
+});
 
 // DELETE draw by ID
 router.delete('/:id', async (req, res) => {
