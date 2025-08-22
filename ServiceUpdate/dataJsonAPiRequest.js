@@ -172,12 +172,13 @@ const storedData = async () => {
         'Powerball Double Play', 'SuperLotto Plus', "Cash4Life", 'Pick 10', "Take 5", "2 By 2", 
         "LuckyDay Lotto", "Daily Derby", "Multi-Win Lotto", "The Pick", "Triple Twist", "Play4", 
         "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", "Jackpot Triple Play", 
-        "5 Star Draw", "Gimme 5", "Megabucks Plus", "Win 4",
-        
-        // "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Loto Plus", "Wild Money",
-        // "Pega 4", "Palmetto Cash 5", "Dakota Cash",  "Tennessee Cash",  "Daily Tennessee", "Two Step",
+        "5 Star Draw", "Gimme 5", "Megabucks Plus", "Win 4", "Lucky Lines", "Win for Life", 
+        "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Pega 2", "Pega 3", "Pega 4", "Loto Plus",
+
+        //   "Wild Money",
+        // "Palmetto Cash 5", "Dakota Cash",  "Tennessee Cash",  "Daily Tennessee", "Two Step",
         // "Bank a Million",   "Hit 5", "Match 4", "Daily Game", "Badger 5",
-        // "Cash 25", "Win for Life", "Lucky Lines", "Pega 2", "Pega 3", "Georgia FIVE", 
+        // "Cash 25",  "Georgia FIVE", 
     ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
@@ -217,6 +218,15 @@ const storedData = async () => {
     const gimme_5 = selectedGames.filter(a => a.gameName === "Gimme 5")
     const megabucks_Plus = selectedGames.filter(a => a.gameName === "Megabucks Plus")
     const win_4 = selectedGames.filter(a => a.gameName === "Win 4")
+    const luckyLines = selectedGames.filter(a => a.gameName === "Lucky Lines")
+    const winforLife = selectedGames.filter(a => a.gameName === "Win for Life")
+    const match6lotto = selectedGames.filter(a => a.gameName === "Match 6 Lotto")
+    const treasure_hunt = selectedGames.filter(a => a.gameName === "Treasure Hunt")
+    const derby_cash = selectedGames.filter(a => a.gameName === "Derby Cash")
+    const pega_2 = selectedGames.filter(a => a.gameName === "Pega 2")
+    const pega_3 = selectedGames.filter(a => a.gameName === "Pega 3")
+    const pega_4 = selectedGames.filter(a => a.gameName === "Pega 4")
+    const loto_Plus = selectedGames.filter(a => a.gameName === "Loto Plus")
 
 
     if(powerBall && isOneDayBefore(powerBall[0].date, todayStr)){
@@ -273,6 +283,18 @@ const storedData = async () => {
         console.log("Failed to post Megabucks Plus")
     }
 
+    if(winforLife && isOneDayBefore(winforLife[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Win_for_Life', winforLife[0]);
+    } else{
+        console.log("Failed to post win for Life")
+    }
+
+     if(loto_Plus && isOneDayBefore(winforLife[1].date, todayStr)){
+       axios.post('http://localhost:9001/new-Loto_Plus', loto_Plus);
+    } else{
+        console.log("Failed to post Loto Plus")
+    }
+
 
 
     axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
@@ -296,6 +318,13 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
     axios.post('http://localhost:9001/new-Gimme_Five', gimme_5[0]);
     axios.post('http://localhost:9001/new-Win_4', win_4);
+    axios.post('http://localhost:9001/new-Lucky_Lines', luckyLines[0]);
+    axios.post('http://localhost:9001/new-Derby_Cash', derby_cash[0]);
+    axios.post('http://localhost:9001/new-Match_6_Lotto', match6lotto[0]);
+    axios.post('http://localhost:9001/new-Treasure_Hunt', treasure_hunt[0]);
+    axios.post('http://localhost:9001/new-Pega_2', pega_2);
+    axios.post('http://localhost:9001/new-Pega_3', pega_3);
+    axios.post('http://localhost:9001/new-Pega_4', pega_4);
 
     axios.post('http://localhost:9001/remainData', remain)
                             

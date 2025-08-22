@@ -277,6 +277,17 @@ app.use("/new-FiveStarDraw", require('./routesNew/fiveStartDraw.js'));
 app.use("/new-Gimme_Five", require('./routesNew/gimme5.js'));
 app.use("/new-Megabucks_Plus", require('./routesNew/megabucksPlus.js'));
 app.use("/new-Win_4", require('./routesNew/win4.js'));
+
+app.use("/new-Win_for_Life", require('./routesNew/winForLife.js'));
+app.use("/new-Lucky_Lines", require('./routesNew/luckyLines.js'));
+app.use("/new-Derby_Cash", require('./routesNew/dailyDerby.js'));
+app.use("/new-Match_6_Lotto", require('./routesNew/match6Lotto.js'));
+app.use("/new-Treasure_Hunt", require('./routesNew/treasureHunt.js'));
+app.use("/new-Loto_Plus", require('./routesNew/lotoPlus.js'));
+app.use("/new-Pega_2", require('./routesNew/pega2.js'));
+app.use("/new-Pega_3", require('./routesNew/pega3.js'));
+app.use("/new-Pega_4", require('./routesNew/pega4.js'));
+
 app.use("/remainData", lotteryRaw)
 app.use("/all_data", allData)
 
