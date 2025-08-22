@@ -286,7 +286,21 @@ app.use("/new-Treasure_Hunt", require('./routesNew/treasureHunt.js'));
 app.use("/new-Loto_Plus", require('./routesNew/lotoPlus.js'));
 app.use("/new-Pega_2", require('./routesNew/pega2.js'));
 app.use("/new-Pega_3", require('./routesNew/pega3.js'));
-app.use("/new-Pega_4", require('./routesNew/pega4.js'));
+app.use("/new-Pega_4", require('./routesNew/pega4.js')); 
+
+app.use("/new-Dakota_Cash", require('./routesNew/dakotaCash.js'));
+app.use("/new-Tennessee_Cash", require('./routesNew/tenneseeCash.js'));
+app.use("/new-Two_Step", require('./routesNew/twoStep.js'));
+app.use("/new-Bank_a_Million", require('./routesNew/bankAMillion.js'));
+app.use("/new-Cash_25'", require('./routesNew/cash25.js'));
+app.use("/new-Wild_Money", require('./routesNew/wildMoney.js'));
+app.use("/new-Palmetto_Cash_5", require('./routesNew/palmettoCash5.js'));
+app.use("/new-Daily_Tennessee", require('./routesNew/dailyTennesee.js'));
+app.use("/new-Hit_5", require('./routesNew/hit5.js'));
+app.use("/new-Match_4", require('./routesNew/match4.js'));
+app.use("/new-Daily_Game", require('./routesNew/dailyGame.js'));
+app.use("/new-Badger_5", require('./routesNew/badger5.js'));
+app.use("/new-Georgia_Five", require('./routesNew/georgiaFive.js'));
 
 app.use("/remainData", lotteryRaw)
 app.use("/all_data", allData)

@@ -175,10 +175,9 @@ const storedData = async () => {
         "5 Star Draw", "Gimme 5", "Megabucks Plus", "Win 4", "Lucky Lines", "Win for Life", 
         "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Pega 2", "Pega 3", "Pega 4", "Loto Plus",
 
-        //   "Wild Money",
-        // "Palmetto Cash 5", "Dakota Cash",  "Tennessee Cash",  "Daily Tennessee", "Two Step",
-        // "Bank a Million",   "Hit 5", "Match 4", "Daily Game", "Badger 5",
-        // "Cash 25",  "Georgia FIVE", 
+        "Wild Money", "Palmetto Cash 5", "Dakota Cash", "Tennessee Cash",  "Daily Tennessee",
+        "Two Step", "Bank a Million", "Hit 5", "Match 4", "Daily Game", "Badger 5", 
+        "Cash 25",  "Georgia FIVE", 
     ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
@@ -227,6 +226,20 @@ const storedData = async () => {
     const pega_3 = selectedGames.filter(a => a.gameName === "Pega 3")
     const pega_4 = selectedGames.filter(a => a.gameName === "Pega 4")
     const loto_Plus = selectedGames.filter(a => a.gameName === "Loto Plus")
+
+    const wildMoney = selectedGames.filter(a => a.gameName === "Wild Money")
+    const palmettoCash_5 = selectedGames.filter(a => a.gameName === "Palmetto Cash 5")
+    const dakota_Cash = selectedGames.filter(a => a.gameName === "Dakota Cash")
+    const tennessee_Cash = selectedGames.filter(a => a.gameName === "Tennessee Cash")
+    const daily_Tennessee = selectedGames.filter(a => a.gameName === "Daily Tennessee")
+    const two_Step = selectedGames.filter(a => a.gameName === "Two Step")
+    const bank_a_Million = selectedGames.filter(a => a.gameName === "Bank a Million")
+    const hit_5 = selectedGames.filter(a => a.gameName === "Hit 5") 
+    const match_4 = selectedGames.filter(a => a.gameName === "Match 4")
+    const daily_game = selectedGames.filter(a => a.gameName === "Daily Game")
+    const badger_5 = selectedGames.filter(a => a.gameName === "Badger 5")
+    const cash_25 = selectedGames.filter(a => a.gameName === "Cash 25")
+    const georgia_five = selectedGames.filter(a => a.gameName === "Georgia FIVE")
 
 
     if(powerBall && isOneDayBefore(powerBall[0].date, todayStr)){
@@ -289,10 +302,40 @@ const storedData = async () => {
         console.log("Failed to post win for Life")
     }
 
-     if(loto_Plus && isOneDayBefore(winforLife[1].date, todayStr)){
+     if(loto_Plus && isOneDayBefore(loto_Plus[1].date, todayStr)){
        axios.post('http://localhost:9001/new-Loto_Plus', loto_Plus);
     } else{
         console.log("Failed to post Loto Plus")
+    }
+
+    if(dakota_Cash && isOneDayBefore(dakota_Cash[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Dakota_Cash', dakota_Cash[0]);
+    } else{
+        console.log("Failed to post Dakota Cash")
+    }
+
+    if(tennessee_Cash && isOneDayBefore(tennessee_Cash[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Tennessee_Cash', tennessee_Cash[0]);
+    } else{
+        console.log("Failed to post Tennessee Cash")
+    }
+
+    if(two_Step && isOneDayBefore(two_Step[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Two_Step', two_Step[0]);
+    } else{
+        console.log("Failed to post Two_Step")
+    }
+
+    if(bank_a_Million && isOneDayBefore(bank_a_Million[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Bank_a_Million', bank_a_Million[0]);
+    } else{
+        console.log("Failed to post Bank a Million")
+    }
+
+     if(cash_25 && isOneDayBefore(cash_25[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Cash_25', cash_25[0]);
+    } else{
+        console.log("Failed to post Cash 25")
     }
 
 
@@ -325,6 +368,14 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-Pega_2', pega_2);
     axios.post('http://localhost:9001/new-Pega_3', pega_3);
     axios.post('http://localhost:9001/new-Pega_4', pega_4);
+    axios.post('http://localhost:9001/new-Wild_Money', wildMoney[0]);
+    axios.post('http://localhost:9001/new-Palmetto_Cash_5', palmettoCash_5[0]);
+    axios.post('http://localhost:9001/new-Daily_Tennessee', daily_Tennessee[0]);
+    axios.post('http://localhost:9001/new-Hit_5', hit_5[0]);
+    axios.post('http://localhost:9001/new-Match_4', match_4[0]);
+    axios.post('http://localhost:9001/new-Daily_Game', daily_game[0]);
+    axios.post('http://localhost:9001/new-Badger_5', badger_5[0]); 
+    axios.post('http://localhost:9001/new-Georgia_Five', georgia_five);
 
     axios.post('http://localhost:9001/remainData', remain)
                             
