@@ -336,6 +336,13 @@ const storedData = async () => {
         console.log("Failed to post Cash 25")
     }
 
+    if(gimme_5 && isOneDayBefore(gimme_5[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Gimme_Five', gimme_5[0]);
+    } else{
+        console.log("Failed to post gimme 5")
+    }
+
+
 
 
     axios.post('http://localhost:9001/new-LuckyforLife', luckyforLife[0]);
@@ -357,7 +364,6 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-Take5', take5);
     axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
     axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
-    axios.post('http://localhost:9001/new-Gimme_Five', gimme_5[0]);
     axios.post('http://localhost:9001/new-Win_4', win_4);
     axios.post('http://localhost:9001/new-Lucky_Lines', luckyLines[0]);
     axios.post('http://localhost:9001/new-Derby_Cash', derby_cash[0]);
