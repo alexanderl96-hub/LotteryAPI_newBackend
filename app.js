@@ -56,15 +56,6 @@ var cashForLifeUpdate = require('./ServiceUpdate/CashForLife_Update.js')
 var newYorkLottoUpdate = require('./ServiceUpdate/NewYorkLotto_Update.js')
 var threeAtOnceDay = require('./ServiceUpdate/threeAtOnces_Day_Update.js')
 var threeAtOnceNight = require('./ServiceUpdate/threeAtOnces_Night_Update.js')
-var powerball = require('./routesNew/powerball.js')
-var megamillions = require('./routesNew/megamillions.js')
-var lottoAmerica = require('./routesNew/lotto_America.js')
-var luckyforLife = require('./routesNew/lucky_for_life.js')
-var naturalStateJackpot =  require('./routesNew/natural_sate_jackpot.js')
-var powerballDoublePlay = require('./routesNew/powerball_double_play.js')
-var superlottoPlus = require('./routesNew/superlotto_plus.js')
-var lotteryRaw = require('./routesNew/lottery_raw.js')
-var allData = require('./routesNew/getAllData.js')
 
 
 var TaskSchedule = require('./Task/task_Fetch.js');
@@ -244,15 +235,13 @@ app.use('/generate_Win4Day', generateWin4Day);
 app.use('/generate_NumbersDay', generateNumbersDay);
 
 
-
-
-app.use("/new-Powerball", powerball)
-app.use("/new-MegaMillions", megamillions)
-app.use("/new-LottoAmerica", lottoAmerica)
-app.use("/new-LuckyforLife", luckyforLife)
-app.use("/new-NaturalStateJackpot", naturalStateJackpot)
-app.use("/new-PowerballDoublePlay", powerballDoublePlay)
-app.use("/new-SuperlottoPlus", superlottoPlus)
+app.use("/new-Powerball", require('./routesNew/powerball.js'));
+app.use("/new-MegaMillions", require('./routesNew/megamillions.js'));
+app.use("/new-LottoAmerica", require('./routesNew/lotto_America.js'));
+app.use("/new-LuckyforLife", require('./routesNew/lucky_for_life.js'));
+app.use("/new-NaturalStateJackpot", require('./routesNew/natural_sate_jackpot.js'));
+app.use("/new-PowerballDoublePlay", require('./routesNew/powerball_double_play.js'));
+app.use("/new-SuperlottoPlus", require('./routesNew/superlotto_plus.js'));
 app.use("/new-Pick10", require('./routesNew/pick_10.js'));
 app.use("/new-CashForLife", require('./routesNew/cashForLife.js'));
 app.use("/new-DailyDerby", require('./routesNew/dailyDerby.js'));
@@ -272,14 +261,10 @@ app.use("/new-Take5", require('./routesNew/take5.js'));
 app.use("/new-ThePick", require('./routesNew/thePick.js'));
 app.use("/new-TripleTwist", require('./routesNew/tripleTwist.js'));
 app.use("/new-TwoBy2", require('./routesNew/twoby2.js'));
-
-app.use("/new-FiveStarDraw", require('./routesNew/fiveStartDraw.js'));
 app.use("/new-Gimme_Five", require('./routesNew/gimme5.js'));
 app.use("/new-Megabucks_Plus", require('./routesNew/megabucksPlus.js'));
 app.use("/new-Win_4", require('./routesNew/win4.js'));
-
 app.use("/new-Win_for_Life", require('./routesNew/winForLife.js'));
-app.use("/new-Lucky_Lines", require('./routesNew/luckyLines.js'));
 app.use("/new-Derby_Cash", require('./routesNew/derbyCash.js'));
 app.use("/new-Match_6_Lotto", require('./routesNew/match6Lotto.js'));
 app.use("/new-Treasure_Hunt", require('./routesNew/treasureHunt.js'));
@@ -287,7 +272,6 @@ app.use("/new-Loto_Plus", require('./routesNew/lotoPlus.js'));
 app.use("/new-Pega_2", require('./routesNew/pega2.js'));
 app.use("/new-Pega_3", require('./routesNew/pega3.js'));
 app.use("/new-Pega_4", require('./routesNew/pega4.js')); 
-
 app.use("/new-Dakota_Cash", require('./routesNew/dakotaCash.js'));
 app.use("/new-Tennessee_Cash", require('./routesNew/tenneseeCash.js'));
 app.use("/new-Two_Step", require('./routesNew/twoStep.js'));
@@ -302,8 +286,8 @@ app.use("/new-Daily_Game", require('./routesNew/dailyGame.js'));
 app.use("/new-Badger_5", require('./routesNew/badger5.js'));
 app.use("/new-Georgia_Five", require('./routesNew/georgiaFive.js'));
 
-app.use("/remainData", lotteryRaw)
-app.use("/all_data", allData)
+app.use("/remainData", require('./routesNew/lottery_raw.js'));
+app.use("/all_data", require('./routesNew/getAllData.js'));
 
 
 app.use('/api-fetch', TaskSchedule);

@@ -47,18 +47,30 @@ const dataJsonRequest = async () => {
       
             for (const [key, game] of gameEntries) {
                 const gameName = game.name;
+                const gamesNotWanted = ["5 Star Draw", "Weekly Grand", "Racetrax", 
+                                        "Kentucky 5", "5 Card Cash", "World Poker Tour",
+                                        "Lucky Lines"]
 
-                for (const play of (game.plays || [])) {
-                    const playName = play.name || game.name;
+                if(!gamesNotWanted.includes(gameName)) {
 
-                    for (const draw of play.draws || []) {
-                        enrichedDraws.push({
-                            ...draw,
-                            numbers: draw.numbers.map(n => n.value),
-                            gameName,
-                            playName,
-                        });
+                    for (const play of (game.plays || [])) {
+                        const playName = play.name || game.name;
+
+                       if(!gamesNotWanted.includes(playName)) {
+
+                            for (const draw of play.draws || []) {
+                                enrichedDraws.push({
+                                    ...draw,
+                                    date: isoToMMDDYYYY(draw.date),
+                                    nextDrawDate: isoToMMDDYYYY(draw.nextDrawDate),
+                                    numbers: draw.numbers.map(n => n.value),
+                                    gameName,
+                                    playName,
+                                });
+                            }
+                        }
                     }
+
                 }
             }
 
@@ -163,6 +175,24 @@ function isOneDayBefore(a, b) {
 }
 
 
+function isoToMMDDYYYY(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
+  if (!m) throw new Error("Expected YYYY-MM-DD");
+  const [, yyyy, mm, dd] = m;
+
+  // Validate (rejects things like 2025-02-30)
+  const d = new Date(Date.UTC(+yyyy, +mm - 1, +dd));
+  if (
+    d.getUTCFullYear() !== +yyyy ||
+    d.getUTCMonth() !== (+mm - 1) ||
+    d.getUTCDate() !== +dd
+  ) {
+    throw new Error("Invalid date");
+  }
+  return `${mm}/${dd}/${yyyy}`;
+}
+
+
 const storedData = async () => {
     const todayStr = new Date().toDateString();
     const all_data = await dataJsonRequest();
@@ -172,11 +202,10 @@ const storedData = async () => {
         'Powerball Double Play', 'SuperLotto Plus', "Cash4Life", 'Pick 10', "Take 5", "2 By 2", 
         "LuckyDay Lotto", "Daily Derby", "Multi-Win Lotto", "The Pick", "Triple Twist", "Play4", 
         "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", "Jackpot Triple Play", 
-        "5 Star Draw", "Gimme 5", "Megabucks Plus", "Win 4", "Lucky Lines", "Win for Life", 
-        "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Pega 2", "Pega 3", "Pega 4", "Loto Plus",
-        "Wild Money", "Palmetto Cash 5", "Dakota Cash", "Tennessee Cash",  "Daily Tennessee",
-        "Two Step", "Bank a Million", "Hit 5", "Match 4", "Daily Game", "Badger 5", 
-        "Cash 25",  "Georgia FIVE", 
+        "Gimme 5", "Megabucks Plus", "Win 4", "Win for Life",  "Match 6 Lotto", "Treasure Hunt", 
+        "Derby Cash", "Pega 2", "Pega 3", "Pega 4", "Loto Plus", "Wild Money", "Palmetto Cash 5", 
+        "Dakota Cash", "Tennessee Cash",  "Daily Tennessee", "Two Step", "Bank a Million", "Hit 5", 
+        "Match 4", "Daily Game", "Badger 5", "Cash 25",  "Georgia FIVE", 
     ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
@@ -212,11 +241,9 @@ const storedData = async () => {
     const play_4 = selectedGames.filter(a => a.gameName === "Play 4")
     const play_3 = selectedGames.filter(a => a.gameName === "Play 3")
     const jackpotTriplePlay = selectedGames.filter(a => a.gameName === "Jackpot Triple Play")
-    const fiveStarDraw = selectedGames.filter(a => a.gameName === "5 Star Draw")
     const gimme_5 = selectedGames.filter(a => a.gameName === "Gimme 5")
     const megabucks_Plus = selectedGames.filter(a => a.gameName === "Megabucks Plus")
     const win_4 = selectedGames.filter(a => a.gameName === "Win 4")
-    const luckyLines = selectedGames.filter(a => a.gameName === "Lucky Lines")
     const winforLife = selectedGames.filter(a => a.gameName === "Win for Life")
     const match6lotto = selectedGames.filter(a => a.gameName === "Match 6 Lotto")
     const treasure_hunt = selectedGames.filter(a => a.gameName === "Treasure Hunt")
@@ -280,12 +307,6 @@ const storedData = async () => {
        axios.post('http://localhost:9001/new-ThePick', thePick[0]);
     } else{
         console.log("Failed to post ThePick")
-    }
-
-     if(fiveStarDraw && isOneDayBefore(fiveStarDraw[0].date, todayStr)){
-       axios.post('http://localhost:9001/new-FiveStarDraw', fiveStarDraw[0]);
-    } else{
-        console.log("Failed to post 5 Star Draw")
     }
 
     if(megabucks_Plus && isOneDayBefore(megabucks_Plus[0].date, todayStr)){
@@ -365,7 +386,6 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-TripleTwist', tripleTwist[0]);
     axios.post('http://localhost:9001/new-TwoBy2', twoby2[0]);
     axios.post('http://localhost:9001/new-Win_4', win_4);
-    axios.post('http://localhost:9001/new-Lucky_Lines', luckyLines[0]);
     axios.post('http://localhost:9001/new-Derby_Cash', derby_cash[0]);
     axios.post('http://localhost:9001/new-Match_6_Lotto', match6lotto[0]);
     axios.post('http://localhost:9001/new-Treasure_Hunt', treasure_hunt[0]);
