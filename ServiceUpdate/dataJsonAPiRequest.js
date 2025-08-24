@@ -174,7 +174,6 @@ const storedData = async () => {
         "Play3", "DC 5", "DC 4", "DC 3", "DC 2", "Play 4", "Play 3", "Play 5", "Jackpot Triple Play", 
         "5 Star Draw", "Gimme 5", "Megabucks Plus", "Win 4", "Lucky Lines", "Win for Life", 
         "Match 6 Lotto", "Treasure Hunt", "Derby Cash", "Pega 2", "Pega 3", "Pega 4", "Loto Plus",
-
         "Wild Money", "Palmetto Cash 5", "Dakota Cash", "Tennessee Cash",  "Daily Tennessee",
         "Two Step", "Bank a Million", "Hit 5", "Match 4", "Daily Game", "Badger 5", 
         "Cash 25",  "Georgia FIVE", 
@@ -226,7 +225,6 @@ const storedData = async () => {
     const pega_3 = selectedGames.filter(a => a.gameName === "Pega 3")
     const pega_4 = selectedGames.filter(a => a.gameName === "Pega 4")
     const loto_Plus = selectedGames.filter(a => a.gameName === "Loto Plus")
-
     const wildMoney = selectedGames.filter(a => a.gameName === "Wild Money")
     const palmettoCash_5 = selectedGames.filter(a => a.gameName === "Palmetto Cash 5")
     const dakota_Cash = selectedGames.filter(a => a.gameName === "Dakota Cash")

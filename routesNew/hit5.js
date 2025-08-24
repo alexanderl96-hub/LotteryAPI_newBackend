@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
       await db.one(insertQuery, values);
   
       // fetch last 10 rows
-      const last10hit_5= await db.any(`
+      const last10hit_5 = await db.any(`
         SELECT *
         FROM hit_5 
         ORDER BY id DESC

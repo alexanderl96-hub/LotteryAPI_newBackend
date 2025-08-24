@@ -53,9 +53,9 @@ router.post('/', async (req, res) => {
   
       const values = [
         data.date,
-        data.nextDrawDate,
-        data.nextDrawJackpot,
-        data.numbers,    // text[]
+        data.nextDrawDate !== "" ? data.nextDrawDate : nextDay(data.date) ,
+        data.nextDrawJackpot !== null ? data.nextDrawJackpot : 0,
+        data.numbers,             // text[]
         data.extraFields,               // empty extraFields
         data.gameName,
         data.playName
@@ -96,5 +96,35 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json({ status: 500, message: error.message });
     }
 });
+
+
+
+
+function nextDay(mmddyyyy) {
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(mmddyyyy);
+  if (!m) throw new Error("Use MM/DD/YYYY");
+  const [, mm, dd, yyyy] = m;
+
+  // Build in UTC to avoid timezone/DST issues
+  const d = new Date(Date.UTC(Number(yyyy), Number(mm) - 1, Number(dd)));
+
+  // Validate input date (rejects things like 02/30/2025)
+  if (
+    d.getUTCFullYear() !== Number(yyyy) ||
+    d.getUTCMonth() !== Number(mm) - 1 ||
+    d.getUTCDate() !== Number(dd)
+  ) {
+    throw new Error("Invalid date");
+  }
+
+  // Add one day
+  d.setUTCDate(d.getUTCDate() + 1);
+
+  const mm2 = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const dd2 = String(d.getUTCDate()).padStart(2, "0");
+  const yyyy2 = String(d.getUTCFullYear());
+  return `${mm2}/${dd2}/${yyyy2}`;
+}
+
 
 module.exports = router;

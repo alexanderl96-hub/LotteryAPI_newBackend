@@ -280,7 +280,7 @@ app.use("/new-Win_4", require('./routesNew/win4.js'));
 
 app.use("/new-Win_for_Life", require('./routesNew/winForLife.js'));
 app.use("/new-Lucky_Lines", require('./routesNew/luckyLines.js'));
-app.use("/new-Derby_Cash", require('./routesNew/dailyDerby.js'));
+app.use("/new-Derby_Cash", require('./routesNew/derbyCash.js'));
 app.use("/new-Match_6_Lotto", require('./routesNew/match6Lotto.js'));
 app.use("/new-Treasure_Hunt", require('./routesNew/treasureHunt.js'));
 app.use("/new-Loto_Plus", require('./routesNew/lotoPlus.js'));
@@ -292,7 +292,7 @@ app.use("/new-Dakota_Cash", require('./routesNew/dakotaCash.js'));
 app.use("/new-Tennessee_Cash", require('./routesNew/tenneseeCash.js'));
 app.use("/new-Two_Step", require('./routesNew/twoStep.js'));
 app.use("/new-Bank_a_Million", require('./routesNew/bankAMillion.js'));
-app.use("/new-Cash_25'", require('./routesNew/cash25.js'));
+app.use("/new-Cash_25", require('./routesNew/cash25.js'));
 app.use("/new-Wild_Money", require('./routesNew/wildMoney.js'));
 app.use("/new-Palmetto_Cash_5", require('./routesNew/palmettoCash5.js'));
 app.use("/new-Daily_Tennessee", require('./routesNew/dailyTennesee.js'));
