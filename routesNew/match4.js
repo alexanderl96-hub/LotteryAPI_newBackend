@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db"); // this is your pg-promise db
-const isoToMMDDYYYY = require('../ServiceUpdate/dataJsonAPiRequest')
+const {isoToMMDDYYYY} = require('../ServiceUpdate/dataJsonAPiRequest');
 
 // GET all match_4  entries
 router.get("/", async (req, res) => {

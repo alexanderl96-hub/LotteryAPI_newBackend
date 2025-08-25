@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db"); // this is your pg-promise db
-const storedData = require("../ServiceUpdate/dataJsonAPiRequest");
+const {storedData} = require("../ServiceUpdate/dataJsonAPiRequest");
 
 // GET all remaindata entries
 router.get("/", async (req, res) => {
