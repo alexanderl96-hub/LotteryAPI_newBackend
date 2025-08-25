@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db"); // this is your pg-promise db
+const isoToMMDDYYYY = require('../ServiceUpdate/dataJsonAPiRequest')
 
 // GET all tennessee_cash  entries
 router.get("/", async (req, res) => {
@@ -52,8 +53,8 @@ router.post('/', async (req, res) => {
       `;
   
       const values = [
-        data.date,
-        data.nextDrawDate,
+       isoToMMDDYYYY(data.date),
+       isoToMMDDYYYY(data.nextDrawDate),
         data.nextDrawJackpot,
         data.numbers,    // text[]
         data.extraFields,               // empty extraFields

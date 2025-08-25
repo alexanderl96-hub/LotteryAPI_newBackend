@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db"); // this is your pg-promise db
+const isoToMMDDYYYY = require('../ServiceUpdate/dataJsonAPiRequest')
 
 // GET all pega_2 entries
 router.get("/", async (req, res) => {
@@ -77,8 +78,8 @@ router.post('/', async (req, res) => {
     await db.tx(async t => {
       for (const d of payload) {
         const vals = [
-          d.date,
-          d.nextDrawDate,
+       isoToMMDDYYYY(data.date),
+       isoToMMDDYYYY(data.nextDrawDate),
           d.nextDrawJackpot ?? 0,
           d.numbers ?? [],
           d.extraFields ?? [],

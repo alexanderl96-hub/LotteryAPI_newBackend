@@ -61,8 +61,6 @@ const dataJsonRequest = async () => {
                             for (const draw of play.draws || []) {
                                 enrichedDraws.push({
                                     ...draw,
-                                    date: isoToMMDDYYYY(draw.date),
-                                    nextDrawDate: isoToMMDDYYYY(draw.nextDrawDate),
                                     numbers: draw.numbers.map(n => n.value),
                                     gameName,
                                     playName,
@@ -172,24 +170,6 @@ function isOneDayBefore(a, b) {
 
   const ONE_DAY = 24 * 60 * 60 * 1000;
   return (d2 - d1) === ONE_DAY;
-}
-
-
-function isoToMMDDYYYY(iso) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
-  if (!m) throw new Error("Expected YYYY-MM-DD");
-  const [, yyyy, mm, dd] = m;
-
-  // Validate (rejects things like 2025-02-30)
-  const d = new Date(Date.UTC(+yyyy, +mm - 1, +dd));
-  if (
-    d.getUTCFullYear() !== +yyyy ||
-    d.getUTCMonth() !== (+mm - 1) ||
-    d.getUTCDate() !== +dd
-  ) {
-    throw new Error("Invalid date");
-  }
-  return `${mm}/${dd}/${yyyy}`;
 }
 
 
@@ -405,4 +385,21 @@ const storedData = async () => {
                             
 }
 
-module.exports =  storedData;
+function isoToMMDDYYYY(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
+  if (!m) throw new Error("Expected YYYY-MM-DD");
+  const [, yyyy, mm, dd] = m;
+
+  // Validate (rejects things like 2025-02-30)
+  const d = new Date(Date.UTC(+yyyy, +mm - 1, +dd));
+  if (
+    d.getUTCFullYear() !== +yyyy ||
+    d.getUTCMonth() !== (+mm - 1) ||
+    d.getUTCDate() !== +dd
+  ) {
+    throw new Error("Invalid date");
+  }
+  return `${mm}/${dd}/${yyyy}`;
+}
+
+module.exports =  {storedData, isoToMMDDYYYY};
