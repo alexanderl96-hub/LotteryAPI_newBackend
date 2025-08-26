@@ -78,8 +78,8 @@ router.get('/:id', async (req, res) => {
       await db.tx(async t => {
         for (const d of payload) {
           const vals = [
-       isoToMMDDYYYY(data.date),
-       isoToMMDDYYYY(data.nextDrawDate),
+          d.date,
+          d.nextDrawDate,
             d.nextDrawJackpot ?? 0,
             d.numbers ?? [],
             d.extraFields ?? [],

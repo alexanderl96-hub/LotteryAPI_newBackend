@@ -53,8 +53,8 @@ router.post('/', async (req, res) => {
       `;
   
       const values = [
-        isoToMMDDYYYY(data.date),
-        data.nextDrawDate !== "" ? isoToMMDDYYYY(data.nextDrawDate) :isoToMMDDYYYY(nextDay(data.date)),
+        data.date,
+        data.nextDrawDate !== "" ? data.nextDrawDate : nextDay(data.date),
         data.nextDrawJackpot !== null ? data.nextDrawJackpot : 0,
         data.numbers,             // text[]
         data.extraFields,               // empty extraFields
