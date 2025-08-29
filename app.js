@@ -286,6 +286,13 @@ app.use("/new-Daily_Game", require('./routesNew/dailyGame.js'));
 app.use("/new-Badger_5", require('./routesNew/badger5.js'));
 app.use("/new-Georgia_Five", require('./routesNew/georgiaFive.js'));
 
+app.use("/new-Pick_6", require("./routesNew/pick6.js"))
+app.use("/new-Fantasy_5_AZ", require("./routesNew/fantasy5_AZ.js"))
+app.use("/new-Fantasy_5_CA", require("./routesNew/fantasy5_CA.js"))
+app.use("/new-Fantasy_5_FL", require("./routesNew/fantasy5_FL.js"))
+app.use("/new-Fantasy_5_GA", require("./routesNew/fantasy5_GA.js"))
+app.use("/new-Fantasy_5_MI", require("./routesNew/fantasy5_MI.js"))
+
 app.use("/remainData", require('./routesNew/lottery_raw.js'));
 app.use("/all_data", require('./routesNew/getAllData.js'));
 

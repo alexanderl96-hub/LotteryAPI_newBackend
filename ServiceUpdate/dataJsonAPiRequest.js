@@ -107,9 +107,58 @@ function splitLotteryDataUnique(data_, gamesToPick) {
     remainingData.forEach(stateEntry => {
       Object.keys(stateEntry.draw).forEach(gameKey => {
         const gameArray = stateEntry.draw[gameKey];
+        let matched = [];
+
+        if(stateEntry.state.toUpperCase() == "AZ"){
+           const modified = gameArray.map(draw =>
+                  gamesToPick.includes(draw.gameName) && draw.gameName === 'Fantasy 5'
+                ? { ...draw, gameName: 'Fantasy 5 AZ' }        // or `${draw.gameName} ${state}`
+                : draw
+            );
+
+            matched = modified;
+       }else if(stateEntry.state.toUpperCase() == "FL"){
+        const modified = gameArray.map(draw =>
+                  gamesToPick.includes(draw.gameName) && draw.gameName === 'Fantasy 5'
+                ? { ...draw, gameName: 'Fantasy 5 FL' }        // or `${draw.gameName} ${state}`
+                : draw
+            );
+
+            matched = modified;
+
+       }else if(stateEntry.state.toUpperCase() == "CA"){
+        const modified = gameArray.map(draw =>
+                  gamesToPick.includes(draw.gameName) && draw.gameName === 'Fantasy 5'
+                ? { ...draw, gameName: 'Fantasy 5 CA' }        // or `${draw.gameName} ${state}`
+                : draw
+            );
+
+            matched = modified;
+
+       }else if(stateEntry.state.toUpperCase() == "MI"){
+        const modified = gameArray.map(draw =>
+                  gamesToPick.includes(draw.gameName) && draw.gameName === 'Fantasy 5'
+                ? { ...draw, gameName: 'Fantasy 5 MI' }        // or `${draw.gameName} ${state}`
+                : draw
+            );
+
+            matched = modified;
+
+       }else if(stateEntry.state.toUpperCase() == "GA"){
+        const modified = gameArray.map(draw =>
+                  gamesToPick.includes(draw.gameName) && draw.gameName === 'Fantasy 5'
+                ? { ...draw, gameName: 'Fantasy 5 GA' }        // or `${draw.gameName} ${state}`
+                : draw
+            );
+
+            matched = modified;
+        
+       }else {
+         matched = gameArray.filter(draw => gamesToPick.includes(draw.gameName));
+       }
   
         // Filter games that match the ones we want
-        const matched = gameArray.filter(draw => gamesToPick.includes(draw.gameName));
+        // const matched = gameArray.filter(draw => gamesToPick.includes(draw.gameName));
   
         matched.forEach(draw => {
            const uniqueKey = `${draw.gameName + "_" + draw.playName}`;
@@ -185,7 +234,7 @@ const storedData = async () => {
         "Gimme 5", "Megabucks Plus", "Win 4", "Win for Life",  "Match 6 Lotto", "Treasure Hunt", 
         "Derby Cash", "Pega 2", "Pega 3", "Pega 4", "Loto Plus", "Wild Money", "Palmetto Cash 5", 
         "Dakota Cash", "Tennessee Cash",  "Daily Tennessee", "Two Step", "Bank a Million", "Hit 5", 
-        "Match 4", "Daily Game", "Badger 5", "Cash 25",  "Georgia FIVE", 
+        "Match 4", "Daily Game", "Badger 5", "Cash 25",  "Georgia FIVE", "Pick 6", "Fantasy 5" 
     ];
     const { selectedGames, remainingData } = splitLotteryDataUnique(all_data, gamesToPick);
 
@@ -245,6 +294,12 @@ const storedData = async () => {
     const badger_5 = selectedGames.filter(a => a.gameName === "Badger 5")
     const cash_25 = selectedGames.filter(a => a.gameName === "Cash 25")
     const georgia_five = selectedGames.filter(a => a.gameName === "Georgia FIVE")
+    const pick_6 = selectedGames.filter(a => a.gameName === "Pick 6")
+    const fantasy_5_AZ = selectedGames.filter(a => a.gameName === "Fantasy 5 AZ")
+    const fantasy_5_CA = selectedGames.filter(a => a.gameName === "Fantasy 5 CA")
+    const fantasy_5_FL = selectedGames.filter(a => a.gameName === "Fantasy 5 FL")
+    const fantasy_5_GA = selectedGames.filter(a => a.gameName === "Fantasy 5 GA")
+    const fantasy_5_MI = selectedGames.filter(a => a.gameName === "Fantasy 5 MI")
 
 
     if(powerBall && isOneDayBefore(powerBall[0].date, todayStr)){
@@ -343,6 +398,12 @@ const storedData = async () => {
         console.log("Failed to post gimme 5")
     }
 
+     if(pick_6 && isOneDayBefore(pick_6[0].date, todayStr)){
+       axios.post('http://localhost:9001/new-Pick_6', pick_6);
+    } else{
+        console.log("Failed to post Pick 6")
+    }
+
 
 
 
@@ -380,6 +441,12 @@ const storedData = async () => {
     axios.post('http://localhost:9001/new-Daily_Game', daily_game[0]);
     axios.post('http://localhost:9001/new-Badger_5', badger_5[0]); 
     axios.post('http://localhost:9001/new-Georgia_Five', georgia_five);
+
+     axios.post('http://localhost:9001/new-Fantasy_5_AZ', fantasy_5_AZ[0]);
+     axios.post('http://localhost:9001/new-Fantasy_5_CA', fantasy_5_CA[0]);
+     axios.post('http://localhost:9001/new-Fantasy_5_FL', fantasy_5_FL);
+     axios.post('http://localhost:9001/new-Fantasy_5_GA', fantasy_5_GA[0]);
+     axios.post('http://localhost:9001/new-Fantasy_5_MI', fantasy_5_MI);
 
     axios.post('http://localhost:9001/remainData', remain)
                             
